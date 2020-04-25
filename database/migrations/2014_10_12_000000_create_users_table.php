@@ -1,9 +1,9 @@
 <?php
-
+use App\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\Hash;
 class CreateUsersTable extends Migration
 {
     /**
@@ -22,7 +22,21 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+        User::create([
+            'name' => '2',
+            'email' => '2',
+            'password' => Hash::make('2'),
+        ]);
+
+
     }
+
+
+
+
+
+
+
 
     /**
      * Reverse the migrations.
