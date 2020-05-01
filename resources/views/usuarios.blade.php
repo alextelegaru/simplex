@@ -2,6 +2,21 @@
 
 
 
+@if (session()->has('message'))
+    <div class="alert alert-dismissable alert-success" id="mensaje">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>
+            {!! session()->get('message') !!}
+        </strong>
+    </div>
+@endif
+
+
+
+
+
 
 
 
@@ -14,7 +29,7 @@
 
 <head>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <style>
 
@@ -84,7 +99,14 @@ line-height: /* adjust to tweak wierd fonts */;
                     <div class="btn-group-vertical">
                     <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-warning">Editar</a>
                     <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-danger">Eliminar</a>
-                    </div>
+
+                <form action="{{ route('usuarios.destroy', $usuarios[$i]['id']) }}" method="POST">
+    @method('DELETE')
+    @csrf
+    <button>Delete User</button>
+</form>
+
+                </div>
 
 
 
@@ -140,6 +162,13 @@ function loadDoc() {
 }
 
 
+
+
+$("#mensaje").on("click", function(event) {
+    $("#mensaje").remove();
+    console.log("asa");
+    event.preventDefault();
+});
 
 
 
