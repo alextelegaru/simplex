@@ -68,13 +68,19 @@ line-height: /* adjust to tweak wierd fonts */;
 
           <div class="col-md-3 clearfix border-primary">
             <div class="card clearfix limite border-primary">
-            <img src="{{URL::to('/')}}/img/index.jpg" alt="card-1" class="card-img-top clearfix" height="150px" width="100px">
+
+
+
+
+
+
+            <img src=<?php echo "/img/".$usuarios[$i]['rol'].".jpg" ; ?> alt="card-1" class="card-img-top clearfix" height="150px" width="100px">
 
               <div class="card-body clearfix ">
                 <div class="text-center">
-                    <p><?php echo roleado($usuarios[$i]['rol'])  ?></p>
-                    <p>{{$usuarios[$i]['name']}}</p>
 
+                    <p class="font-weight-bold">{{$usuarios[$i]['name']}}</p>
+                    <p>{{$usuarios[$i]['rol'] }}</p>
                     <div class="btn-group-vertical">
                     <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-warning">Editar</a>
                     <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-danger">Eliminar</a>

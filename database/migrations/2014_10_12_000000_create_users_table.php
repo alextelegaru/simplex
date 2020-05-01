@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->int('rol');
+            $table->string('rol');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -24,10 +24,10 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
         User::create([
-            'name' => '2',
-            'email' => '2',
-            'rol' => '0',
-            'password' => Hash::make('2'),
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'rol' => 'admin',
+            'password' => Hash::make('admin'),
         ]);
 
 
