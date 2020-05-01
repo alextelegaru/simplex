@@ -98,12 +98,13 @@ line-height: /* adjust to tweak wierd fonts */;
                     <p>{{$usuarios[$i]['rol'] }}</p>
                     <div class="btn-group-vertical">
                     <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-warning">Editar</a>
-                    <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-danger">Eliminar</a>
+                  {{-- <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-danger">Eliminar</a>
+--}}
 
                 <form action="{{ route('usuarios.destroy', $usuarios[$i]['id']) }}" method="POST">
     @method('DELETE')
     @csrf
-    <button>Delete User</button>
+    <button class="btn btn-danger">Eliminar</button>
 </form>
 
                 </div>
@@ -147,6 +148,7 @@ line-height: /* adjust to tweak wierd fonts */;
 </div>
 
 <script>
+
 function loadDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {

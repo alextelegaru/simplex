@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
@@ -20,6 +21,27 @@ class UserController extends Controller
         $usuario=User::find($id);
         return view("usuario", compact("usuario"));
     }
+
+    public function update(Request $request, $id)
+    {
+
+        $user = User::find($id);
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->rol = $request->rol;
+        if($request->password !=''){
+            $user->password = \Hash::make($request->password);
+        }
+
+
+
+        $user->save();
+        return Redirect::to('usuarios/'.$id);
+    }
+
+
+
+
 
 
     public function destroy($id)
