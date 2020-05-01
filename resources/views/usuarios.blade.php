@@ -9,6 +9,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <html>
+
+
+
+<head>
+
+
+
+    <style>
+
+
+
+
+ p {
+margin-top: 0;
+margin-bottom: 0;
+line-height: /* adjust to tweak wierd fonts */;
+}
+    </style>
+</head>
 <body>
 
     <div class="container mt-5 border-primary">
@@ -18,6 +37,25 @@
     <?php
 
     $limite=count($usuarios);
+    function roleado($id){
+        if($id==0){
+            return "Admin";
+        }else{
+
+            if($id==1){
+            return "Camarero";
+        }else{
+            return "Cocinero";
+
+
+
+        }
+
+
+        }
+
+    }
+
 
 
     ?>
@@ -30,12 +68,21 @@
 
           <div class="col-md-3 clearfix border-primary">
             <div class="card clearfix limite border-primary">
-                      <img src="url({{ URL::asset('store/index.jpg') }}" alt="card-1" class="card-img-top clearfix">
-              <img src="img/iphone 11 plus.jpg" alt="card-1" class="card-img-top clearfix">
+            <img src="{{URL::to('/')}}/img/index.jpg" alt="card-1" class="card-img-top clearfix" height="150px" width="100px">
+
               <div class="card-body clearfix ">
                 <div class="text-center">
-                    <p>Nombre: {{$usuarios[$i]['name']}}</p>
-                    <a href="/usuario/{{$usuarios[$i]['id']}}">Modificar</a>
+                    <p><?php echo roleado($usuarios[$i]['rol'])  ?></p>
+                    <p>{{$usuarios[$i]['name']}}</p>
+
+                    <div class="btn-group-vertical">
+                    <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-warning">Editar</a>
+                    <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-danger">Eliminar</a>
+                    </div>
+
+
+
+
                   </div>
 
 
