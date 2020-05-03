@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Session;
 use Redirect;
+use Mail;
+
 class UserController extends Controller
 {
     public function index()
@@ -14,6 +16,15 @@ class UserController extends Controller
 
         return view("usuarios", compact("usuarios"));
     }
+
+
+
+
+
+
+
+
+
     public function show($id)
     {
 
@@ -36,6 +47,25 @@ class UserController extends Controller
 
 
         $user->save();
+
+
+
+
+
+
+
+        $to_name ="a";
+        $to_email = "alextiberiutelegaru@gmail.com";
+        $data = array('name'=>$request->name, "body" => "A test mail");
+        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject('Laravel Test Mail');$message->from($to_email,"testss");});
+
+
+
+
+
+
+
+
         return Redirect::to('usuarios/'.$id);
     }
 

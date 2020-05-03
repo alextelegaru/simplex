@@ -28,6 +28,23 @@ line-height: /* adjust to tweak wierd fonts */;
 
     <div class=" border-primary row align-items-center justify-content-center">
         <div class="row">
+
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                      <div class="text-center">
+                        <img src=<?php echo "/img/".$usuario['rol'].".jpg" ; ?> alt="card-1" class="" width="155px" height="125px" >
+
+
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <form method="POST" action="/usuarios/{{ $usuario->id }}">
 
                 {{ csrf_field() }}
@@ -69,7 +86,7 @@ line-height: /* adjust to tweak wierd fonts */;
     </div>
     <div class="form-group">
 
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
 
     </div>
   </form>

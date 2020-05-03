@@ -51,10 +51,32 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Bienvenido {{ Auth::user()->name }} <span class="caret"></span>
+                                    Bienvenido {{ Auth::user()->name }} <img src=<?php echo "/img/".Auth::user()['rol'].".jpg" ; ?> alt="card-1" class="" width="60px" height="40px" ><span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href=<?php echo "/usuario/".Auth::user()['id'] ; ?>>
+                                     {{ __('Perfil') }}
+                                    </a>
+
+
+
+
+
+                                    @if (Auth::user()->rol=='admin')
+
+                                    <a class="dropdown-item" href="/usuarios/">
+                                        {{ __('Cuentas') }}
+                                       </a>
+
+
+                                @endif
+
+
+
+
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
