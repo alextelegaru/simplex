@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Redirect;
 use Mail;
@@ -14,7 +15,12 @@ class UserController extends Controller
     {
         $usuarios=User::all();
 
-        return view("usuarios", compact("usuarios"));
+        if(Auth::user()->rol=='admin'){
+            $rol='admin';
+            return view("usuarios", compact("usuarios"));
+
+        }
+        return view("error");
     }
 
 
@@ -30,8 +36,24 @@ class UserController extends Controller
 
        // $usuario=User::where('name', '2')->get();;
         $usuario=User::find($id);
-        return view("usuario", compact("usuario"));
+$rol="";
+        if(Auth::user()->rol=='admin'){
+            $rol='admin';
+
+
+        }
+
+
+        return view("usuario", compact("usuario","rol"));
     }
+
+
+
+
+
+
+
+
 
     public function update(Request $request, $id)
     {
@@ -54,19 +76,13 @@ class UserController extends Controller
 
 
 
-        $to_name ="a";
-        $to_email = "alextiberiutelegaru@gmail.com";
-        $data = array('name'=>$request->name, "body" => "A test mail");
-        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject('Laravel Test Mail');$message->from($to_email,"testss");});
 
 
 
 
 
 
-
-
-        return Redirect::to('usuarios/'.$id);
+        return Redirect::to('usuario/'.$id);
     }
 
 

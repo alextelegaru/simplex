@@ -21,7 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/usuarios', 'UserController@index')->name('usuarios');
 
-Route::get('/usuario/{id}', 'UserController@show')->name('usuario');
-Route::post('/usuario/{id}', 'UserController@destroy')->name('usuario');
+Route::get('/usuario/{id}', 'UserController@show');
+Route::post('/usuario/{id}', 'UserController@destroy');
+
+
+
 
 Route::resource('usuarios','UserController');
+Route::post('recovery', 'RecoveryController@recovery')->name('recovery');

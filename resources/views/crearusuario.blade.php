@@ -1,4 +1,4 @@
-{{ $usuario }}
+
 
 
 <!DOCTYPE html>
@@ -45,17 +45,17 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-            <form method="POST" action="/usuarios/{{ $usuario->id }}">
+            <form method="POST" action={{ route('usuario.store') }}>
 
                 {{ csrf_field() }}
         {{ method_field('PATCH') }}
     <div class="form-group ">
         <label for="name">Nombre</label>
-        <input type="name" class="form-control" name="name" value={{ $usuario['name'] }}>
+        <input type="name" class="form-control" name="name" >
       </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Correo</label>
-      <input type="email" name="email" class="form-control" id="exampleFormControlInput1" value={{ $usuario['email'] }}>
+      <input type="email" name="email" class="form-control" id="exampleFormControlInput1" >
     </div>
     <div class="form-group">
       <label for="exampleFormControlSelect1">Rol</label>
@@ -63,25 +63,23 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-        <?php
-        $interests = array('admin' => 'Admin',  'camarera' => 'Camarera', 'camarero' => 'Camarero',  'cocinera' => 'Cocinera', 'cocinero' => 'Cocinero');
-        ?>
+
         <select  class="form-control" name="rol">
 
 
 
 
 
-      @if($rol  == 'admin')
+
     <option  <?php if( $usuario['rol']  == 'admin' ): ?> selected="selected"<?php endif; ?> value="admin">Admin</option>
     <option  <?php if( $usuario['rol']  == 'camarera' ): ?> selected="selected"<?php endif; ?> value="camarera">Camarera</option>
     <option  <?php if( $usuario['rol']  == 'camarero' ): ?> selected="selected"<?php endif; ?> value="camarero">Camarero</option>
     <option  <?php if( $usuario['rol']  == 'cocinera' ): ?> selected="selected"<?php endif; ?> value="cocinera">Cocinera</option>
 
-    @else
-    <option    selected="selected" value=<?php echo $usuario['rol'];?> ><?php echo ucfirst($usuario['rol']); ?></option>
 
-    @endif
+
+
+
 
 
 
