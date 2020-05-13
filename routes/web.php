@@ -19,13 +19,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/usuarios', 'UserController@index')->name('usuarios');
+Route::get('/usuarios', 'UserController@index');
 
 Route::get('/usuario/{id}', 'UserController@show');
 Route::post('/usuario/{id}', 'UserController@destroy');
 
-
-
-
 Route::resource('usuarios','UserController');
+
+
+Route::get('nuevo/usuario', 'UserController@create');
 Route::post('recovery', 'RecoveryController@recovery')->name('recovery');
+
+
+Route::get('x', 'MenuController@index');
+
+
+Route::get('/search','MenuController@search');
+Route::resource('menu', 'MenuController');

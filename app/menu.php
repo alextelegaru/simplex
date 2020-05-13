@@ -1,13 +1,13 @@
 <?php
 
 namespace App;
-
+use App\producto;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 
 
-class producto extends Eloquent
+class menu extends Eloquent
 {
 
 
@@ -21,7 +21,7 @@ class producto extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'nombre',  'tipo',
+         'primeros','segundos','postres','bebidas','precio','fecha'
     ];
 
     /**
@@ -40,5 +40,14 @@ class producto extends Eloquent
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'primeros'=> 'array',
+        'segundos'=> 'array',
+        'postres'=> 'array',
+        'bebidas'=> 'array',
     ];
 }
+
+
+
+
+

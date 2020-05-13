@@ -35,7 +35,6 @@ line-height: /* adjust to tweak wierd fonts */;
                 <div class="row">
                     <div class="col-4">
                       <div class="text-center">
-                        <img src=<?php echo "/img/".$usuario['rol'].".jpg" ; ?> alt="card-1" class="" width="155px" height="125px" >
 
 
                       </div>
@@ -45,10 +44,10 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-            <form method="POST" action={{ route('usuario.store') }}>
+            <form class="form-horizontal" role="form" method="post"
+            enctype="multipart/form-data" action="{{ route('usuarios.store') }}">
+        {{ csrf_field() }}
 
-                {{ csrf_field() }}
-        {{ method_field('PATCH') }}
     <div class="form-group ">
         <label for="name">Nombre</label>
         <input type="name" class="form-control" name="name" >
@@ -63,7 +62,9 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-
+        <?php
+        $interests = array('admin' => 'Admin',  'camarera' => 'Camarera', 'camarero' => 'Camarero',  'cocinera' => 'Cocinera', 'cocinero' => 'Cocinero');
+        ?>
         <select  class="form-control" name="rol">
 
 
@@ -71,12 +72,10 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-    <option  <?php if( $usuario['rol']  == 'admin' ): ?> selected="selected"<?php endif; ?> value="admin">Admin</option>
-    <option  <?php if( $usuario['rol']  == 'camarera' ): ?> selected="selected"<?php endif; ?> value="camarera">Camarera</option>
-    <option  <?php if( $usuario['rol']  == 'camarero' ): ?> selected="selected"<?php endif; ?> value="camarero">Camarero</option>
-    <option  <?php if( $usuario['rol']  == 'cocinera' ): ?> selected="selected"<?php endif; ?> value="cocinera">Cocinera</option>
-
-
+    <option   value="admin">Admin</option>
+    <option   value="camarera">Camarera</option>
+    <option   value="camarero">Camarero</option>
+    <option   value="cocinera">Cocinera</option>
 
 
 
@@ -87,8 +86,8 @@ line-height: /* adjust to tweak wierd fonts */;
 
         </select>
         <div class="form-group">
-            <label for="contraseña">Cambiar Contraseña</label>
-            <input type="password" name="password" class="form-control"  value="" placeholder="opcional">
+            <label for="contraseña">Contraseña</label>
+            <input type="password" name="password" class="form-control"  value="" placeholder="">
           </div>
 
 
