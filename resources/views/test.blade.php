@@ -303,7 +303,9 @@ $(document).click(function(event) {
 
 function eliminar() {
   var x = document.getElementById(varlistaActual);
-  x.remove(x.selectedIndex);
+  if(x!=null){
+    x.remove(x.selectedIndex);
+  }
   compruebaVacios();
 
 }
@@ -352,6 +354,7 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
         data: data,
         success: function (msg) {
                 alert(msg.success);
+                reiniciar();
         },
         error: function (msg) {
                 alert(msg.fail);
@@ -366,8 +369,10 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
 
 
 
+function reiniciar(){}
 
-
+miFecha();
+$('#precio').val('');
 
 
 </script>

@@ -36,3 +36,13 @@ Route::get('x', 'MenuController@index');
 
 Route::get('/search','MenuController@search');
 Route::resource('menu', 'MenuController');
+
+//Route::get('/menu/{id}', 'MenuController@show');
+Route::put('/menu/{id}', 'MenuController@update')->name('update');
+
+
+
+Route::get('myform','XController@myform');
+
+Route::post('myform','XController@myformPost');
+

@@ -94,25 +94,160 @@ $menu->save();
 
 
 
-    public function show($id)
+    public function show($fecha)
     {
-
-       // $usuario=User::where('name', '2')->get();;
+$menu=menu::where('fecha',$fecha)->get();
+$primeros=$menu[0]->primeros;
+$segundos=$menu[0]->segundos;
+$postres=$menu[0]->postres;
+$precio=$menu[0]->precio;
+$fecha=$menu[0]->fecha;
+        return view("temporal",compact('menu','primeros','segundos','postres','precio','fecha'));
 
     }
 
 
 
 
+public function edit($fecha) {
+
+
+    return response()->json("HOLA");
+}
 
 
 
 
 
-    public function update(Request $request, $id)
+
+
+
+
+    public function update(Request $request,$fecha)
     {
+        //$menu=menu::where('fecha','=',$request->fecha)->get();
 
 
+
+
+
+
+
+
+        $validator = \Validator::make($request->all(), [
+            'precio' => 'bail|required|numeric',
+
+        ]);
+
+
+
+
+
+
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+
+
+
+
+
+
+        $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
+        $menuAnterior = menu::find($menuAnterior[0]->id);
+        $menuAnterior->delete();
+
+        $bebidas=producto::where('tipo','bebida')->get(['nombre']);
+        $menu=new menu();
+        $menu->primeros=$request->primeros;
+        $menu->segundos=$request->segundos;
+        $menu->postres=$request->postres;
+        $menu->bebidas=$this->getNames($bebidas);
+        $menu->precio=$request->precio;
+        $menu->fecha=$request->fecha;
+        $menu->save();
+
+
+
+
+
+
+
+
+
+
+
+        return response()->json(['success'=>'Menu Modificado con exito']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       // $menu= menu::find($fecha);
+       // $menu->precio=$request->precio;
+       // $menu = menu::where('fecha',$request->fecha)->get();
+       // $menu->delete();
+
+
+/*
+
+        $bebidas=producto::where('tipo','bebida')->get(['nombre']);
+        $menu=new menu();
+        $menu->primeros=$request->primeros;
+        $menu->segundos=$request->segundos;
+        $menu->postres=$request->postres;
+        $menu->bebidas=$this->getNames($bebidas);
+
+        $menu->fecha=$request->fecha;*/
+       // $menu->save();
+
+
+
+
+
+
+/*
+
+        $menu = menu::where('fecha' , '=' , $fecha);
+  $menu->precio = $request->precio;
+  $menu->save();*/
+
+      //  $menu->delete();
+
+       // $menu=new Menu();
+//$menu->primeros=$request->primeros;
+//$menu->save();
+
+
+return response()->json(['success'=>"Actualizado con exito"]);
 
 
 
