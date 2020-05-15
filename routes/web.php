@@ -46,3 +46,8 @@ Route::get('myform','XController@myform');
 
 Route::post('myform','XController@myformPost');
 
+Route::get('productos','ProductoController@index');
+
+
+Route::post('productos','ProductoController@store');
+Route::delete('/productos/{id}', 'ProductoController@destroy');

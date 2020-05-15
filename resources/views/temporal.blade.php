@@ -20,6 +20,9 @@
     width: 100%;
 }
 option:hover{background-color:#05f5e9;}
+.subrayado{
+  text-decoration-line: underline;
+}
 
 </style>
 </head>
@@ -38,7 +41,7 @@ option:hover{background-color:#05f5e9;}
 
     <br />
     <div class="container">
-      <h3 align="center">Editando Menu</h3>
+      <h3 align="center" class="subrayado">Editando Menu</h3>
       <br />
 
 
@@ -56,7 +59,7 @@ option:hover{background-color:#05f5e9;}
 
 
 
-      <input type="date" id="fechaEdicion" name="fechaEdicion"><button class="btn btn-info black" onclick="ir()"    >Cargar Datos De Otro Dia</button><br><br>
+      <button class="btn btn-info black" onclick="ir()"    >Cargar Datos De Otro Dia</button><input type="date"  style="font-size: 2rem" style="color:black;" id="fechaEdicion" name="fechaEdicion"><br><br>
 
 
       <strong>Menu del dia:</strong>  <input type="date" id="myDate" name="fecha"
