@@ -303,6 +303,8 @@ $(document).click(function(event) {
 
 function eliminar() {
   var x = document.getElementById(varlistaActual);
+
+
   if(x!=null){
     x.remove(x.selectedIndex);
   }

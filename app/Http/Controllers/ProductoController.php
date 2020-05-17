@@ -78,6 +78,16 @@ if($productos[$i]['tipo']=='bebida'){
 
 public function store(Request $request){
 
+    $producto=new Producto();
+    $producto->nombre=$request->nombre;
+    $producto->tipo=$request->tipo;
+    $producto->save();
+
+    $id=producto::where('nombre',$request->nombre)->get(['id']);
+
+    return response()->json(['success'=>$id]);
+
+
 }
 
 
@@ -116,9 +126,11 @@ public function store(Request $request){
     public function destroy($id)
     {
         $producto=producto::find($id);
-        //$producto->delete();
+        $nombre=$producto->nombre;
+        $producto->delete();
 
-        return response()->json(['success'=>'Producto Eliminado con exito']);
+
+        return response()->json(['success'=>$nombre]);
 
 
 

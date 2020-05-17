@@ -50,4 +50,8 @@ Route::get('productos','ProductoController@index');
 
 
 Route::post('productos','ProductoController@store');
-Route::delete('/productos/{id}', 'ProductoController@destroy');
+
+
+
+Route::resource('productos', 'ProductoController');
+Route::post('/productos/{id}', 'ProductoController@destroy');
