@@ -1,4 +1,4 @@
-{{ $usuario }}
+<!--
 
 
 <!DOCTYPE html>
@@ -23,8 +23,12 @@ margin-bottom: 0;
 line-height: /* adjust to tweak wierd fonts */;
 }
     </style>
-</head>
-<body>
+</head>  -->
+@extends('layouts.app')
+@section('content')
+
+
+
 
     <div class=" border-primary row align-items-center justify-content-center">
         <div class="row">
@@ -109,8 +113,7 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
+@endsection
 
 
-
-</body>
-</html>
+@include('menu')

@@ -51,7 +51,7 @@ public function getNames($bruto){
 
 
     public function index()
-    {
+    {/*
         $primeros=producto::where('tipo','primero')->get(['nombre']);
         $segundos=producto::where('tipo','segundo')->get(['nombre']);
         $postres=producto::where('tipo','postre')->get(['nombre']);
@@ -66,12 +66,34 @@ public function getNames($bruto){
         $menu->postres=$this->getNames($postres);
         $menu->bebidas=$this->getNames($bebidas);
         $menu->precio="12";
-        $menu->fecha="12";
-$menu->save();
+        $menu->fecha="12";*/
+//$menu->save();
+
+
+/*
+
+
+$testigo=0;
+
+      if (menu::where('fecha','=',$request->fecha)->exists()) {
+
+
+        $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
+        $menuAnterior=menu::find($menuAnterior[0]->id);
+        $menuAnterior->delete();
+        $testigo=1;
+     }
 
 
 
-        return view("test", compact("menu"));
+
+*/
+
+
+
+
+
+        return view("crearmenu", compact("menu"));
 
 
 
@@ -287,6 +309,32 @@ return response()->json(['success'=>"Actualizado con exito"]);
 
 
 public function store(Request $request){
+
+
+
+
+
+
+
+
+
+    if($request->precio !=0 && $request->precio != null && is_numeric($request->precio)){
+
+
+$testigo=0;
+
+      if (menu::where('fecha','=',$request->fecha)->exists()) {
+
+
+        $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
+        $menuAnterior=menu::find($menuAnterior[0]->id);
+        $menuAnterior->delete();
+        $testigo=1;
+     }
+
+
+
+
     $bebidas=producto::where('tipo','bebida')->get(['nombre']);
     $menu=new menu();
     $menu->primeros=$request->primeros;
@@ -297,8 +345,31 @@ public function store(Request $request){
     $menu->fecha=$request->fecha;
 $menu->save();
 
+if($testigo==0)
+{
+    return response()->json(['success'=>'Creado con exito']);
+}return response()->json(['success'=>'Editado con exito']);
 
-    return response()->json(['success'=>'Menu creado.']);
+
+
+    }
+
+
+
+
+
+        return response()->json(['success'=>'Introduzca un precio valido.']);
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

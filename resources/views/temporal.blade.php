@@ -172,7 +172,7 @@ for($i=0;$i<$limite;$i++){
 //miFecha();
 load_Data('primero');
 compruebaVacios();
-
+ordenar();
 
 
 function ir(){
@@ -219,7 +219,21 @@ function load_Data(tipo)
 
 
 
+  function ordenar(){
 
+listas=['primeros','segundos','postres','bebidas'];
+
+for(var i=0;i<listas.length;i++){
+    $("#"+listas[i]).append($("#"+listas[i]+ " option")
+                              .remove().sort(function(a, b) {
+                var at = $(a).text(),
+                    bt = $(b).text();
+                return (at > bt) ? 1 : ((at < bt) ? -1 : 0);
+            }));
+
+}
+
+}
 
 
 
@@ -270,7 +284,7 @@ var select = document.getElementById("primeros");
 select.appendChild(option);
 
 compruebaVacios();
-
+ordenar();
 }
 
 function añadirSegundos(){
@@ -279,7 +293,7 @@ option.text = text.value;
 option.value =text.value;
 var select = document.getElementById("segundos");
 select.appendChild(option);
-compruebaVacios();
+compruebaVacios();ordenar();
 }
 
 function añadirPostres(){
@@ -288,7 +302,7 @@ option.text = text.value;
 option.value =text.value;
 var select = document.getElementById("postres");
 select.appendChild(option);
-compruebaVacios();
+compruebaVacios();ordenar();
 }
 
 $('p').on('click', function(){

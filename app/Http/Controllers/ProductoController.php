@@ -18,41 +18,53 @@ class ProductoController extends Controller
 $limite=count($productos);
 
 $primeros=[];
+
 $segundos=[];
 $postres=[];
 $bebidas=[];
-$ids=[];
+
+
+$primerosIds=[];
+$segundosIds=[];
+$postresIds=[];
+$bebidasIds=[];
+
+
 
 for($i=0;$i<$limite;$i++){
 
 
     if($productos[$i]['tipo']=='primero'){
             $primeros[]=$productos[$i]['nombre'];
+            $primerosIds[]=$productos[$i]['id'];
 }
 if($productos[$i]['tipo']=='segundo'){
             $segundos[]=$productos[$i]['nombre'];
+            $segundosIds[]=$productos[$i]['id'];
 }
 if($productos[$i]['tipo']=='postre'){
             $postres[]=$productos[$i]['nombre'];
+            $postresIds[]=$productos[$i]['id'];
 }
 if($productos[$i]['tipo']=='bebida'){
             $bebidas[]=$productos[$i]['nombre'];
-}
-
-
-
-            $ids[]=$productos[$i]['id'];
-
-
-
-
-
+            $bebidasIds[]=$productos[$i]['id'];
 }
 
 
 
 
-        return view('productos',compact('primeros','segundos','postres','ids','bebidas'));
+
+
+
+
+
+}
+
+
+
+
+        return view('productos',compact('primeros','segundos','postres','bebidas','primerosIds','segundosIds','postresIds','bebidasIds'));
     }
 
 
@@ -84,8 +96,9 @@ public function store(Request $request){
     $producto->save();
 
     $id=producto::where('nombre',$request->nombre)->get(['id']);
+    $mensaje="Producto creado con exito:".$id.":".$request->nombre;
 
-    return response()->json(['success'=>$id]);
+    return response()->json(['success'=>$mensaje]);
 
 
 }
@@ -130,7 +143,7 @@ public function store(Request $request){
         $producto->delete();
 
 
-        return response()->json(['success'=>$nombre]);
+        return response()->json(['success'=>"Producto eliminado con exito: ".$nombre]);
 
 
 

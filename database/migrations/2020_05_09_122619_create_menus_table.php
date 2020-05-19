@@ -28,7 +28,7 @@ class CreateMenusTable extends Migration
 
         $date = Carbon::now();
 
-        $date = $date->format('d-m-Y');
+        $date = $date->format('Y-m-d');
 
         menu::create([
             'primeros' => ['dfdf','dfdfjj'],

@@ -1,12 +1,23 @@
 
 
 
-
+<!--
 
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dynamic Dependent Searchable Select Box with PHP Ajax jQuery</title>
+    <title>Crear Menu</title>
+
+</head>
+  <body>
+  -->
+
+
+    @extends('layouts.app')
+    @section('content')
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,22 +26,12 @@
 
 
 
-<style>
+<style>option:hover{background-color:#05f5e9;}
         select {
     width: 100%;
 }</style>
-</head>
-  <body>
 
-
-
-
-
-
-
-
-
-
+ <div class="text-center" id="mensaje" style="display:none"></div>
 
 
     <br />
@@ -132,14 +133,21 @@
       </div>
     </div>
 
+@endsection
 
-
-
+<!--
 
   </body>
 </html>
 
 <script>
+-->
+
+
+
+@section('script')
+
+
 miFecha();
 load_Data('primero');
 compruebaVacios();
@@ -355,11 +363,29 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
         url: "{{route('menu.store')}}",
         data: data,
         success: function (msg) {
-                alert(msg.success);
+
+
+           if(msg.success.includes("precio")){
+            $("#mensaje").attr('class', 'alert-danger');
+            jQuery('.alert-danger').show();
+            jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
                 reiniciar();
+           }else{
+            $("#mensaje").attr('class', 'alert-success');
+            jQuery('.alert-success').show();
+            jQuery('.alert-success').append('<p>'+msg.success+'</p>');
+                reiniciar();
+           }
+
+
+
+
+
+
+
         },
         error: function (msg) {
-                alert(msg.fail);
+                alert(msg.error);
         }
 
 
@@ -375,7 +401,9 @@ function reiniciar(){}
 
 miFecha();
 $('#precio').val('');
+@endsection
 
 
-</script>
+
+@include('menu')
 
