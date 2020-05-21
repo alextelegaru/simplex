@@ -7,7 +7,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 
 
-class producto extends Eloquent
+class pedido extends Eloquent
 {
 
 
@@ -21,7 +21,7 @@ class producto extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'nombre',  'tipo','precio',
+        'nMesa','estado','productos','fecha','nombre','correo','precio','menu',
     ];
 
     /**
@@ -41,5 +41,7 @@ class producto extends Eloquent
     protected $casts = [
         'email_verified_at' => 'datetime',
         'precio' => 'float',
+        'menu'=> 'array',
+        'productos'=> 'array',
     ];
 }

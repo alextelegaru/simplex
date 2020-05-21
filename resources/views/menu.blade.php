@@ -20,6 +20,8 @@ a:focus{
 	color: inherit;
 	text-decoration: none;
 	transition: all 0.3s;
+    text-decoration: none;
+
 }
 .navbarx{
 	padding: 15px 10px;
@@ -29,12 +31,14 @@ a:focus{
 	margin-bottom: 40px;
 	box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
     z-index: -1;
+    text-decoration: none;
 }
 
 .navbarx-btn{
 	box-shadow: none;
 	outline: none!important;
 	border: none;
+    text-decoration: none;
 }
 
 .line{
@@ -49,47 +53,56 @@ a:focus{
     width: 100%;
     align-items: stretch;
     z-index: 4;
+    text-decoration: none;
 }
 #sidebarx {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
+    background: #E7EEEF;
     color: black;
     transition: all 0.3s;
+    text-decoration: none;
 }
 #sidebarx.active{
 	margin-left: -250px;
+    text-decoration: none;
 }
 
 #sidebarx .sidebarx-header{
 	padding: 20px;
 	background: #f7f7f7;
+    text-decoration: none;
 }
 #sidebarx ul.components{
 	padding: 20px 0px;
-	border-bottom: 1px solid #47748b;
+	border-bottom: 1px solid white;
+    text-decoration: none;
 }
 
 #sidebar ul p{
 	padding: 10px;
 	font-size: 1.1em;
 	display: block;
+    text-decoration: none;
 }
 
 #sidebarx ul li a{
 	padding: 10px;
 	font-size: 1.1em;
 	display: block;
+    text-decoration: none;
 }
+
 #sidebarx ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+    color: black;
+    background: yellow;
 }
 
 #sidebarx ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
+    color: black;
+    background: white;
+    text-decoration: none;
 }
 a[data-toggle="collapse"] {
     position: relative;
@@ -100,12 +113,14 @@ a[data-toggle="collapse"] {
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
+    text-decoration: none;
 }
 
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #6d757b;
+    text-decoration: none;
 }
 
 ul.CTAs {
@@ -118,6 +133,7 @@ ul.CTAs a {
     display: block;
     border-radius: 5px;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 a.download{
 	background: #fff;
@@ -130,6 +146,9 @@ a.article:hover {
 }
 
 
+.negro{
+    color: black;
+}
 
 @media(maz-width:768px){
 	#sidebarx{margin-left: -250px;}
@@ -140,6 +159,16 @@ a.article:hover {
 		display: none;
 	}
 }
+
+.vertical-text {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+
+        }
+
+        @supports(text-orientation:upright){
+
+        }
 
 
 
@@ -153,50 +182,86 @@ a.article:hover {
 
         <ul class="list-unstyled components">
 
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
+
+
+ @if (Auth::user()->rol=="admin")
+<!--
+ <li class="active">
+    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+    <ul class="collapse list-unstyled" id="homeSubmenu">
+        <li>
+            <a href="#">home1</a>
+        </li>
+        <li>
+            <a href="#">home2</a>
+        </li>
+        <li>
+            <a href="#">home3</a>
+        </li>
+    </ul>
+</li>    -->
+
+@endif
+
+
+
+
+
+
+
+<li>
+    <a  class="negro" href="{{ url('/menu') }}">Menu de Hoy</a>
+</li>
+
+
+
+            <li>
+                <a  class="negro" href="{{ url('/productos') }}">Productos</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Menu</a>
+                <ul class=" collapse list-unstyled" id="pageSubmenu">
                     <li>
-                        <a href="#">home1</a>
+
+                        <a class="negro" href="{{ url('/menu') }}">Menu de hoy</a>
+
                     </li>
                     <li>
-                        <a href="#">home2</a>
+                        <a class="negro" href="{{ url('/menu/9999-01-01') }}">Crear Menu</a>
                     </li>
                     <li>
-                        <a href="#">home3</a>
+                        <a class="negro" href="#">page3</a>
                     </li>
                 </ul>
             </li>
 
+
             <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Page</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">page1</a>
-                    </li>
-                    <li>
-                        <a href="#">page2</a>
-                    </li>
-                    <li>
-                        <a href="#">page3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Services</a>
-            </li>
-            <li>
-                <a href="#">Contactanos</a>
+                <a class="negro" href="/contactanos">Contactanos</a>
             </li>
         </ul>
 
         <ul class="list-unstyled CTAs">
             <li>
-                <a href="#" class="article">Download code</a>
+              <!--  <a href="#" class="article">Download code</a>  -->
+
+                <a class="download" href="{{ url('/menu') }}">Menu de Hoy</a>
             </li>
+
+
+            <li>
+                <!--  <a href="#" class="article">Download code</a>  -->
+
+                  <a class="download" href=<?php
+
+
+
+                  $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                    $parsedUrl = parse_url($url);
+                    $root = "'".strstr($url, $parsedUrl['path'], true) . '/';echo $root."usuario/".Auth::user()->id."'" ;?> >Perfil</a>
+              </li>
+
+
             <li>
 
 
@@ -218,7 +283,7 @@ a.article:hover {
 
 
         <button type="button" id="sidebarxCollapse" class="btn btn-info">
-            <i class="fa fa-align-justify"></i> <span>Menu</span>
+            <i class="fa fa-align-justify"></i> <span class="vertical-text">Menu</span>
         </button>
 
 
@@ -239,6 +304,7 @@ a.article:hover {
 	    $(document).ready(function(){
 			$('#sidebarxCollapse').on('click',function(){
 				$('#sidebarx').toggleClass('active');
+
 			});
         });
 

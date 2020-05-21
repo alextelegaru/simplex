@@ -13,6 +13,8 @@
 
 Route::get('/', function () {
     return view('welcome');
+
+
 });
 
 Auth::routes();
@@ -31,7 +33,7 @@ Route::get('nuevo/usuario', 'UserController@create');
 Route::post('recovery', 'RecoveryController@recovery')->name('recovery');
 
 
-Route::get('x', 'MenuController@index');
+//Route::get('x', 'MenuController@index');
 
 
 Route::get('/search','MenuController@search');
@@ -42,9 +44,9 @@ Route::put('/menu/{id}', 'MenuController@update')->name('update');
 
 
 
-Route::get('myform','XController@myform');
+//Route::get('myform','XController@myform');
 
-Route::post('myform','XController@myformPost');
+//Route::post('myform','XController@myformPost');
 
 Route::get('productos','ProductoController@index');
 
@@ -52,6 +54,12 @@ Route::get('productos','ProductoController@index');
 Route::post('productos','ProductoController@store');
 
 
-
+Route::resource('pedidos', 'PedidoController');
 Route::resource('productos', 'ProductoController');
 Route::post('/productos/{id}', 'ProductoController@destroy');
+
+Route::get('crearmenu/{id}','MenuController@create');
+
+Route::get('contactanos',function(){
+    return view('contactanos');
+});

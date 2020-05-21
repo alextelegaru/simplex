@@ -17,9 +17,12 @@ class CreateProductosTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('tipo');
+            $table->float('precio');
             $table->timestamps();
         });
 
+
+        $precios=[3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25];
 
         $primeros=["Consomé al Gusto",
         "Sopa Castellana",
@@ -39,6 +42,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $primeros[$i],
         'tipo' =>"primero",
+        'precio' =>$precios[$i],
     ]);
 
 
@@ -67,6 +71,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $segundos[$i],
         'tipo' =>"segundo",
+        'precio' =>$precios[$i],
     ]);
 
 
@@ -97,6 +102,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $postres[$i],
         'tipo' =>"postre",
+        'precio' =>$precios[$i],
     ]);
 
 
@@ -137,6 +143,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $bebidas[$i],
         'tipo' =>"bebida",
+        'precio' =>$precios[$i],
     ]);
 
 

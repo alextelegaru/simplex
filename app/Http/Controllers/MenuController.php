@@ -5,6 +5,8 @@
 
 
 namespace App\Http\Controllers;
+USE Illuminate\Support\Carbon;
+
 use App\menu;
 use App\producto;
 use Illuminate\Http\Request;
@@ -89,11 +91,21 @@ $testigo=0;
 
 */
 
+$hoy = Carbon::now();
+$hoy = $hoy->format('Y-m-d');
 
 
 
 
-        return view("crearmenu", compact("menu"));
+if (menu::where('fecha','=',$hoy)->exists()) {
+
+    return redirect('menu/'.$hoy);
+ }
+
+
+
+
+        return view("menu.crearmenu",compact('hoy'));
 
 
 
@@ -118,13 +130,33 @@ $testigo=0;
 
     public function show($fecha)
     {
-$menu=menu::where('fecha',$fecha)->get();
-$primeros=$menu[0]->primeros;
-$segundos=$menu[0]->segundos;
-$postres=$menu[0]->postres;
-$precio=$menu[0]->precio;
-$fecha=$menu[0]->fecha;
-        return view("temporal",compact('menu','primeros','segundos','postres','precio','fecha'));
+
+$fecha=$fecha;
+
+if (menu::where('fecha','=',$fecha)->exists()) {
+
+    $menu=menu::where('fecha',$fecha)->get();
+
+    $primeros=$menu[0]->primeros;
+    $segundos=$menu[0]->segundos;
+    $postres=$menu[0]->postres;
+    $precio=$menu[0]->precio;
+    $fecha=$menu[0]->fecha;
+            return view("menu.editarmenu",compact('menu','primeros','segundos','postres','precio','fecha'));
+
+ }else{
+
+
+
+    return view("menu.crearmenu", compact("menu",'fecha'));
+
+ }
+
+
+
+
+
+
 
     }
 
@@ -304,7 +336,7 @@ return response()->json(['success'=>"Actualizado con exito"]);
 
 
 
-       // return view('juegos.create');
+        return view('temporal');
     }
 
 

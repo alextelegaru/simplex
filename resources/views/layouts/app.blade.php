@@ -50,7 +50,10 @@ body {
     left: 75px;
     z-index: 64;
 }
-
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
 
 
     </style>
@@ -78,7 +81,15 @@ body {
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('Simplex', 'Simplex') }}
+
+
+
                     <img src="/img/logo.png" alt="" height="50px">
+
+
+
+
+
                 </a>
 
 
@@ -145,7 +156,7 @@ body {
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 ">
             @yield('content')
         </main>
 

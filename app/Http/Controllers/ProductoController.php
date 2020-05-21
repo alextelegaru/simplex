@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\producto;
 use Illuminate\Http\Request;
+use Illuminate\Routing\SortedMiddleware;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Finder\Iterator\SortableIterator;
 
 class ProductoController extends Controller
 {
@@ -28,6 +30,7 @@ $primerosIds=[];
 $segundosIds=[];
 $postresIds=[];
 $bebidasIds=[];
+
 
 
 
@@ -64,7 +67,7 @@ if($productos[$i]['tipo']=='bebida'){
 
 
 
-        return view('productos',compact('primeros','segundos','postres','bebidas','primerosIds','segundosIds','postresIds','bebidasIds'));
+        return view('producto.productos',compact('primeros','segundos','postres','bebidas','primerosIds','segundosIds','postresIds','bebidasIds'));
     }
 
 
@@ -93,6 +96,7 @@ public function store(Request $request){
     $producto=new Producto();
     $producto->nombre=$request->nombre;
     $producto->tipo=$request->tipo;
+    $producto->precio=$request->precio;
     $producto->save();
 
     $id=producto::where('nombre',$request->nombre)->get(['id']);

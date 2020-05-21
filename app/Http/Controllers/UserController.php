@@ -17,7 +17,7 @@ class UserController extends Controller
 
         if(Auth::user()->rol=='admin'){
             $rol='admin';
-            return view("usuarios", compact("usuarios"));
+            return view("usuario.usuarios", compact("usuarios"));
 
         }
         return view("error");
@@ -44,7 +44,7 @@ $rol="";
         }
 
 
-        return view("usuario", compact("usuario","rol"));
+        return view("usuario.usuario", compact("usuario","rol"));
     }
 
 
@@ -71,17 +71,6 @@ $rol="";
         $user->save();
 
 
-
-
-
-
-
-
-
-
-
-
-
         return Redirect::to('usuario/'.$id);
     }
 
@@ -95,10 +84,7 @@ $rol="";
     public function create(Request $request)
     {
 
-
-
-
-        return view('nuevousuario');
+        return view('usuario.nuevousuario');
        // return view('juegos.create');
     }
 
@@ -206,7 +192,7 @@ $user->save();
 //alert()->success('Videojuego agregado con exito!',
 //$juego->nombre)->persistent('Cerrar');
 
-return back()->with('exito', 'Videojuego agregado con exito!');
+return back()->with('exito', 'Usuario creado con exito');
 
 
     }
@@ -244,7 +230,7 @@ return back()->with('exito', 'Videojuego agregado con exito!');
     {
         // delete
         $user = User::find($id);
-        //$user->delete();
+        $user->delete();
 
 
         Session::flash('success', 'Usuario eliminado con exito!');

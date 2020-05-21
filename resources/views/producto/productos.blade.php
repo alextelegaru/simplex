@@ -18,10 +18,10 @@
         select {
     width: 80%;
 
-}
+}/*
 body {
         overflow: hidden;
-    }
+    }*/
 option:hover{background-color:#05f5e9;}
 .subrayado{
   text-decoration-line: underline;
@@ -122,6 +122,14 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                     <option value="bebida">Bebida</option>
                 </select>
                 </div>
+
+
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input type="number" step="any" name="precio" id="precio" value="">
+                </div>
+
+
                 <div class="form-group">
                     <button class="btn btn-success" id="crear">Crear Producto</button>
                     <button class="btn btn-danger" id="eliminar" onclick="eliminar()">Eliminar Producto</button>
@@ -254,11 +262,12 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
     var nombre= document.getElementById("nombre").value;
     var tipo= document.getElementById("tipo").value;
-
+    var precio= document.getElementById("precio").value;
         var token = '{{csrf_token()}}';
         var data={
             tipo:tipo,
             nombre:nombre,
+            precio:precio,
             _token:token,
             _method:'POST'}
         $.ajax({

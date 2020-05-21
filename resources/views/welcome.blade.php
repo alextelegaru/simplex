@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <!-- Styles -->
         <style>
             html, body {
@@ -65,25 +65,41 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+
+
+
+
+            @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+            </div>
+        @endif
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                  <!--      <a href="{{ url('/home') }}">Home</a> -->
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-
+                     <!--   <a href="{{ route('login') }}">Login</a> -->
+<!--
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
-                        @endif
+                        @endif  -->
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Simplex<img src="/img/logo.png" alt="" height="70px">
                 </div>
+                <div class="title m-b-md">
 
+
+                    <a href="{{ url('/home') }}" class="btn btn-lg btn-primary btn-block text-uppercase" role="button">Entrar</a>
+                </div>
+<!--
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -93,7 +109,7 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div>  -->
             </div>
         </div>
     </body>

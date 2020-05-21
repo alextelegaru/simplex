@@ -1,20 +1,12 @@
 
 
 
-<!--
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Crear Menu</title>
-
-</head>
-  <body>
-  -->
-
-
     @extends('layouts.app')
     @section('content')
+
+
+
+
 
 
 
@@ -25,18 +17,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 
 
-
-<style>option:hover{background-color:#05f5e9;}
+<style>
         select {
     width: 100%;
-}</style>
+}
+option:hover{background-color:#05f5e9;}
+.subrayado{
+  text-decoration-line: underline;
+}
 
- <div class="text-center" id="mensaje" style="display:none"></div>
+</style>
+
+
+
+
+
+
+    <div class="" id="mensaje" style="display:none"></div>
+
+
+
+
 
 
     <br />
     <div class="container">
-      <h3 align="center">Creando Menu</h3>
+      <h3 align="center" class="subrayado">Editando Menu</h3>
       <br />
 
 
@@ -54,14 +60,14 @@
 
 
 
+      <button class="btn btn-info black" onclick="ir()"    >Cargar Datos De Otro Dia</button><input type="date"  style="font-size: 2rem" style="color:black;" id="fechaEdicion" name="fechaEdicion"><br><br>
 
 
-
-      <strong>Fecha:</strong>  <input type="date" id="myDate" name="fecha"
-      value="2018-07-22"
+      <strong>Menu del dia:</strong>  <input type="date" id="myDate" name="fecha"
+      value= {{$fecha}}
       min="2018-01-01" >
 
-      <strong>Precio:  </strong><input type="number" id="precio" step="any" name="precio"><strong>€</strong>
+      <strong>Precio:  </strong><input type="number" id="precio" step="any" value="<?php echo (float)$precio;?>" name="precio"><strong>€</strong>
 
 
 
@@ -77,16 +83,36 @@
 
         <div class="col-sm-4" style="background-color:white;">   <h1>Primeros</h1>  <select id="primeros" size=5>
 
+            <?php
+$limite=count($primeros);
+for($i=0;$i<$limite;$i++){
+    echo '<option value="'.$primeros[$i].'">'.$primeros[$i].'</option>';
+
+}
+?>
+
         </select></div>
 
 
         <div class="col-sm-4" style="background-color:white;">  <h1>Segundos</h1>  <select id="segundos" size=5>
+            <?php
+$limite=count($segundos);
+for($i=0;$i<$limite;$i++){
+    echo '<option value="'.$segundos[$i].'">'.$segundos[$i].'</option>';
 
+}
+?>
         </select><button class="btn btn-danger" onclick="eliminar()">Eliminar Plato</button>
-        <button class="btn btn-success" id="guardar">Guardar Menu</button></div>
+        <button class="btn btn-success" id="guardar">Guardar</button></div>
 
         <div class="col-sm-4" style="background-color:white;"> <h1>Postres</h1>   <select id="postres" size=5>
+            <?php
+$limite=count($postres);
+for($i=0;$i<$limite;$i++){
+    echo '<option value="'.$postres[$i].'">'.$postres[$i].'</option>';
 
+}
+?>
         </select></div>
 
 
@@ -100,7 +126,7 @@
       <button class="btn btn-primary" onclick="load_Data('postre')">Ver Postres</button>
 
       <div class="panel panel-default">
-        <div class="panel-heading">Select Data</div>
+        <div class="panel-heading">Editador de menus</div>
         <div class="panel-body">
           <div class="form-group">
             <label>Busqueda </label>
@@ -131,26 +157,43 @@
 
         </div>
       </div>
+
+
+
     </div>
 
+
 @endsection
-
-<!--
-
-  </body>
-</html>
-
-<script>
--->
-
 
 
 @section('script')
 
 
-miFecha();
+
+
+
+//miFecha();
 load_Data('primero');
 compruebaVacios();
+ordenar();
+
+
+function ir(){
+
+    var fechaEdicion=document.getElementById("fechaEdicion").value
+    var getUrl = window.location;
+    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+    $(location).attr('href', baseUrl+"/"+fechaEdicion);
+
+
+
+}
+
+
+
+
+
+
 
 
 function load_Data(tipo)
@@ -177,6 +220,56 @@ function load_Data(tipo)
 
 
 
+
+
+  function ordenar(){
+
+listas=['primeros','segundos','postres','bebidas'];
+
+for(var i=0;i<listas.length;i++){
+    $("#"+listas[i]).append($("#"+listas[i]+ " option")
+                              .remove().sort(function(a, b) {
+                var at = $(a).text(),
+                    bt = $(b).text();
+                return (at > bt) ? 1 : ((at < bt) ? -1 : 0);
+            }));
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+  function load_Data(tipo)
+  {
+      var fecha=document.getElementById('myDate').value;
+    $.ajax({
+      url:"menu/"+fecha,
+      method:"edit",
+      data:{'fecha': fecha},
+      dataType:"json",
+      success:function(data)
+      {
+
+       alert(data);
+
+      }
+    })
+  }
+*/
+
+
+
+
   function miFecha() {
   var myDate = document.getElementById('myDate');
   var today = new Date();
@@ -194,7 +287,7 @@ var select = document.getElementById("primeros");
 select.appendChild(option);
 
 compruebaVacios();
-
+ordenar();
 }
 
 function añadirSegundos(){
@@ -203,7 +296,7 @@ option.text = text.value;
 option.value =text.value;
 var select = document.getElementById("segundos");
 select.appendChild(option);
-compruebaVacios();
+compruebaVacios();ordenar();
 }
 
 function añadirPostres(){
@@ -212,7 +305,7 @@ option.text = text.value;
 option.value =text.value;
 var select = document.getElementById("postres");
 select.appendChild(option);
-compruebaVacios();
+compruebaVacios();ordenar();
 }
 
 $('p').on('click', function(){
@@ -311,8 +404,6 @@ $(document).click(function(event) {
 
 function eliminar() {
   var x = document.getElementById(varlistaActual);
-
-
   if(x!=null){
     x.remove(x.selectedIndex);
   }
@@ -343,7 +434,8 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
         }
     });
 });
-*/$("#guardar").click(function (e) {
+*/
+$("#guardar").click(function (e) {
     e.preventDefault();
     var primeros= $("#primeros option").map(function() {return $(this).val();}).get();
     var segundos= $("#segundos option").map(function() {return $(this).val();}).get();
@@ -357,35 +449,41 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
         segundos:segundos,
         postres:postres,
         fecha:fecha,
-        precio:precio};
+        precio:precio,
+        _method:'PUT'}
     $.ajax({
-        type: "post",
-        url: "{{route('menu.store')}}",
+        type: "PUT",
+        url: '/menu/'+fecha,
         data: data,
-        success: function (msg) {
+        success: function (data) {
+            jQuery.each(data.errors, function(key, value){
+                $("#mensaje").attr('class', 'alert-danger');
+                  			jQuery('.alert-danger').show();
+                  			jQuery('.alert-danger').append('<p>'+value+'</p>');
+                  		});
+
+                          if(data.success){
+                            $("#mensaje").attr('class', 'alert-success');
+                            jQuery('.alert-success').show();
+                  			jQuery('.alert-success').append('<p>'+data.success+'</p>');
 
 
-           if(msg.success.includes("precio")){
-            $("#mensaje").attr('class', 'alert-danger');
-            jQuery('.alert-danger').show();
-            jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
-                reiniciar();
-           }else{
-            $("#mensaje").attr('class', 'alert-success');
-            jQuery('.alert-success').show();
-            jQuery('.alert-success').append('<p>'+msg.success+'</p>');
-                reiniciar();
-           }
+                          }
+limpiar();
 
 
+        }
+        ,
+        error: function (data) {
+
+            jQuery.each(data.errors, function(key, value){
+                  			jQuery('.alert-danger').show();
+                  			jQuery('.alert-danger').append('<p>'+value+'</p>');
+                              alert(value);
+                  		});
+                          limpiar();
 
 
-
-
-
-        },
-        error: function (msg) {
-                alert(msg.error);
         }
 
 
@@ -395,15 +493,66 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
 
 
 
+/*
+
+$('#div#question_preview <some button selector>').click(function() {
+        $.ajax({
+                url: 'questions/'+question_id,
+                type: 'PATCH',
+                data: {status: <SOME VALUE I WANT>, _method: "PATCH"},
+                success: function(res) {
+
+                }
+        });
+});
+
+*/
+
+
+function limpiar(){
+    setTimeout(
+  function()
+  {
+    $("#mensaje").text('');
+    $("#mensaje").css("display", "none");
+
+
+
+  }, 5000);
+}
+
+
+
+$("#mensaje").on("click", function(event) {
+    $("#mensaje").text('');
+    $("#mensaje").css("display", "none");
+    event.preventDefault();
+});
+
+
+
+
+
 
 
 function reiniciar(){}
 
-miFecha();
-$('#precio').val('');
+//miFecha();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection
 
 
-
 @include('menu')
-
