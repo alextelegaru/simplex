@@ -63,3 +63,5 @@ Route::get('crearmenu/{id}','MenuController@create');
 Route::get('contactanos',function(){
     return view('contactanos');
 });
+
+Route::get('/precio','PedidoController@precio');

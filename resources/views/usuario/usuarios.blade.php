@@ -84,9 +84,9 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
+    <div class="row">
 
-
-          <div class="col-md-3 clearfix border-primary" name={{$usuarios[$i]['id']}}>
+          <div class=" container-fluid clearfix border-primary" name={{$usuarios[$i]['id']}}>
             <div class="card clearfix limite border-primary">
 
 
@@ -131,7 +131,7 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-
+    </div>
 
 
     @endfor

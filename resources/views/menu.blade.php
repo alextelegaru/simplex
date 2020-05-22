@@ -24,7 +24,7 @@ a:focus{
 
 }
 .navbarx{
-	padding: 15px 10px;
+	padding: 15px 15px;
 	background: #fff;
 	border: none;
 	border-radius: 0;
@@ -229,6 +229,10 @@ a.article:hover {
                     <li>
                         <a class="negro" href="{{ url('/menu/9999-01-01') }}">Crear Menu</a>
                     </li>
+                    <li>
+                        <a class="negro" href="{{ url('/menu/9999-01-01') }}">Editar Menu</a>
+                    </li>
+
                     <li>
                         <a class="negro" href="#">page3</a>
                     </li>

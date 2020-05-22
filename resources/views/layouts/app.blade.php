@@ -157,7 +157,13 @@ a:hover, a:visited, a:link, a:active
         </nav>
 
         <main class="py-4 ">
-            @yield('content')
+                <div class="container-fluid">
+
+                    @yield('content')
+
+                </div>
+
+
         </main>
 
 
@@ -175,7 +181,9 @@ a:hover, a:visited, a:link, a:active
 
 
 <script>
-
+        $(document).ready(function(){
+  $('#sidebarxCollapse').trigger('click');
+});
 
 
 @yield('script')

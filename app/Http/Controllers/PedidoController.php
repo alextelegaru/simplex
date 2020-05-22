@@ -205,9 +205,32 @@ if (menu::where('fecha','=',$hoy)->exists()) {
     $primeros=$menu[0]->primeros;
     $segundos=$menu[0]->segundos;
     $postres=$menu[0]->postres;
+    $bebidas=$menu[0]->bebidas;
     $precio=$menu[0]->precio;
     $fecha=$menu[0]->fecha;
-            return view("pedido.crearpedido",compact('menu','primeros','segundos','postres','precio','fecha'));
+
+
+    $productos=Producto::all();
+
+
+    $limite=count($productos);
+
+    $productosId=[];
+    $productosNombre=[];
+    $productosPrecio=[];
+
+
+
+
+    for($i=0;$i<$limite;$i++){
+
+                $productosNombre[]=$productos[$i]['nombre'];
+                $productosId[]=$productos[$i]['id'];
+                $productosPrecio[]=$productos[$i]['precio'];
+    }
+
+
+            return view("pedido.crearpedido",compact('menu','primeros','segundos','postres','precio','fecha','bebidas','productosId','productosNombre','productosPrecio'));
  }
 
 
@@ -229,17 +252,21 @@ public function store(Request $request){
 
 
 
-    public function ajaxRequestPost(Request $request)
+
+
+
+
+
+    public function precio(Request $request)
     {
-        $input = $request->all();
 
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
+        $producto=producto::where('nombre','=',$request->id)->get();
+
+       $producto=producto::find($producto[0]->id);
+       $precio=$producto->precio;
+
+        return response()->json(['success'=>$precio]);
     }
-
-
-
-
-
 
 
 
