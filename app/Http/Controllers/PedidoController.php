@@ -15,6 +15,8 @@ use Session;
 use Redirect;
 use Mail;
 use \ForceUTF8\Encoding;
+use Pedidos;
+
 class PedidoController extends Controller
 {
 
@@ -243,9 +245,18 @@ if (menu::where('fecha','=',$hoy)->exists()) {
 
 
 public function store(Request $request){
+    $hoy = Carbon::now();
+    $hoy = $hoy->format('Y-m-d');
 
 
 
+$pedido=new Pedido;
+
+$pedido->save();
+
+
+
+    return response()->json(['success'=>"jaja"]);
 
 
 }

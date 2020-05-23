@@ -34,7 +34,7 @@ class CreateProductosTable extends Migration
         "Gallina en Pepitoria",
         "Callos a la Madrileña",
         "Albóndigas de Ternera",
-        "Cocido Madrileño Completo 2 vuelcos"];
+        "Cocido Madrileño Completo Dos vuelcos"];
 
         sort($primeros);
 $limite=count($primeros);

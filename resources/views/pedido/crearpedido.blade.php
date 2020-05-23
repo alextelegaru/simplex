@@ -18,7 +18,7 @@
     <button class="btn btn-success" id="agregarProducto">Agregar Producto</button>
 
 
-        <div class="col-sm-4" style="background-color:white;">   <h1>Primeros</h1>  <select id="primeros" size=3>
+        <div class="col-sm-4" style="background-color:white;">   <h1>Primeros</h1>  <select id="primeros" size=5>
 
             <?php
 $limite=count($primeros);
@@ -32,7 +32,7 @@ for($i=0;$i<$limite;$i++){
         </select></div>
 
 
-        <div class="col-sm-4" style="background-color:white;">  <h1>Segundos</h1>  <select id="segundos" size=3>
+        <div class="col-sm-4" style="background-color:white;">  <h1>Segundos</h1>  <select id="segundos" size=5>
             <?php
             $limite=count($segundos);
             for($i=0;$i<$limite;$i++){
@@ -47,7 +47,7 @@ for($i=0;$i<$limite;$i++){
         <button class="btn btn-danger" onclick="eliminar()">Eliminar Plato</button>
         <button class="btn btn-success" id="guardar">Guardar Menu</button></div>  -->
 
-        <div class="col-sm-4" style="background-color:white;"> <h1>Postres</h1>   <select id="postres" size=3>
+        <div class="col-sm-4" style="background-color:white;"> <h1>Postres</h1>   <select id="postres" size=5>
             <?php
             $limite=count($postres);
             for($i=0;$i<$limite;$i++){
@@ -58,7 +58,7 @@ for($i=0;$i<$limite;$i++){
 
         </select></div>
 
-        <div class="col-sm-4" style="background-color:white;"> <h1>Bebidas</h1>   <select id="postres" size=3>
+        <div class="col-sm-4" style="background-color:white;"> <h1>Bebidas</h1>   <select id="bebidas" size=5>
             <?php
             $limite=count($bebidas);
             for($i=0;$i<$limite;$i++){
@@ -70,12 +70,22 @@ for($i=0;$i<$limite;$i++){
         </select></div>
 
 
-        <div class="col-sm-4" style="background-color:white;"> <h1>Pedido</h1>   <select id="pedido" size=3>
-        <option value="cocacola  6$">cocacola  6$</option>
+        <div class="col-sm-4" style="background-color:white;"> <h1>Pedido</h1>   <select id="pedido" size=7>
+        <option value="Menu: Vacio">Menu: Vacio</option>
 
 
         </select></div>
 
+
+
+            <input type="number" name="mesa" id="mesa">Mesa
+
+            <input type="text" name="nombre" id="nombre" placeholder="Obligatorio">Nombre
+            <input type="email" name="email" id="email" placeholder="Opcional" >Correo
+
+
+
+        <button id="crearPedido">Crear Pedido</button>
 </div>
 
 
@@ -108,13 +118,17 @@ for($i=0;$i<$limite;$i++){
 
 
 
-<p id="precio">Precio: </p>
+<p id="precio">Precio:  </p>
 
 <script>
+calcularPrecio();
 
 
-$(document).click(function(event) {
+
+$(document).ready(function() {
+    $(document).click(function(event) {
     varlistaActual= $(event.target).parent()[0].id;
+});
 });
 
 
@@ -122,26 +136,59 @@ $(document).click(function(event) {
 
 
 
-function eliminar() {
-  var x = document.getElementById(varlistaActual);
 
+
+
+function eliminar() {
+
+
+
+    var posicionEliminar=$("#pedido").prop('selectedIndex');
+
+
+if(posicionEliminar==0){
+
+    var lista = document.getElementById('pedido');
+
+                for(var i=0;i<4;i++){
+                    lista.remove(lista.i);
+                }
+
+}
+
+if(posicionEliminar>0 && posicionEliminar <4){
+
+var lista = document.getElementById('pedido');
+
+            for(var i=0;i<4;i++){
+                lista.remove(lista.i);
+            }
+
+}
+
+
+
+
+if(posicionEliminar>=4){
+  //var x = document.getElementById(varlistaActual);
+  var x = document.getElementById("pedido");
 
   if(x!=null){
     x.remove(x.selectedIndex);
   }
-  compruebaVacios();
+
 
 }
 
-function eliminar() {
-  var x = document.getElementById(varlistaActual);
 
 
-  if(x!=null){
-    x.remove(x.selectedIndex);
-  }
-  compruebaVacios();
+
+
+
+calcularPrecio();
 }
+
+
 
 
 
@@ -149,23 +196,154 @@ function eliminar() {
 $("#agregar").click(function (e) {
         e.preventDefault();
 
+
+        //var tipoDelista=varlistaActual;
+
+
+        var tipoDelista= varlistaActual[0].toUpperCase() +  varlistaActual.slice(1);
+tipoDelista = tipoDelista.substring(0, tipoDelista.length - 1);
+
+
+       // if(comprobarSiTipoYaEstaEnPedido(varlistaActual)){
+
+
+
+            var myOpts = document.getElementById('pedido').options;
+
+var posicion=-1;
+                for(var i=0;i<myOpts.length;i++){
+                    if (myOpts[i].text.includes(tipoDelista)){
+                        posicion=i;
+                    }
+                }
+
+
+ var producto= document.getElementById(varlistaActual).value;
+if(posicion>-1){
+
+
+    document.getElementById('pedido' ).options[posicion].text = tipoDelista+": "+document.getElementById(varlistaActual).value;
+    document.getElementById('pedido' ).options[posicion].value = producto;
+}else{
+
+
+
+if(varlistaActual=="primeros"){
+    $("#pedido option[value='Menu: Vacio']").remove();
+
     var producto= document.getElementById(varlistaActual).value;
 
-                                var sel = document.getElementById("pedido");
+    var sel = document.getElementById("pedido");
 
 
-                                var opt = document.createElement('option');
+var opt = document.createElement('option');
 
 
-                                opt.appendChild( document.createTextNode(document.getElementById(varlistaActual).value) );
 
-                                opt.value = producto;
+opt.appendChild( document.createTextNode("Menu: "+{{$precio}}+"€"));
 
-                                // add opt to end of select box (sel)
-                                sel.appendChild(opt);
+opt.value = "Menu: "+{{$precio}}+"€";
+
+sel.appendChild(opt);
+
+
+
+setTimeout(function(){
+var sel = document.getElementById("pedido");
+var opt = document.createElement('option');
+opt.appendChild( document.createTextNode("Segundo: vacio"));
+opt.value = "Segundo: vacio";
+sel.appendChild(opt);
+}, 50);
+
+setTimeout(function(){
+var sel = document.getElementById("pedido");
+var opt = document.createElement('option');
+opt.appendChild( document.createTextNode("Postre: vacio"));
+opt.value = "Postre: vacio";
+sel.appendChild(opt);
+}, 50);
+
+setTimeout(function(){
+var sel = document.getElementById("pedido");
+var opt = document.createElement('option');
+opt.appendChild( document.createTextNode("Bebida: vacio"));
+opt.value = "Bebida: vacio";
+sel.appendChild(opt);
+}, 50);
+
+
+
+
+
+}else{
+
+    alert("Debes agregar un primero");
+
+}
+
+
+
+
+/*
+
+
+var sel = document.getElementById("pedido");
+
+
+var opt = document.createElement('option');
+
+
+
+opt.appendChild( document.createTextNode(tipoDelista+": "+document.getElementById(varlistaActual).value) );
+
+opt.value = producto;
+
+// add opt to end of select box (sel)
+sel.appendChild(opt);*/
+
+}
+
+
+
+
+
+
+
+     /*   }{
+
+
+
+        }
+*/
+
 
 
     });
+
+
+
+
+function comprobarSiTipoYaEstaEnPedido(varlistaActual){
+
+    var tipoDelista=varlistaActual;
+
+
+    tipoDelista= tipoDelista[0].toUpperCase() +  tipoDelista.slice(1);
+
+
+
+tipoDelista = tipoDelista.substring(0, tipoDelista.length - 1);
+var myOpts = document.getElementById('pedido').options;
+
+for(var i=0;i<myOpts.length;i++){
+        if(myOpts[i].value.includes(tipoDelista)){
+           return false;
+        }
+}
+return true;
+
+}
 
 
 
@@ -216,7 +394,7 @@ var sel = document.getElementById("pedido");
                                 var opt = document.createElement('option');
 
 
-                                opt.appendChild( document.createTextNode(lastValue ));
+                                opt.appendChild( document.createTextNode("Producto: "+lastValue ));
 
                                 opt.value = lastValue;
 
@@ -246,7 +424,7 @@ function calcularPrecio(){
           }
 
 precioMessagge=document.getElementById("precio").textContent;
-document.getElementById("precio").textContent=precioMessagge+suma;
+document.getElementById("precio").textContent=suma;
 }
 
 
@@ -271,7 +449,66 @@ document.getElementById("precio").textContent=precioMessagge+suma;
 
                                 // add opt to end of select box (sel)
                                 sel.appendChild(opt);
+                                setTimeout(function() {
+                                    calcularPrecio();
+}, 500);
+
 
 
     });
+
+
+
+    $("#crearPedido").click(function (e) {
+        e.preventDefault();
+
+    var nombre= document.getElementById("nombre").value;
+    var email= document.getElementById("email").value;
+    var mesa= document.getElementById("mesa").value;
+        var token = '{{csrf_token()}}';
+        var data={
+            email:email,
+            nombre:nombre,
+            mesa:mesa,
+            _token:token,
+            _method:'POST'}
+        $.ajax({
+            type: "POST",
+            url: '/pedidos',
+            data: data,
+            success: function (data) {
+
+
+
+alert(data.success);
+
+
+
+
+
+            }
+            ,
+            error: function (data) {
+
+       console.log("error");
+
+
+            }
+
+
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

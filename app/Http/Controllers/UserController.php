@@ -71,6 +71,7 @@ $rol="";
         $user->save();
 
 
+        Session::flash('success', 'Usuario editado con exito!');
         return Redirect::to('usuario/'.$id);
     }
 
@@ -192,7 +193,10 @@ $user->save();
 //alert()->success('Videojuego agregado con exito!',
 //$juego->nombre)->persistent('Cerrar');
 
-return back()->with('exito', 'Usuario creado con exito');
+//return back()->with('exito', 'Usuario creado con exito');
+
+Session::flash('success', 'Usuario creado con exito!');
+return Redirect::to('usuarios/create');
 
 
     }

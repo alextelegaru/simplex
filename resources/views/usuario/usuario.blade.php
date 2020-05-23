@@ -31,7 +31,16 @@ line-height: /* adjust to tweak wierd fonts */;
 @extends('layouts.app')
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+@if (session()->has('success'))
+    <div class="alert alert-dismissable alert-success" id="mensaje">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>
+            {!! session()->get('success') !!}
+        </strong>
+    </div>
+@endif
     <div class=" border-primary row align-items-center justify-content-center">
         <div class="row">
 
@@ -116,6 +125,14 @@ line-height: /* adjust to tweak wierd fonts */;
 
 @endsection
 
+
+
+@section('script')
+
+setTimeout(function() {
+    $('#mensaje').fadeOut('fast');
+  }, 3000);
+@endsection
 
 @include('menu')
 

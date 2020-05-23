@@ -243,14 +243,21 @@ a.article:hover {
             <li>
                 <a class="negro" href="/contactanos">Contactanos</a>
             </li>
+            <li>
+                <a class="negro" href="/usuarios/create">Crear usuario</a>
+            </li>
+            <li>
+                <a class="negro" href="/pedidos/create">Hacer Pedido</a>
+            </li>
+
         </ul>
 
         <ul class="list-unstyled CTAs">
-            <li>
-              <!--  <a href="#" class="article">Download code</a>  -->
+            <!--    <li>
+            <a href="#" class="article">Download code</a>
 
                 <a class="download" href="{{ url('/menu') }}">Menu de Hoy</a>
-            </li>
+            </li>-->
 
 
             <li>

@@ -79,7 +79,7 @@ a:hover, a:visited, a:link, a:active
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('Simplex', 'Simplex') }}
 
 
