@@ -1,4 +1,7 @@
 
+@extends('layouts.app')
+
+@section('content')
 
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
@@ -10,12 +13,34 @@
 
 
 
-      <div class="row">
-    </select><button class="btn btn-danger" onclick="eliminar()">Eliminar</button>
-    <button class="btn btn-success" id="agregar">Agregar</button>
+<style>
 
 
-    <button class="btn btn-success" id="agregarProducto">Agregar Producto</button>
+    #precio{
+        color: red;
+        width: 17%;
+    }
+
+
+select {
+    width: 90%;
+
+}/*
+body {
+        overflow: hidden;
+    }*/
+option:hover{background-color:#05f5e9;}
+.subrayado{
+  text-decoration-line: underline;
+}
+</style>
+
+
+<div class="container">
+
+    <div class="row">
+
+
 
 
         <div class="col-sm-4" style="background-color:white;">   <h1>Primeros</h1>  <select id="primeros" size=5>
@@ -29,7 +54,11 @@ for($i=0;$i<$limite;$i++){
 ?>
 
 
-        </select></div>
+        </select>
+
+    </div>
+
+
 
 
         <div class="col-sm-4" style="background-color:white;">  <h1>Segundos</h1>  <select id="segundos" size=5>
@@ -43,49 +72,113 @@ for($i=0;$i<$limite;$i++){
 
 </select></div>
 
-        <!--
-        <button class="btn btn-danger" onclick="eliminar()">Eliminar Plato</button>
-        <button class="btn btn-success" id="guardar">Guardar Menu</button></div>  -->
 
-        <div class="col-sm-4" style="background-color:white;"> <h1>Postres</h1>   <select id="postres" size=5>
-            <?php
-            $limite=count($postres);
-            for($i=0;$i<$limite;$i++){
-                echo '<option value="'.$postres[$i].'">'.$postres[$i].'</option>';
+<div class="col-sm-4" style="background-color:white;"> <h1>Postres</h1>   <select id="postres" size=5>
+    <?php
+    $limite=count($postres);
+    for($i=0;$i<$limite;$i++){
+        echo '<option value="'.$postres[$i].'">'.$postres[$i].'</option>';
 
-            }
-            ?>
+    }
+    ?>
 
-        </select></div>
+</select></div>
 
-        <div class="col-sm-4" style="background-color:white;"> <h1>Bebidas</h1>   <select id="bebidas" size=5>
-            <?php
-            $limite=count($bebidas);
-            for($i=0;$i<$limite;$i++){
-                echo '<option value="'.$bebidas[$i].'">'.$bebidas[$i].'</option>';
+<div class="col-sm-4" style="background-color:white;"> <h1>Bebidas</h1>   <select id="bebidas" size=5>
+    <?php
+    $limite=count($bebidas);
+    for($i=0;$i<$limite;$i++){
+        echo '<option value="'.$bebidas[$i].'">'.$bebidas[$i].'</option>';
 
-            }
-            ?>
+    }
+    ?>
 
-        </select></div>
+</select>
+<button class="btn btn-success" id="agregar">Agregar</button></div>
+
+<div class="col-sm-4" style="background-color:white;">
+
+    <h1>Buscar Producto</h1>
+
+    <input list="brow" id="productoElegido" width="">
+    <datalist id="brow">
+        <?php
+        $limite=count($productosNombre);
+        for($i=0;$i<$limite;$i++){
+        echo '<option value="'.$productosNombre[$i].'">'.$productosNombre[$i].'</option>';
+
+        } ?>
+    </datalist>
+
+    <button class="btn btn-success" id="agregarProducto">Agregar Producto</button>
+<br>
+<form class="form-horizontal">
+    <h1>Datos Pedido</h1>
+                <div class="control-group">
+                    <label class="control-label" for="mesa">NºMesa</label>
+                    <div class="controls">
+
+    <input type="number" name="mesa" id="mesa" placeholder="0">
+                    </div>
+                </div>
+                <div class="control-group">
+
+                    <div class="controls form-inline">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre" placeholder="Obligatorio">
+
+                    </div>
+                    <label for="email">Correo</label>
+                    <input type="email" name="email" id="email" placeholder="Opcional" >
+
+                </div>
+                <button id="crearPedido" class="btn btn-success">Crear Pedido</button>
+            </form>
 
 
-        <div class="col-sm-4" style="background-color:white;"> <h1>Pedido</h1>   <select id="pedido" size=7>
-        <option value="Menu: Vacio">Menu: Vacio</option>
-
-
-        </select></div>
 
 
 
-            <input type="number" name="mesa" id="mesa">Mesa
-
-            <input type="text" name="nombre" id="nombre" placeholder="Obligatorio">Nombre
-            <input type="email" name="email" id="email" placeholder="Opcional" >Correo
 
 
 
-        <button id="crearPedido">Crear Pedido</button>
+
+
+
+</div>
+
+
+<div class="col-sm-4" style="background-color:white;"> <h1>Pedido</h1>   <select id="pedido" size=7>
+    <option value="Menu: Vacio">Menu: Vacio</option>
+
+
+    </select>
+
+
+
+    <strong>PRECIO</strong><strong><pre id="precio">  </pre></strong><button class="btn btn-danger" onclick="eliminar()">Eliminar</button></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="col-sm-1" style="background-color:white;">
+
+
+
+
+          </div>
+
+
 </div>
 
 
@@ -106,21 +199,44 @@ for($i=0;$i<$limite;$i++){
 
 
 
-<input list="brow" id="productoElegido">
-<datalist id="brow">
-    <?php
-    $limite=count($productosNombre);
-    for($i=0;$i<$limite;$i++){
-    echo '<option value="'.$productosNombre[$i].'">'.$productosNombre[$i].'</option>';
-
-    } ?>
-</datalist>
 
 
 
-<p id="precio">Precio:  </p>
+        <!--
+        <button class="btn btn-danger" onclick="eliminar()">Eliminar Plato</button>
+        <button class="btn btn-success" id="guardar">Guardar Menu</button></div>  -->
 
-<script>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@endsection
+
+
+
+
+
+@section("script")
 calcularPrecio();
 
 
@@ -584,8 +700,8 @@ alert(data.success);
 
 
 
+@endsection
 
 
+@include('menu')
 
-
-</script>
