@@ -14,7 +14,9 @@
 
 
 <style>
-
+.error {
+    border-color:red;
+}
 
     #precio{
         color: red;
@@ -35,7 +37,7 @@ option:hover{background-color:#05f5e9;}
 }
 </style>
 
-
+<div class="text-center" id="mensaje" style="display:none"></div>
 <div class="container">
 
     <div class="row">
@@ -43,7 +45,7 @@ option:hover{background-color:#05f5e9;}
 
 
 
-        <div class="col-sm-4" style="background-color:white;">   <h1>Primeros</h1>  <select id="primeros" size=5>
+        <div class="col-sm-4" style="background-color:white;">   <h3>Primeros</h3>  <select id="primeros" size=5>
 
             <?php
 $limite=count($primeros);
@@ -61,7 +63,7 @@ for($i=0;$i<$limite;$i++){
 
 
 
-        <div class="col-sm-4" style="background-color:white;">  <h1>Segundos</h1>  <select id="segundos" size=5>
+        <div class="col-sm-4" style="background-color:white;">  <h3>Segundos</h3>  <select id="segundos" size=5>
             <?php
             $limite=count($segundos);
             for($i=0;$i<$limite;$i++){
@@ -73,7 +75,7 @@ for($i=0;$i<$limite;$i++){
 </select></div>
 
 
-<div class="col-sm-4" style="background-color:white;"> <h1>Postres</h1>   <select id="postres" size=5>
+<div class="col-sm-4" style="background-color:white;"> <h3>Postres</h3>   <select id="postres" size=5>
     <?php
     $limite=count($postres);
     for($i=0;$i<$limite;$i++){
@@ -84,7 +86,7 @@ for($i=0;$i<$limite;$i++){
 
 </select></div>
 
-<div class="col-sm-4" style="background-color:white;"> <h1>Bebidas</h1>   <select id="bebidas" size=5>
+<div class="col-sm-4" style="background-color:white;"> <h3>Bebidas</h3>   <select id="bebidas" size=5>
     <?php
     $limite=count($bebidas);
     for($i=0;$i<$limite;$i++){
@@ -94,11 +96,11 @@ for($i=0;$i<$limite;$i++){
     ?>
 
 </select>
-<button class="btn btn-success" id="agregar">Agregar</button></div>
+<button class="btn btn-success" id="agregar">Agregar Al Menu</button></div>
 
 <div class="col-sm-4" style="background-color:white;">
 
-    <h1>Buscar Producto</h1>
+    <h3>Buscar Producto</h3>
 
     <input list="brow" id="productoElegido" width="">
     <datalist id="brow">
@@ -113,7 +115,7 @@ for($i=0;$i<$limite;$i++){
     <button class="btn btn-success" id="agregarProducto">Agregar Producto</button>
 <br>
 <form class="form-horizontal">
-    <h1>Datos Pedido</h1>
+    <h2>Datos Pedido</h2>
                 <div class="control-group">
                     <label class="control-label" for="mesa">NºMesa</label>
                     <div class="controls">
@@ -148,7 +150,7 @@ for($i=0;$i<$limite;$i++){
 </div>
 
 
-<div class="col-sm-4" style="background-color:white;"> <h1>Pedido</h1>   <select id="pedido" size=7>
+<div class="col-sm-4" style="background-color:white;"> <h2>Pedido</h2>   <select id="pedido" size=7>
     <option value="Menu: Vacio">Menu: Vacio</option>
 
 
@@ -250,7 +252,14 @@ $(document).ready(function() {
 
 
 
-
+function limpiar(){
+    setTimeout(
+  function()
+  {
+    $("#mensaje").text('');
+    $("#mensaje").css("display", "none");
+  }, 2000);
+}
 
 
 
@@ -668,15 +677,92 @@ document.getElementById("precio").textContent=suma;
         $.ajax({
             type: "POST",
             url: '/pedidos',
+            timeout:7000,
             data: data,
             success: function (data) {
 
 
 
-alert(data.success);
+
+
+                var original=data.success.toLowerCase();
+var hasNumber = /\d/;
+if(hasNumber.test(data.success)){
+
+    $("#mesa").removeClass("error");
+    $("#nombre").removeClass("error");
+    $("#email").removeClass("error");
+
+
+    var mensaje =  original.slice(2);
+    if(original.includes("mesa")){
+        document.getElementById("mesa").focus();
+        $("#mesa").addClass("error");
+        $('#mesa').val('');
+
+    }
+    if(original.includes("nombre")){
+        $("#nombre").addClass("error");
+        document.getElementById("nombre").focus();
+        $('#nombre').val('');
+
+    }
+
+    if(original.includes("correo")){
+        $("#email").addClass("error");
+        document.getElementById("email").focus();
+        $('#email').val('');
+
+    }
+
+    if(original.includes("realizado")){
+
+        $("#mensaje").attr('class', 'alert-success');
+        jQuery('.alert-success').show();
+        jQuery('.alert-success').append('<p>'+mensaje.replace(/\b\w/g, l => l.toUpperCase())+'</p>');
+    }else{
+
+        $("#mensaje").attr('class', 'alert-danger');
+        jQuery('.alert-danger').show();
+        jQuery('.alert-danger').append('<p>'+mensaje.replace(/\b\w/g, l => l.toUpperCase())+'</p>');
+
+    }
 
 
 
+
+
+
+
+
+
+
+}
+
+//pedido correcto
+if(original.includes("realizado")){
+    $("#mensaje").attr('class', 'alert-success');
+    jQuery('.alert-success').show();
+    jQuery('.alert-success').append('<p>'+original.replace(/\b\w/g, l => l.toUpperCase())+'</p>');
+
+    $('#email').val('');
+    $('#nombre').val('');
+    $('#mesa').val('');
+    $('#pedido').empty();
+    var sel = document.getElementById("pedido");
+var opt = document.createElement('option');
+opt.appendChild( document.createTextNode("Menu: Vacio"));
+
+opt.value ="Menu: Vacio";
+
+sel.appendChild(opt);
+    calcularPrecio();
+
+
+
+}
+
+limpiar();
 
 
             }
@@ -690,6 +776,8 @@ alert(data.success);
 
 
         });
+
+
     });
 
 

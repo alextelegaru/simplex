@@ -15,6 +15,7 @@ use Session;
 use Redirect;
 use Mail;
 use \ForceUTF8\Encoding;
+use League\CommonMark\Block\Element\Document;
 use Pedidos;
 
 class PedidoController extends Controller
@@ -244,12 +245,72 @@ if (menu::where('fecha','=',$hoy)->exists()) {
     }
 
 
+
+
+
+    function soloLetras( $string ) {
+        return preg_match( '/[a-zA-Z]/', $string );
+    }
+
+
+
+
+
 public function store(Request $request){
     $hoy = Carbon::now();
     $hoy = $hoy->format('Y-m-d');
 
 
     $datosPedido=$request->pedido;
+
+$limite=count($datosPedido);
+$error=null;
+for( $i=0;$i<$limite;$i++){
+
+        if (strpos($datosPedido[$i], 'vacio') !== false) {
+            $error="1 Menu incompleto.";
+        }
+
+        if (strpos($datosPedido[$i], 'Vacio') !== false) {
+            $error="2 Pedido vacio.";
+        }
+
+
+
+}
+
+if($request->nombre==null || $this->soloLetras($request->nombre)==false){
+    $error="3 Nombre incorrecto";
+}
+
+
+
+if($request->mesa==null ){
+    $error="4 NºMesa incorrecto";
+}
+
+
+
+
+if($request->email!=null){
+
+    if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+        $error="5 Correo incorrecto";
+      }
+
+}
+
+
+
+
+
+
+if($error==null){
+
+
+
+
+
     $datosPedidoLimpios=[];
     $productos=[];
     for($i=0;$i<count($datosPedido);$i++){
@@ -332,9 +393,29 @@ $pedido->fecha=$hoy;
 
 $pedido->save();
 
+$error="Pedido realizado";
+
+    return response()->json(['success'=>$error]);
 
 
-    return response()->json(['success'=>$request->precio]);
+
+
+
+
+
+
+
+
+}else{
+    return response()->json(['success'=>$error]);
+}
+
+
+
+
+
+
+
 
 
 }
