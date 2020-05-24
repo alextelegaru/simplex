@@ -55,8 +55,39 @@ public function getNames($bruto){
 }
 
 
+
+public function getPedidos(){
+
+
+    $hoy = Carbon::now();
+    $hoy = $hoy->format('Y-m-d');
+
+
+    if (pedido::where('fecha','=',$hoy)->exists()) {
+
+        $pedidos=pedido::where('fecha',$hoy)->get();
+
+        return response()->json($pedidos);
+
+    }
+
+
+
+
+}
+
+
+
+
+
     public function index()
-    {/*
+    {
+
+
+
+
+
+        /*
         $primeros=producto::where('tipo','primero')->get(['nombre']);
         $segundos=producto::where('tipo','segundo')->get(['nombre']);
         $postres=producto::where('tipo','postre')->get(['nombre']);
