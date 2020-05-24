@@ -163,11 +163,40 @@ var x = document.getElementById('pedido');
 
 
     }else{
-        if(x!=null){
+
+        if(valorAQuitar.includes("Primero:") ||valorAQuitar.includes("Segundo:") || valorAQuitar.includes("Postre:")||valorAQuitar.includes("Bebida:") ){
+alert("Seleccione Menu para eliminarlo.")
+        }else{
+            if(x!=null){
     x.remove(x.selectedIndex);
+        }
+
+
+
+
+
   }
+
+
+
+
+
+
     }
 
+
+    var pedido=  $("#pedido option").map(function() {return $(this).val();}).get();
+    if(pedido.length==0){
+
+
+var sel = document.getElementById("pedido");
+var opt = document.createElement('option');
+opt.appendChild( document.createTextNode("Menu: Vacio"));
+
+opt.value ="Menu: Vacio";
+
+sel.appendChild(opt);
+    }
 
 
 
