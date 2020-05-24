@@ -141,11 +141,37 @@ $(document).ready(function() {
 
 function eliminar() {
 
-
+var x = document.getElementById('pedido');
 
     var posicionEliminar=$("#pedido").prop('selectedIndex');
 
 
+    var valorAQuitar = document.getElementById("pedido").value;
+
+
+
+    if(valorAQuitar.includes("Menu:")){
+
+
+
+
+            quitarMenu(posicionEliminar);
+            quitarMenu(posicionEliminar);
+            quitarMenu(posicionEliminar);
+            quitarMenu(posicionEliminar);
+            quitarMenu(posicionEliminar);
+
+
+    }else{
+        if(x!=null){
+    x.remove(x.selectedIndex);
+  }
+    }
+
+
+
+
+/*
 if(posicionEliminar==0){
 
     var lista = document.getElementById('pedido');
@@ -180,7 +206,7 @@ if(posicionEliminar>=4){
 
 }
 
-
+*/
 
 
 
@@ -223,7 +249,7 @@ if(posicion>-1){
 
 
     document.getElementById('pedido' ).options[posicion].text = tipoDelista+": "+document.getElementById(varlistaActual).value;
-    document.getElementById('pedido' ).options[posicion].value = producto;
+    document.getElementById('pedido' ).options[posicion].value = tipoDelista+": "+document.getElementById(varlistaActual).value;
 }else{
 
 
@@ -246,6 +272,17 @@ opt.value = "Menu: "+{{$precio}}+"€";
 
 sel.appendChild(opt);
 
+
+
+
+
+setTimeout(function(){
+var sel = document.getElementById("pedido");
+var opt = document.createElement('option');
+opt.appendChild( document.createTextNode("Primero: "+producto));
+opt.value = "Primero: "+producto;
+sel.appendChild(opt);
+}, 50);
 
 
 setTimeout(function(){
@@ -318,7 +355,7 @@ sel.appendChild(opt);*/
 */
 
 
-
+calcularPrecio();
     });
 
 
@@ -396,7 +433,7 @@ var sel = document.getElementById("pedido");
 
                                 opt.appendChild( document.createTextNode("Producto: "+lastValue ));
 
-                                opt.value = lastValue;
+                                opt.value = "Producto: "+lastValue;
 
                                 // add opt to end of select box (sel)
                                 sel.appendChild(opt);
@@ -412,6 +449,12 @@ var sel = document.getElementById("pedido");
 
 
 
+function quitarMenu(posicionEliminar){
+    var selectobject = document.getElementById("pedido");
+    for (var i=posicionEliminar; i<posicionEliminar+1; i++) {
+        selectobject.remove(i);
+}
+}
 
 
 
@@ -432,9 +475,9 @@ document.getElementById("precio").textContent=suma;
 
     $("#agregarProducto").click(function (e) {
         e.preventDefault();
-
+        $("#pedido option[value='Menu: Vacio']").remove();
     var producto= document.getElementById('productoElegido').value;
-    console.log(producto);
+
     var precio=getPrecio(producto);
 
                                 var sel = document.getElementById("pedido");
@@ -451,7 +494,7 @@ document.getElementById("precio").textContent=suma;
                                 sel.appendChild(opt);
                                 setTimeout(function() {
                                     calcularPrecio();
-}, 500);
+}, 1000);
 
 
 
@@ -465,11 +508,16 @@ document.getElementById("precio").textContent=suma;
     var nombre= document.getElementById("nombre").value;
     var email= document.getElementById("email").value;
     var mesa= document.getElementById("mesa").value;
+    var pedido=  $("#pedido option").map(function() {return $(this).val();}).get();
+    var precio= document.getElementById("precio").textContent;
+
         var token = '{{csrf_token()}}';
         var data={
             email:email,
             nombre:nombre,
             mesa:mesa,
+            pedido:pedido,
+            precio:precio,
             _token:token,
             _method:'POST'}
         $.ajax({

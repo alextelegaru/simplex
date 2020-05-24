@@ -249,14 +249,92 @@ public function store(Request $request){
     $hoy = $hoy->format('Y-m-d');
 
 
+    $datosPedido=$request->pedido;
+    $datosPedidoLimpios=[];
+    $productos=[];
+    for($i=0;$i<count($datosPedido);$i++){
+        if (strpos($datosPedido[$i], 'Menu') !== false) {
+            $dfdf="";
+        }else{
+            if (strpos($datosPedido[$i], 'Producto:') !== false){
+
+                $productos[]=  trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Producto:'))),". €");
+
+            }else{
+
+                if (strpos($datosPedido[$i], 'Primero:') !== false){
+                    $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Primero:'))),". €");
+
+
+                }else{
+
+                    if (strpos($datosPedido[$i], 'Segundo:') !== false){
+                        $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Segundo:'))),". €");
+
+
+                    }else{
+
+                        if (strpos($datosPedido[$i], 'Postre:') !== false){
+                            $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Postre:'))),". €");
+
+
+                        }else{
+                            if (strpos($datosPedido[$i], 'Bebida:') !== false){
+                                $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Bebida:'))),". €");
+
+
+                            }
+
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+        }
+    }
 
 $pedido=new Pedido;
+$pedido->nombre=$request->nombre;
+$pedido->correo=$request->email;
+$pedido->nMesa=$request->mesa;
+$pedido->menu=$datosPedidoLimpios;
+$pedido->productos=$productos;
+$pedido->precio=$request->precio;
+$pedido->fecha=$hoy;
 
 $pedido->save();
 
 
 
-    return response()->json(['success'=>"jaja"]);
+    return response()->json(['success'=>$request->precio]);
 
 
 }
