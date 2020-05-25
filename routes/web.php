@@ -72,4 +72,4 @@ Route::post('/confirmar/{id}','PedidoController@confirmar');
 
 
 
-Route::get('/modificar/{mesa}/{nombre}','PedidoController@modificar');
+Route::get('/modificar/{fecha}/{mesa}/{nombre}','PedidoController@modificar');

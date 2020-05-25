@@ -196,10 +196,67 @@ public function confirmar(Request $request,$id){
 
 
 
-public function modificar(Request $request,$mesa,$nombre) {
+public function modificar(Request $request,$fecha,$mesa,$nombre) {
 
-$pedido=pedido::where('nMesa' , '=' ,$mesa)->where('nombre' , '=' ,$nombre)->first();
-return response()->json($pedido);
+
+    $pedido=pedido::where('fecha' , '=' ,$fecha)->where('nMesa' , '=' ,$mesa)->where('nombre' , '=' ,$nombre)->first();
+
+    $menu=menu::where('fecha',$fecha)->get();
+
+    $primeros=$menu[0]->primeros;
+    $segundos=$menu[0]->segundos;
+    $postres=$menu[0]->postres;
+    $bebidas=$menu[0]->bebidas;
+    $precio=$menu[0]->precio;
+    $fecha=$menu[0]->fecha;
+
+
+
+    $pedido=pedido::where('nMesa' , '=' ,$mesa)->where('nombre' , '=' ,$nombre)->first();
+    $productos=Producto::all();
+
+
+    $limite=count($productos);
+
+    $productosId=[];
+    $productosNombre=[];
+    $productosPrecio=[];
+
+
+
+
+    for($i=0;$i<$limite;$i++){
+
+                $productosNombre[]=$productos[$i]['nombre'];
+                $productosId[]=$productos[$i]['id'];
+                $productosPrecio[]=$productos[$i]['precio'];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return view("pedido.modificarPedido",compact('pedido','primeros','segundos','postres','precio','fecha','bebidas','productosId','productosNombre','productosPrecio'));
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
