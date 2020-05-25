@@ -66,3 +66,10 @@ Route::get('contactanos',function(){
 
 Route::get('/precio','PedidoController@precio');
 Route::get('/getPedidos','PedidoController@getPedidos');
+
+
+Route::post('/confirmar/{id}','PedidoController@confirmar');
+
+
+
+Route::get('/modificar/{mesa}/{nombre}','PedidoController@modificar');

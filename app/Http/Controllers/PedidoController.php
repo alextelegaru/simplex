@@ -59,17 +59,16 @@ public function getNames($bruto){
 public function getPedidos(){
 
 
-    $hoy = Carbon::now();
-    $hoy = $hoy->format('Y-m-d');
 
 
-    if (pedido::where('fecha','=',$hoy)->exists()) {
 
-        $pedidos=pedido::where('fecha',$hoy)->get();
+
+
+        $pedidos=pedido::all();
 
         return response()->json($pedidos);
 
-    }
+
 
 
 
@@ -184,10 +183,24 @@ if (menu::where('fecha','=',$fecha)->exists()) {
 
 
 
-public function edit($fecha) {
+public function confirmar(Request $request,$id){
 
-/*
-    return response()->json("HOLA");*/
+
+
+    $pedido = pedido::where('_id' , '=' ,$id)->first();
+  $pedido->estado = true;
+  $pedido->save();
+
+    return response()->json("ok");
+}
+
+
+
+public function modificar(Request $request,$mesa,$nombre) {
+
+$pedido=pedido::where('nMesa' , '=' ,$mesa)->where('nombre' , '=' ,$nombre)->first();
+return response()->json($pedido);
+
 }
 
 
@@ -420,6 +433,7 @@ $pedido->nMesa=$request->mesa;
 $pedido->menu=$datosPedidoLimpios;
 $pedido->productos=$productos;
 $pedido->precio=$request->precio;
+$pedido->estado=false;
 $pedido->fecha=$hoy;
 
 $pedido->save();

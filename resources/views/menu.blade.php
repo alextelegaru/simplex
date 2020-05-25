@@ -210,7 +210,7 @@ a.article:hover {
 
 
 <li>
-    <a  class="negro" href="{{ url('/menu') }}">Menu de Hoy</a>
+    <a  class="negro" href="{{ url('/menu') }}" id="menuDeHoy">Menu de Hoy</a>
 </li>
 
 
@@ -227,10 +227,10 @@ a.article:hover {
 
                     </li>
                     <li>
-                        <a class="negro" href="{{ url('/menu/9999-01-01') }}">Crear Menu</a>
+                        <a class="negro" href="{{ url('/menu') }}"  id="crearMenuHoy">Crear Menu</a>
                     </li>
                     <li>
-                        <a class="negro" href="{{ url('/menu/9999-01-01') }}">Editar Menu</a>
+                        <a class="negro" href="{{ url('/menu') }}" id="editarMenuHoy">Editar Menu</a>
                     </li>
 
                     <li>
@@ -319,6 +319,23 @@ a.article:hover {
 			});
         });
 
+
+
+
+
+
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today =yyyy+ '-' + mm + '-' + dd  ;
+
+document.getElementById("menuDeHoy").href=document.getElementById("menuDeHoy").href+"/"+today;
+document.getElementById("crearMenuHoy").href=document.getElementById("crearMenuHoy").href+"/"+today;
+
+document.getElementById("editarMenuHoy").href=document.getElementById("editarMenuHoy").href+"/"+today;
 	</script>
 
 

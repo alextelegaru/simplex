@@ -643,7 +643,7 @@ document.getElementById("precio").textContent=suma;
                                 opt.appendChild( document.createTextNode(producto ));
 
                                 opt.value = producto;
-
+                                $('#productoElegido').val('');
                                 // add opt to end of select box (sel)
                                 sel.appendChild(opt);
                                 setTimeout(function() {
@@ -748,7 +748,13 @@ if(original.includes("realizado")){
     $('#email').val('');
     $('#nombre').val('');
     $('#mesa').val('');
+    $('#productoElegido').val('');
     $('#pedido').empty();
+
+    $("#mesa").removeClass("error");
+    $("#nombre").removeClass("error");
+    $("#email").removeClass("error");
+
     var sel = document.getElementById("pedido");
 var opt = document.createElement('option');
 opt.appendChild( document.createTextNode("Menu: Vacio"));

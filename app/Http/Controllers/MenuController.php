@@ -208,12 +208,17 @@ public function edit($fecha) {
 
 
 
-        $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
-        $menuAnterior = menu::find($menuAnterior[0]->id);
-        $menuAnterior->delete();
+        $menu = menu::where('fecha' , '=' ,$request->fecha)->first();
+       // $menu->estado = true;
+
+
+
+        //$menuAnterior = menu::where('fecha','=',$request->fecha )->get();
+        //$menuAnterior = menu::find($menuAnterior[0]->id);
+        //$menuAnterior->delete();
 
         $bebidas=producto::where('tipo','bebida')->get(['nombre']);
-        $menu=new menu();
+        //$menu=new menu();
         $menu->primeros=$request->primeros;
         $menu->segundos=$request->segundos;
         $menu->postres=$request->postres;
