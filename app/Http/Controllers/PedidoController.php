@@ -196,10 +196,10 @@ public function confirmar(Request $request,$id){
 
 
 
-public function modificar(Request $request,$fecha,$mesa,$nombre) {
+public function modificar(Request $request,$fecha,$nombre) {
 
 
-    $pedido=pedido::where('fecha' , '=' ,$fecha)->where('nMesa' , '=' ,$mesa)->where('nombre' , '=' ,$nombre)->first();
+    $pedido=pedido::where('fecha' , '=' ,$fecha)->where('nombre' , '=' ,$nombre)->first();
 
     $menu=menu::where('fecha',$fecha)->get();
 
@@ -212,7 +212,7 @@ public function modificar(Request $request,$fecha,$mesa,$nombre) {
 
 
 
-    $pedido=pedido::where('nMesa' , '=' ,$mesa)->where('nombre' , '=' ,$nombre)->first();
+   // $pedido=pedido::where('nMesa' , '=' ,$mesa)->where('nombre' , '=' ,$nombre)->first();
     $productos=Producto::all();
 
 
@@ -268,8 +268,170 @@ public function modificar(Request $request,$fecha,$mesa,$nombre) {
 
 
 
-    public function update(Request $request,$fecha)
+    public function actualizar(Request $request)
     {
+
+        $hoy = $request->fecha;
+
+       // $pedido=pedido::where('fecha' , '=' ,$request->fecha)->where('nMesa' , '=' ,$request->mesa)->where('nombre' , '=' ,$request->nombre)->first();
+
+       $pedido=pedido::where('fecha' , '=' ,$request->fecha)->where('nombre' , '=' ,$request->nombre)->first();
+
+
+
+    $datosPedido=$request->pedido;
+
+$limite=count($datosPedido);
+$error=null;
+for( $i=0;$i<$limite;$i++){
+
+        if (strpos($datosPedido[$i], 'vacio') !== false) {
+            $error="1 Menu incompleto.";
+        }
+
+        if (strpos($datosPedido[$i], 'Vacio') !== false) {
+            $error="2 Pedido vacio.";
+        }
+
+
+
+}
+
+if($request->nombre==null || $this->soloLetras($request->nombre)==false){
+    $error="3 Nombre incorrecto";
+}
+
+
+
+if($request->mesa==null ){
+    $error="4 NºMesa incorrecto";
+}
+
+
+
+
+if($request->email!=null){
+
+    if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+        $error="5 Correo incorrecto";
+      }
+
+}
+
+
+
+
+
+
+if($error==null){
+
+
+
+
+
+    $datosPedidoLimpios=[];
+    $productos=[];
+    for($i=0;$i<count($datosPedido);$i++){
+        if (strpos($datosPedido[$i], 'Menu') !== false) {
+            $dfdf="";
+        }else{
+            if (strpos($datosPedido[$i], 'Producto:') !== false){
+
+                $productos[]=  trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Producto:'))),". €");
+
+            }else{
+
+                if (strpos($datosPedido[$i], 'Primero:') !== false){
+                    $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Primero:'))),". €");
+
+
+                }else{
+
+                    if (strpos($datosPedido[$i], 'Segundo:') !== false){
+                        $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Segundo:'))),". €");
+
+
+                    }else{
+
+                        if (strpos($datosPedido[$i], 'Postre:') !== false){
+                            $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Postre:'))),". €");
+
+
+                        }else{
+                            if (strpos($datosPedido[$i], 'Bebida:') !== false){
+                                $datosPedidoLimpios[]=trim(preg_replace('/[0-9]+/', '',substr($datosPedido[$i],strlen('Bebida:'))),". €");
+
+
+                            }
+
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+        }
+    }
+
+//$pedido=new Pedido;
+
+$pedido->nombre=$request->nombre;
+$pedido->correo=$request->email;
+$pedido->nMesa=$request->mesa;
+$pedido->menu=$datosPedidoLimpios;
+$pedido->productos=$productos;
+$pedido->precio=$request->precio;
+$pedido->estado=false;
+
+
+$pedido->save();
+
+$error="Pedido actualizado.";
+
+    return response()->json(['success'=>$error]);
+
+
+
+
+
+
+
+
+
+
+}else{
+    return response()->json(['success'=>$error]);
+}
+
+
+
 
 
 
