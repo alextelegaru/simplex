@@ -89,9 +89,10 @@ line-height: /* adjust to tweak wierd fonts */;
 
       @if($rol  == 'admin')
     <option  <?php if( $usuario['rol']  == 'admin' ): ?> selected="selected"<?php endif; ?> value="admin">Admin</option>
+    <option  <?php if( $usuario['rol']  == 'cocinera' ): ?> selected="selected"<?php endif; ?> value="cocinera">Cocinera</option>
+    <option  <?php if( $usuario['rol']  == 'cocinero' ): ?> selected="selected"<?php endif; ?> value="cocinero">Cocinero</option>
     <option  <?php if( $usuario['rol']  == 'camarera' ): ?> selected="selected"<?php endif; ?> value="camarera">Camarera</option>
     <option  <?php if( $usuario['rol']  == 'camarero' ): ?> selected="selected"<?php endif; ?> value="camarero">Camarero</option>
-    <option  <?php if( $usuario['rol']  == 'cocinera' ): ?> selected="selected"<?php endif; ?> value="cocinera">Cocinera</option>
 
     @else
     <option    selected="selected" value=<?php echo $usuario['rol'];?> ><?php echo ucfirst($usuario['rol']); ?></option>

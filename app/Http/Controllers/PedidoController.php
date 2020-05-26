@@ -191,7 +191,7 @@ public function confirmar(Request $request,$id){
   $pedido->estado = true;
   $pedido->save();
 
-    return response()->json("ok");
+    return response()->json("Pedido confirmado con exito.");
 }
 
 
@@ -705,32 +705,12 @@ $error="Pedido realizado";
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function destroy($id)
     {
-        // delete
+        $pedido=pedido::find($id);
+       // $pedido->delete();
 
-        //$user->delete();
+        return response()->json(['success'=>"Pedido eliminado con exito."]);
 
 
 

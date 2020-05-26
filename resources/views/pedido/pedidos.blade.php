@@ -6,9 +6,24 @@
 
 
 
+<style>
+
+.marcado {
+            background-color: yellow;
+            color: red;
+            width: 75%;
+         }
+         .marcado2 {
+            background-color: green;
+            color: white;
+            width: 75%;
+         }
+</style>
+
+
 
 <div id="resultado" class="row">
-
+    <div class="text-center" id="mensaje" style="display:none"></div>
 
 
 
@@ -21,16 +36,24 @@
 
 <script>
 
-@if (Auth::user()->rol=="cocinero")
+
+
 
 refresh();
 
-
 setInterval(function(){
-    refresh(); // this will run after every 5 seconds
+    $("#resultado").empty();
+    var div = document.getElementById('resultado');
+
+    div.innerHTML="<div class='text-center' id='mensaje' style='display:none'></div>";
 
 
-jQuery('#resultado div').html('');
+    //jQuery('#resultado div').html('');
+
+     refresh(); // this will run after every 5 seconds
+
+
+
 
 
 },10000);
@@ -52,7 +75,7 @@ function refresh()
         limite=data.length;
         var div = document.getElementById('resultado');
 
-        var contenido="<div >";
+        var contenido="";
         for(var i = 0; i < limite; i++)
         {
 
@@ -70,8 +93,8 @@ function refresh()
 
 
 
-                if(data[i].estado==false){
-                    contenido+="              <div class='container-fluid text-center'>    <h5>";
+
+                    contenido+="              <div class='col-sm-2'>    <h5>";
                 contenido+="<strong>Mesa:"+data[i].nMesa+"</strong>";
 
                 contenido+="      </h5>   ";
@@ -97,23 +120,48 @@ for(var o=0;o<limite5;o++){
                 contenido+=data[i].productos;
 
                 //contenido+="<h5>";
-
+                    @if (Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera" ||Auth::user()->rol=="admin" )
 
                     contenido+="<br>   <button  class='btn btn-success' name='id' onclick='confirmar(this)' value='"+data[i]._id+"'>TERMINADO</button> " ;
-
-                    //contenido+="Estado: "+"PREPARANDO" ;
-
-
+                    @endif
+                    @if (Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera" ||Auth::user()->rol=="admin" )
 
 
-                contenido+=" </div></div>";
+                    if(data[i].estado==false){
 
 
 
 
 
+                    contenido+="<br><p class='marcado'>Estado: PREPARANDO</p> " ;
+                    }else{
+                        contenido+="<pre class='marcado2'>Estado:   Listo</pre> " ;
+                        contenido+="<pre class='marcado2'>Precio: "+data[i].precio   + "€</pre> " ;
+                    }
 
-                }
+
+
+                    contenido+=" <button  class='btn btn-danger' name='id' onclick='eliminar(this)' value='"+data[i]._id+"'>ELIMINAR PEDIDO</button> " ;
+
+                    @endif
+
+
+
+
+
+                    //
+
+
+
+
+                contenido+=" </div>";
+
+
+
+
+
+
+
 
 
 
@@ -151,7 +199,11 @@ for(var o=0;o<limite5;o++){
 
         },
         success: function(result) {
-            alert('ok');
+
+
+            $("#mensaje").attr('class', 'alert-success');
+    jQuery('.alert-success').show();
+    jQuery('.alert-success').append('<p>'+result+'</p>');
         },
         error: function(result) {
             alert('error');
@@ -167,7 +219,37 @@ for(var o=0;o<limite5;o++){
 
 
 
-@endif
+
+
+
+
+function eliminar(objButton) {
+    var id=objButton.value;
+
+var token = '{{csrf_token()}}';
+var data={
+    _token:token,
+    _method:'delete'}
+$.ajax({
+    type: "POST",
+    url: '/pedidos/'+id,
+    data: data,
+    success: function (data) {
+                      if(data.success){
+                        $("#mensaje").attr('class', 'alert-success');
+                        jQuery('.alert-success').show();
+                          jQuery('.alert-success').append('<p>'+data.success+'</p>');
+                            console.log(data.success);
+
+                      }}
+    ,
+    error: function (data) {
+
+console.log("error");
+    }
+});
+
+  }
 
 
 
@@ -177,18 +259,7 @@ for(var o=0;o<limite5;o++){
 
 
 
-refresh();
-
-
-setInterval(function(){
-    refresh(); // this will run after every 5 seconds
-
-
-jQuery('#resultado div').html('');
-
-
-},10000);
-
+/*
 function refresh()
   {
 
@@ -211,6 +282,6 @@ function refresh()
 
 }
     });
-  }
+  }*/
 
   </script>
