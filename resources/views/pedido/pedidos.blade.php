@@ -51,10 +51,12 @@
         </select>
 
     </div>
-    <strong>PRECIO</strong><strong><pre id="precio">  </pre></strong>
-    Recibido<input type="number" id="dineroDado" step="any"><br>
-    Cambio<input type="text" id="cambio" step="any"><br>
-    <button class="btn btn-danger block pagar">Pagar</button>
+    <strong>TOTAL</strong><strong><pre id="precio" class=" text-center">  </pre></strong>
+    <strong>Recibido</strong><input type="text" id="dineroDado"  onkeyup="calcular()"><br>
+     <pre type="text" class="text-center pagar display-2" id="cambio" >0.0</pre>
+
+    <button class="btn btn-danger block pagar">Cobrar</button><br>
+    <button class="btn btn-success block pagar ">Imprimir</button>
 </div>
 <br><br><br><br><br>
 
@@ -75,6 +77,24 @@
 
 <script>
 
+function calcular(){
+precio=parseFloat(document.getElementById("precio").textContent);
+dado=Math.abs(document.getElementById("dineroDado").value);
+if(dado>=precio){
+   // alert(dado-precio);
+  // value = Math.Truncate(100 * value) / 100;
+  var num = dado-precio,
+ num= num.toFixed(2);
+    //var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+
+    document.getElementById("cambio").textContent=num.toString()+"€";
+
+}else{
+    document.getElementById("cambio").textContent=0.0+"€";
+}
+
+
+}
 
 
 
@@ -292,7 +312,7 @@ info=document.getElementById(bjButton.value).childNodes[i].innerText;
 
 
 info=document.getElementById(bjButton.value).children[9].id;
-$('#precio').text(info);
+$('#precio').text(info+"€");
 
 
 
