@@ -18,16 +18,50 @@
             color: white;
             width: 75%;
          }
+
+         #caja{
+             margin-left: 70%;
+         }
+
+
+         #precio{
+        color: red;
+        width: 17%;
+    }
 </style>
+@if (\Session::has('success'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
+
+<div class="text-center" id="mensaje" style="display:none"></div>
+
+<div id="caja" class=" container-fluid">
+    <div>
+    <h1>Caja</h1>
+    <select id="cajas" size=7>
+        <option value="Vacio">Vacio</option>
+
+
+        </select>
+
+    </div>
+    <strong>PRECIO</strong><strong><pre id="precio">  </pre></strong>
+</div>
+<br><br><br><br><br>
 
 
 
-<div id="resultado" class="row">
-    <div class="text-center" id="mensaje" style="display:none"></div>
+<div id="resultado" class="row ">
+
 
 
 
 </div>
+
 
 
 
@@ -45,7 +79,7 @@ setInterval(function(){
     $("#resultado").empty();
     var div = document.getElementById('resultado');
 
-    div.innerHTML="<div class='text-center' id='mensaje' style='display:none'></div>";
+    div.innerHTML="<div class=' container-fluid' id='mensaje' style='display:none'></div>";
 
 
     //jQuery('#resultado div').html('');
@@ -56,7 +90,7 @@ setInterval(function(){
 
 
 
-},10000);
+},100000);
 
 function refresh()
   {
@@ -94,7 +128,7 @@ function refresh()
 
 
 
-                    contenido+="              <div class='col-sm-2'>    <h5>";
+                    contenido+="              <div class='col-sm-2' id='"+data[i]._id+"'>    <h5>";
                 contenido+="<strong>Mesa:"+data[i].nMesa+"</strong>";
 
                 contenido+="      </h5>   ";
@@ -106,7 +140,7 @@ function refresh()
 
 var limite5=data[i].menu.length;
 for(var o=0;o<limite5;o++){
-    contenido+=data[i].menu[o]+"<br>";
+    contenido+="<p>"+data[i].menu[o]+"</p"+"<br>";
 
 }
 
@@ -117,7 +151,7 @@ for(var o=0;o<limite5;o++){
 
                 contenido+="";
 
-                contenido+=data[i].productos;
+                contenido+="<p>"+data[i].productos+"</p>";
 
                 //contenido+="<h5>";
                     @if (Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera" ||Auth::user()->rol=="admin" )
@@ -133,15 +167,27 @@ for(var o=0;o<limite5;o++){
 
 
 
-                    contenido+="<br><p class='marcado'>Estado: PREPARANDO</p> " ;
-                    }else{
-                        contenido+="<pre class='marcado2'>Estado:   Listo</pre> " ;
-                        contenido+="<pre class='marcado2'>Precio: "+data[i].precio   + "€</pre> " ;
-                    }
+                  /*  contenido+="<br><p class='marcado'>PREPARANDO</p> " ;*/
 
 
 
+                    contenido+=" <button  class='btn btn-warning' name='id' onclick='modificar(this)' value='"+data[i]._id+"'>MODIFICAR PEDIDO</button> " ;
                     contenido+=" <button  class='btn btn-danger' name='id' onclick='eliminar(this)' value='"+data[i]._id+"'>ELIMINAR PEDIDO</button> " ;
+
+
+
+
+
+                    }else{
+                        contenido+="<pre class='marcado2'>Listo</pre> " ;
+                      contenido+="<pre class='marcado2' id='"+data[i].precio+  "' hidden  value='"+data[i].precio+  "' ></pre> " ;
+
+                    contenido+=" <button  class='btn btn-warning' name='id' onclick='agregarCaja(this)' value='"+data[i]._id+"'>ENVIAR CAJA</button> " ;
+                }
+
+
+
+
 
                     @endif
 
@@ -217,8 +263,32 @@ for(var o=0;o<limite5;o++){
 
 }
 
+function agregarCaja(bjButton){
+var limite=document.getElementById(bjButton.value).childNodes.length;
+var info="";
+for(var i=3;i<limite-3;i++){
+info=document.getElementById(bjButton.value).childNodes[i].innerText;
+    $('#cajas').append(new Option(info, info));
+}
 
 
+
+info=document.getElementById(bjButton.value).children[9].id;
+document.getElementById(precio).innerText=info;
+
+
+
+}
+
+
+function modificar(objButton){
+    var baseUrl = document.location.origin;
+
+
+
+    window.location.href = baseUrl+"/modificar/"+objButton.value;
+
+}
 
 
 

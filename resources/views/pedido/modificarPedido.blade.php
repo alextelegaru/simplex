@@ -44,7 +44,7 @@ option:hover{background-color:#05f5e9;}
 
 
 
-<input type="date" name="fecha" id="fecha" value={{$pedido->fecha}} hidden>
+<input type="text" name="id" id="id" value={{$pedido->id}} hidden>
         <div class="col-sm-4" style="background-color:white;">   <h3>Primeros</h3>  <select id="primeros" size=5>
 
             <?php
@@ -700,7 +700,8 @@ document.getElementById("precio").textContent=suma;
 
     $("#actualizarPedido").click(function (e) {
         e.preventDefault();
-        var fecha= document.getElementById("fecha").value;
+
+        var id=document.getElementById("id").value;
     var nombre= document.getElementById("nombre").value;
     var email= document.getElementById("email").value;
     var mesa= document.getElementById("mesa").value;
@@ -709,7 +710,7 @@ document.getElementById("precio").textContent=suma;
 
         var token = '{{csrf_token()}}';
         var data={
-            fecha:fecha,
+
             email:email,
             nombre:nombre,
             mesa:mesa,
@@ -719,7 +720,7 @@ document.getElementById("precio").textContent=suma;
             _method:'POST'}
         $.ajax({
             type: "POST",
-            url: '/actualizar',
+            url: '/actualizar/'+id,
             timeout:7000,
             data: data,
             success: function (data) {
@@ -821,7 +822,7 @@ sel.appendChild(opt);
 
 }
 
-limpiar();
+
 
 
             }

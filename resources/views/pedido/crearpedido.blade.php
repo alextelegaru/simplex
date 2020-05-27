@@ -751,7 +751,7 @@ if(original.includes("realizado")){
     $('#productoElegido').val('');
     $('#pedido').empty();
 
-    $("#mesa").removeClass("error");
+     $("#mesa").removeClass("error");
     $("#nombre").removeClass("error");
     $("#email").removeClass("error");
 
