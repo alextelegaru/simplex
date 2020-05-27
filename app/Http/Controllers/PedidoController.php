@@ -82,7 +82,7 @@ public function cobrar(Request $request,$id){
 
     $pedido=pedido::where('_id' , '=' ,$id)->first();
 $pedido->estado=null;
-$pedido->save();
+//$pedido->save();
     return response()->json(['success'=>'Pedido Cobrado ' ]);
 
 }
@@ -193,11 +193,41 @@ if (menu::where('fecha','=',$fecha)->exists()) {
     }
 
 
-    public function imprimir(){
-$hola="asasass";
-        $pdf = \PDF::loadView('imprimir',compact('hola'));
-        return $pdf->download('imprimir.pdf');
+
+
+
+
+    public function imprimir($id,$pago,$cambio,$nombre){
+
+        $fecha = Carbon::now();
+            $pedido=pedido::where('_id' , '=' ,$id)->first();
+
+
+       // $pdf = \PDF::loadView('imprimir',compact('pedido'));
+        //redirect( $pdf->download('imprimir.pdf')) ;
+
+
+/*
+        $pdf =\PDF::loadView('imprimir', compact('post'));
+
+        $path = public_path('app/public');
+        $fileName =  'hola' . '.' . 'pdf' ;
+        $pdf->save($path . '/' . $fileName);
+        return $pdf->download($fileName);*/
+        $pdf = \PDF::loadView('imprimir', compact('pedido','pago','cambio','nombre','fecha'));
+
+       return  $pdf->download('imprimir.pdf');
+        //return response()->json(["success"=>$pdf->download('invoice.pdf')]);
     }
+
+
+
+
+
+
+
+
+
 
 public function confirmar(Request $request,$id){
 

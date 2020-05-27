@@ -242,4 +242,11 @@ return Redirect::to('usuarios/create');
     }
 
 
+    public function getName(){
+
+
+return response()->json(Auth::user()->name);
+    }
+
+
 }

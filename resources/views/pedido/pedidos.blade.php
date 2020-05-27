@@ -63,8 +63,9 @@
 <strong>Recibido</strong><input type="text" id="dineroDado"  onkeyup="calcular()"><br>
  <pre type="text" class="text-center pagar display-2" id="cambio" >0.0</pre>
 
-<button class="btn btn-danger block pagar" id="cobrar" onclick="cobrar(this)">Cobrar</button><br>
-<button class="btn btn-success block pagar ">Imprimir</button>
+ <button class="btn btn-success block pagar" id="imprimir" onclick="imprimir(this)" >Imprimir</button><br>
+<button class="btn btn-danger block pagar" id="cobrar" onclick="cobrar(this)">Cobrar</button>
+
 </div>
 
 <br><br><br><br><br>
@@ -81,7 +82,7 @@
 
 
 
-<a href="{{ route('imprimir') }}">Imprime el archivo</a>
+<a href="{{ route('imprimir', '5ecdb7be30360000a3001cc4' )}}">Imprime el archivo</a>
 <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
 <a onclick="PlaySound()" id="play"> Play</a>
 
@@ -117,7 +118,7 @@ setInterval(function(){
 $("#resultado").empty();
 var div = document.getElementById('resultado');
 
-div.innerHTML="<div class=' container-fluid' id='mensaje' style='display:none'></div>";
+div.innerHTML="";
 
 
 //jQuery('#resultado div').html('');
@@ -129,6 +130,19 @@ div.innerHTML="<div class=' container-fluid' id='mensaje' style='display:none'><
 
 
 },30000000);
+
+
+
+function limpiar(){
+    setTimeout(
+  function()
+  {
+    $("#mensaje").text('');
+    $("#mensaje").css("display", "none");
+  }, 2000);
+}
+
+
 
 function refresh()
 {
@@ -309,7 +323,7 @@ jQuery('.alert-success').append('<p>'+result+'</p>');
 
 function agregarCaja(bjButton){
 document.getElementById("cobrar").value=bjButton.value;
-
+document.getElementById("imprimir").value=bjButton.value;
 $("#cajas option[value='Vacio']").remove();
 
 
@@ -377,17 +391,12 @@ window.location.href = baseUrl+"/modificar/"+objButton.value;
 
 
 function cobrar(objButton){
+
+
+/*
 var baseUrl = document.location.origin;
-
 url = baseUrl+"/cobrar/"+objButton.value;
-
-
-
-
-
-
-
-
+*/
 
 
 var token = '{{csrf_token()}}';
@@ -400,12 +409,56 @@ data: {
 },
 success: function (data) {
 
-alert("asa");
-                    /*
-                    $("#mensaje").attr('class', 'alert-success');
+if(data.success){
+
+    $("#mensaje").attr('class', 'alert-success');
                     jQuery('.alert-success').show();
                       jQuery('.alert-success').append('<p>'+data.success+'</p>');
-                        console.log(data.success);*/
+
+
+
+                      $('#cajas').empty();
+                      document.getElementById("precio").textContent="";
+                      document.getElementById("dineroDado").value="";
+                      document.getElementById("cambio").textContent="0.0";
+                      limpiar();
+                      $("#cajas").append(new Option("Vacio", "Vacio"));
+}
+
+
+
+
+                  }
+,
+error: function (data) {
+
+console.log("error");
+}
+});
+
+
+
+}
+
+
+
+function getName(){
+var data;
+
+var token = '{{csrf_token()}}';
+
+$.ajax({
+type: "GET",
+url: "/getName",
+data: {
+
+},
+success: function (data) {
+ alert(data);
+
+
+
+
 
                   }
 ,
@@ -423,7 +476,110 @@ console.log("error");
 
 
 
+function imprimir(objButton){
 
+
+
+
+
+
+
+
+    var data;
+
+var token = '{{csrf_token()}}';
+
+$.ajax({
+type: "GET",
+url: "/getName",
+timeout: 50000,
+data: {
+
+},
+success: function (data) {
+
+
+ var token = '{{csrf_token()}}';
+var id=objButton.value;
+var pago=document.getElementById("dineroDado").value;
+var cambio=document.getElementById("cambio").textContent.substring(0,document.getElementById("cambio").textContent.length - 1);
+
+var baseUrl = document.location.origin;
+urlx="imprimir/"+id+"/"+pago+"/"+cambio+"/"+data;
+window.open(urlx, '_blank');
+
+
+
+                  }
+,
+error: function (data) {
+
+console.log("error");
+}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+var baseUrl = document.location.origin;
+url = baseUrl+"/cobrar/"+objButton.value;
+*/
+
+
+
+
+/*
+
+$.ajax({
+type: "GET",
+url: "/imprimir/"+id+"/"+pago+"/"+cambio,
+data: {
+
+},
+success: function (data) {
+
+if(data.success){
+
+    $("#mensaje").attr('class', 'alert-success');
+                    jQuery('.alert-success').show();
+                      jQuery('.alert-success').append('<p>'+data.success+'</p>');
+
+
+
+                      $('#cajas').empty();
+                      document.getElementById("precio").textContent="";
+                      document.getElementById("dineroDado").value="";
+                      document.getElementById("cambio").textContent="0.0";
+                      limpiar();
+                      $("#cajas").append(new Option("Vacio", "Vacio"));
+}
+
+
+
+
+                  }
+,
+error: function (data) {
+
+console.log("error");
+}
+});
+
+*/
+
+}
 
 
 
