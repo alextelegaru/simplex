@@ -8,6 +8,8 @@
 
 <style>
 
+.pagar{ width: 25%;}
+
 .marcado {
             background-color: yellow;
             color: red;
@@ -20,7 +22,7 @@
          }
 
          #caja{
-             margin-left: 70%;
+             margin-left: 40%;
          }
 
 
@@ -50,6 +52,9 @@
 
     </div>
     <strong>PRECIO</strong><strong><pre id="precio">  </pre></strong>
+    Recibido<input type="number" id="dineroDado" step="any"><br>
+    Cambio<input type="text" id="cambio" step="any"><br>
+    <button class="btn btn-danger block pagar">Pagar</button>
 </div>
 <br><br><br><br><br>
 
@@ -115,20 +120,9 @@ function refresh()
 
 
 
+if(data[i].estado!=null){
 
-
-
-
-
-
-
-
-
-
-
-
-
-                    contenido+="              <div class='col-sm-2' id='"+data[i]._id+"'>    <h5>";
+    contenido+="              <div class='col-sm-2' id='"+data[i]._id+"'>    <h5>";
                 contenido+="<strong>Mesa:"+data[i].nMesa+"</strong>";
 
                 contenido+="      </h5>   ";
@@ -220,6 +214,19 @@ for(var o=0;o<limite5;o++){
 
         }
         div.innerHTML += contenido;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -264,17 +271,29 @@ for(var o=0;o<limite5;o++){
 }
 
 function agregarCaja(bjButton){
-var limite=document.getElementById(bjButton.value).childNodes.length;
+$("#cajas option[value='Vacio']").remove();
+var limite=document.getElementById(bjButton.value).childNodes.length-10;
 var info="";
-for(var i=3;i<limite-3;i++){
+for(var i=3;i<limite;i++){
 info=document.getElementById(bjButton.value).childNodes[i].innerText;
+
+/*if(info.includes(",")){
+
+    platosDiferentes=info.split(",");
+    limiteP=platosDiferentes.length;
+    for(var i=0;i<limiteP;i++){
+        x=platosDiferentes[i];
+        $('#cajas').append(new Option(x,x));
+    }
+}*/
     $('#cajas').append(new Option(info, info));
 }
 
 
 
 info=document.getElementById(bjButton.value).children[9].id;
-document.getElementById(precio).innerText=info;
+$('#precio').text(info);
+
 
 
 
