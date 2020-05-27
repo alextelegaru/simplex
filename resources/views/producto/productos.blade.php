@@ -376,20 +376,6 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
         }
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       }
 
 

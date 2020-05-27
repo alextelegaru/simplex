@@ -75,3 +75,7 @@ Route::post('/confirmar/{id}','PedidoController@confirmar');
 Route::get('/modificar/{id}','PedidoController@modificar');
 
 Route::post('/actualizar/{id}','PedidoController@actualizar');
+Route::get('/imprimir', 'PedidoController@imprimir')->name('imprimir');
+
+
+Route::get('/cobrar/{id}', 'PedidoController@cobrar');

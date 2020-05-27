@@ -77,6 +77,18 @@ public function getPedidos(){
 
 
 
+public function cobrar(Request $request,$id){
+
+
+    $pedido=pedido::where('_id' , '=' ,$id)->first();
+$pedido->estado=null;
+$pedido->save();
+    return response()->json(['success'=>'Pedido Cobrado ' ]);
+
+}
+
+
+
 
 
     public function index()
@@ -181,7 +193,11 @@ if (menu::where('fecha','=',$fecha)->exists()) {
     }
 
 
-
+    public function imprimir(){
+$hola="asasass";
+        $pdf = \PDF::loadView('imprimir',compact('hola'));
+        return $pdf->download('imprimir.pdf');
+    }
 
 public function confirmar(Request $request,$id){
 
