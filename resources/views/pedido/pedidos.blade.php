@@ -129,7 +129,7 @@ div.innerHTML="";
 
 
 
-},30000000);
+},8000);
 
 
 
@@ -282,7 +282,7 @@ setTimeout(function(){ PlaySound(); }, 3000);
 
 
 
-  }
+  }//fin
 })
 }
 //@endif
@@ -645,3 +645,5 @@ $.ajax({
 }*/
 
 </script>
+
+
