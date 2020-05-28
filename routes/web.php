@@ -84,3 +84,5 @@ Route::get('/imprimir/{id}/{pago}/{cambio}/{nombre}', 'PedidoController@imprimir
 
 
 Route::get('/getName', 'UserController@getName');
+Route::get('/precio/{id}','ProductoController@getPrecio');
+Route::get('/nombre/{id}','ProductoController@getNombre');

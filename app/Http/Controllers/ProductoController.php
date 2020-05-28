@@ -76,10 +76,22 @@ if($productos[$i]['tipo']=='bebida'){
 
 
 
+public function getPrecio($id){
+
+    $precio=producto::where('_id','=',$id)->get(['precio']);
+
+    return response()->json($precio[0]->precio);
+
+}
 
 
+public function getNombre($id){
 
+    $precio=producto::where('_id','=',$id)->get(['nombre']);
 
+    return response()->json($precio[0]->nombre);
+
+}
 
     public function create(Request $request)
     {
@@ -88,11 +100,18 @@ if($productos[$i]['tipo']=='bebida'){
     }
 
 
+
+
+
 public function store(Request $request){
 
 
 
     //$producto=producto::where('nombre',$request->nombre)->get(['id']);
+
+
+if($request->precio!=null && $request->nombre!=null){
+
 
     $producto=producto::where('nombre' , 'like' ,$request->nombre)->first();
 
@@ -130,6 +149,25 @@ public function store(Request $request){
 
     }
     return response()->json(['success'=>"Error Precio"]);
+
+
+
+
+}{
+
+    return response()->json(['success'=>"Campos Obligatorios"]);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

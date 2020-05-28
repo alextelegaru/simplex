@@ -15,6 +15,10 @@
 
 
 <style>
+
+    .ancho{
+        width: 76%;
+    }
         select {
     width: 80%;
 
@@ -22,6 +26,9 @@
 
 .error {
     border-color:red;
+}
+.masAncho{
+    width: 90%;
 }
 /*
 body {
@@ -143,11 +150,44 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                     <button class="btn btn-success" id="crear">Crear Producto</button>
                     <button class="btn btn-danger" id="eliminar" onclick="eliminar()">Eliminar Producto</button>
             </div>
+
+
+
+
+
+
+
+
+
             </div>
         </div>
 
 
     </div>
+
+    <div class="col-sm-4">
+
+        <h4>Modificacion Producto</h4>
+        <br><br>
+        <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input class="ancho" type="text" name="nombreCambio" id="nombreCambio" value="">
+    </div>
+        <div class="form-group">
+
+            <label for="nombre">Precio</label>
+            <input class="ancho"type="text" name="precioCambio" id="precioCambio" value="">
+
+        </div>
+        <div class="form-group">
+            <button class="btn btn-warning masAncho" id="actualizar" onclick="actualizar()">Actualizar</button>
+    </div>
+    </div>
+
+
+
+
+
 </div>
 
 
@@ -301,87 +341,105 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
                               if(data.success){
 
-
                                 var original=data.success.toLowerCase();
-                                if(original.includes("nombre")){
+
+
+
+                                if(original.includes("campos")){
 
                                     document.getElementById("nombre").focus();
                                     $("#nombre").addClass("error");
-                                    $('#nombre').val('');
+
+
+                                    document.getElementById("precio").focus();
+                                    $("#precio").addClass("error");
+
+
+
+
+
 
                                     $("#mensaje").attr('class', 'alert-danger');
                                     jQuery('.alert-danger').show();
                                     jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
 
-
                                 }else{
 
-                                    if(original.includes("precio")){
-                                        document.getElementById("precio").focus();
-                                        $("#precio").addClass("error");
-                                        $('#precio').val('');
+
+
+
+
+
+
+
+
+                                    if(original.includes("nombre")){
+
+                                        document.getElementById("nombre").focus();
+                                        $("#nombre").addClass("error");
+                                        $('#nombre').val('');
 
                                         $("#mensaje").attr('class', 'alert-danger');
                                         jQuery('.alert-danger').show();
                                         jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
+
+
                                     }else{
 
+                                        if(original.includes("precio")){
+                                            document.getElementById("precio").focus();
+                                            $("#precio").addClass("error");
+                                            $('#precio').val('');
 
+                                            $("#mensaje").attr('class', 'alert-danger');
+                                            jQuery('.alert-danger').show();
+                                            jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
-
-                                        substring=data.success.split(":");
-                                        $("#mensaje").attr('class', 'alert-success');
-                                        jQuery('.alert-success').show();
-                                        jQuery('.alert-success').append('<p>'+substring[0]+'</p>');
-                                        limpiar();
-
-
-
-
-                                        //var primeros= $("#"+tipo+ "option").map(function() {return $(this).val();}).get();
-                                        // primeros.push(data.success);
-                                        //primeros.sort();
-
-                                        // console.log(primeros);
-
-
-                                        var sel = document.getElementById(tipo);
-
-
-                                        var opt = document.createElement('option');
-
-
-                                        opt.appendChild( document.createTextNode(document.getElementById("nombre").value) );
-
-                                        opt.value = substring[2].slice(1, -3);
-
-                                        // add opt to end of select box (sel)
-                                        sel.appendChild(opt);
-
-
-
-                                        ordenar();
+                                        }else{
 
 
 
 
+                                            substring=data.success.split(":");
+                                            $("#mensaje").attr('class', 'alert-success');
+                                            jQuery('.alert-success').show();
+                                            jQuery('.alert-success').append('<p>'+substring[0]+'</p>');
+                                            limpiar();
 
 
 
 
+                                            //var primeros= $("#"+tipo+ "option").map(function() {return $(this).val();}).get();
+                                            // primeros.push(data.success);
+                                            //primeros.sort();
+
+                                            // console.log(primeros);
+
+
+                                            var sel = document.getElementById(tipo);
+
+
+                                            var opt = document.createElement('option');
+
+
+                                            opt.appendChild( document.createTextNode(document.getElementById("nombre").value) );
+
+                                            opt.value = substring[2].slice(1, -3);
+
+                                            // add opt to end of select box (sel)
+                                            sel.appendChild(opt);
 
 
 
+                                            ordenar();
+                                            $('#nombre').val('');
+                                            $('#precio').val('');
+                                            $('#tipo option').eq(0).prop('selected', true);
 
 
-
-
-
-
-
-
+                                        }
 
 
                                     }
@@ -400,17 +458,11 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
 
 
-
-
-
-
-
-
-
-
-
-
                                 }
+
+
+
+
 
 
 
@@ -509,13 +561,78 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
       $(document).click(function(event) {
         varlistaActual= $(event.target).parent()[0].id;
-        if(varlistaActual=="primero" ||varlistaActual=="segundo" ||varlistaActual=="postre" ||varlistaActual=="bebida"){
-            $("#nombre").val("");
+       getPrecio();
+       getNombre();
+    });
 
-            document.getElementById("nombre").value= document.getElementById(varlistaActual).textContent;
+
+
+
+
+
+
+
+
+
+
+
+    function getPrecio()
+    {
+
+        id=document.getElementById(varlistaActual).value;
+
+      $.ajax({
+        url:"/precio/"+id,
+        method:"get",
+        data:{
+            id:id,
+        },
+        dataType:"json",
+        timeout: 50000,
+        success:function(data)
+        {
+
+            document.getElementById('precioCambio').value=data;
+
         }
 
-    });
+
+      });
+
+
+    }
+    function getNombre()
+    {
+
+        id=document.getElementById(varlistaActual).value;
+
+      $.ajax({
+        url:"/nombre/"+id,
+        method:"get",
+        data:{
+            id:id,
+        },
+        dataType:"json",
+        timeout: 50000,
+        success:function(data)
+        {
+
+            document.getElementById('nombreCambio').value=data;
+
+        }
+
+
+      });
+
+
+    }
+
+
+
+
+
+
+
 
 
 
