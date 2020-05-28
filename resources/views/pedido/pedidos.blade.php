@@ -82,9 +82,9 @@
 
 
 
-<a href="{{ route('imprimir', '5ecdb7be30360000a3001cc4' )}}">Imprime el archivo</a>
+
 <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
-<a onclick="PlaySound()" id="play"> Play</a>
+
 
 <script>
 function PlaySound() {
@@ -144,148 +144,108 @@ function limpiar(){
 
 
 
-function refresh()
-{
+function refresh() {
+    $.ajax({
+        url: "/getPedidos",
+        method: "get",
+        data: {},
+        dataType: "json",
+        success: function(data) {
+            limite = data.length;
+            var div = document.getElementById("resultado");
+
+            var contenido = "";
+            for (var i = 0; i < limite; i++) {
+                contenido +=
+                    "              <div class='col-sm-2' id='" +
+                    data[i]._id +
+                    "'>    <h5>";
+                contenido += "<strong>Mesa:" + data[i].nMesa + "</strong>";
+
+                contenido += "      </h5>   ";
+
+                // contenido+="   <input type='hidden' id='id' name='id' value='"+data[i]._id+"'>";
+
+                var limite5 = data[i].menu.length;
+                for (var o = 0; o < limite5; o++) {
+                    contenido += "<p>" + data[i].menu[o] + "</p" + "<br>";
+                }
+
+                contenido += "";
+
+                contenido += "<p>" + data[i].productos + "</p>";
 
 
 
 
-$.ajax({
-  url:"/getPedidos",
-  method:"get",
-  data:{},
-  dataType:"json",
-  success:function(data)
-  {
+                @if (Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera")
 
-    limite=data.length;
-    var div = document.getElementById('resultado');
+                contenido +=
+                    "<br>   <button  class='btn btn-success' name='id' onclick='confirmar(this)' value='" +
+                    data[i]._id +
+                    "'>TERMINADO</button> ";
 
-    var contenido="";
-    for(var i = 0; i < limite; i++)
-    {
-
-
-
-if(data[i].estado!=null){
-
-contenido+="              <div class='col-sm-2' id='"+data[i]._id+"'>    <h5>";
-            contenido+="<strong>Mesa:"+data[i].nMesa+"</strong>";
-
-            contenido+="      </h5>   ";
-
-           // contenido+="   <input type='hidden' id='id' name='id' value='"+data[i]._id+"'>";
-
-
-
-
-var limite5=data[i].menu.length;
-for(var o=0;o<limite5;o++){
-contenido+="<p>"+data[i].menu[o]+"</p"+"<br>";
-
-}
-
-
-
-
-
-
-            contenido+="";
-
-            contenido+="<p>"+data[i].productos+"</p>";
-
-            //contenido+="<h5>";
-             //   @if (Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera" ||Auth::user()->rol=="admin" )
-
-                contenido+="<br>   <button  class='btn btn-success' name='id' onclick='confirmar(this)' value='"+data[i]._id+"'>TERMINADO</button> " ;
-             //   @endif
-              //  @if (Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera" ||Auth::user()->rol=="admin" )
-
-
-                if(data[i].estado==false){
+@endif
 
 
 
 
 
-              /*  contenido+="<br><p class='marcado'>PREPARANDO</p> " ;*/
+
+                if (data[i].estado == false) {
+                    contenido +=
+                        " <button  class='btn btn-warning' name='id' onclick='modificar(this)' value='" +
+                        data[i]._id +
+                        "'>MODIFICAR PEDIDO</button> ";
+                    contenido +=
+                        " <button  class='btn btn-danger' name='id' onclick='eliminar(this)' value='" +
+                        data[i]._id +
+                        "'>ELIMINAR PEDIDO</button> ";
+                } else {
 
 
 
-                contenido+=" <button  class='btn btn-warning' name='id' onclick='modificar(this)' value='"+data[i]._id+"'>MODIFICAR PEDIDO</button> " ;
-                contenido+=" <button  class='btn btn-danger' name='id' onclick='eliminar(this)' value='"+data[i]._id+"'>ELIMINAR PEDIDO</button> " ;
+
+                    contenido += "<pre class='marcado2'>Listo</pre> ";
+
+
+
+
+                    contenido +=
+                        "<pre class='marcado2' id='" +
+                        data[i].precio +
+                        "' hidden  value='" +
+                        data[i].precio +
+                        "' ></pre> ";
+
+
+
+
+                @if (Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera")
+
+
+                    contenido +=
+                        " <button  class='btn btn-warning' name='id' onclick='agregarCaja(this)' value='" +
+                        data[i]._id +
+                        "'>ENVIAR CAJA</button> ";
+
+@endif
 
 
 
 
 
-                }else{
-                    contenido+="<pre class='marcado2'>Listo</pre> " ;
-                  contenido+="<pre class='marcado2' id='"+data[i].precio+  "' hidden  value='"+data[i].precio+  "' ></pre> " ;
+                    setTimeout(function() {
+                        PlaySound();
+                    }, 3000);
+                }
 
-                contenido+=" <button  class='btn btn-warning' name='id' onclick='agregarCaja(this)' value='"+data[i]._id+"'>ENVIAR CAJA</button> " ;
-
-
-
-setTimeout(function(){ PlaySound(); }, 3000);
+                contenido += " </div>";
             }
-
-
-
-
-
-
-
-
-
-
-
-                //
-
-
-
-
-            contenido+=" </div>";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-    div.innerHTML = contenido;
+            div.innerHTML = contenido;
+        }
+    });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }//fin
-})
-}
-//@endif
 
 
 
@@ -519,67 +479,16 @@ console.log("error");
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-var baseUrl = document.location.origin;
-url = baseUrl+"/cobrar/"+objButton.value;
-*/
-
-
-
-
-/*
-
-$.ajax({
-type: "GET",
-url: "/imprimir/"+id+"/"+pago+"/"+cambio,
-data: {
-
-},
-success: function (data) {
-
-if(data.success){
-
-    $("#mensaje").attr('class', 'alert-success');
-                    jQuery('.alert-success').show();
-                      jQuery('.alert-success').append('<p>'+data.success+'</p>');
-
-
-
-                      $('#cajas').empty();
-                      document.getElementById("precio").textContent="";
-                      document.getElementById("dineroDado").value="";
-                      document.getElementById("cambio").textContent="0.0";
-                      limpiar();
-                      $("#cajas").append(new Option("Vacio", "Vacio"));
 }
 
 
 
 
-                  }
-,
-error: function (data) {
 
-console.log("error");
-}
-});
 
-*/
 
-}
+
+
 
 
 
@@ -645,5 +554,6 @@ $.ajax({
 }*/
 
 </script>
+
 
 

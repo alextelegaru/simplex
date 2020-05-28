@@ -56,12 +56,6 @@ if($productos[$i]['tipo']=='bebida'){
 
 
 
-
-
-
-
-
-
 }
 
 
