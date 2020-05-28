@@ -14,6 +14,9 @@ class ProductoController extends Controller
 
     public function index()
     {
+
+
+
         $productos=Producto::all();
 
 
@@ -87,16 +90,48 @@ if($productos[$i]['tipo']=='bebida'){
 
 public function store(Request $request){
 
-    $producto=new Producto();
-    $producto->nombre=$request->nombre;
-    $producto->tipo=$request->tipo;
-    $producto->precio=$request->precio;
-    $producto->save();
 
-    $id=producto::where('nombre',$request->nombre)->get(['id']);
-    $mensaje="Producto creado con exito:".$id.":".$request->nombre;
 
-    return response()->json(['success'=>$mensaje]);
+    //$producto=producto::where('nombre',$request->nombre)->get(['id']);
+
+    $producto=producto::where('nombre' , 'like' ,$request->nombre)->first();
+
+
+    if(is_numeric($request->precio))
+    {
+
+    if($producto==null){
+
+
+
+
+            $producto=new Producto();
+            $producto->nombre=$request->nombre;
+            $producto->tipo=$request->tipo;
+            $producto->precio=$request->precio;
+            $producto->save();
+
+            $id=producto::where('nombre',$request->nombre)->get(['id']);
+            $mensaje="Producto creado con exito:".$id.":".$request->nombre;
+
+            return response()->json(['success'=>$mensaje]);
+
+
+
+
+
+
+        }else{
+
+
+            return response()->json(['success'=>"El nombre  del producto ya existe"]);
+
+        }
+
+    }
+    return response()->json(['success'=>"Error Precio"]);
+
+
 
 
 }

@@ -18,7 +18,12 @@
         select {
     width: 80%;
 
-}/*
+}
+
+.error {
+    border-color:red;
+}
+/*
 body {
         overflow: hidden;
     }*/
@@ -112,6 +117,10 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                 </div>
 
 
+
+
+
+
                 <div class="form-group">
 
                 <label for="tipo">Tipo</label>
@@ -136,6 +145,8 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
             </div>
             </div>
         </div>
+
+
     </div>
 </div>
 
@@ -241,7 +252,14 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
 
 
-
+    function limpiar(){
+        setTimeout(
+      function()
+      {
+        $("#mensaje").text('');
+        $("#mensaje").css("display", "none");
+      }, 2000);
+    }
 
 
 
@@ -276,49 +294,151 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
             data: data,
             success: function (data) {
 
+
+                $("#precio").removeClass("error");
+                $("#nombre").removeClass("error");
+
+
                               if(data.success){
-                                substring=data.success.split(":");
-                                $("#mensaje").attr('class', 'alert-success');
-                                jQuery('.alert-success').show();
-                                jQuery('.alert-success').append('<p>'+substring[0]+'</p>');
-                                limpiar();
+
+
+                                var original=data.success.toLowerCase();
+                                if(original.includes("nombre")){
+
+                                    document.getElementById("nombre").focus();
+                                    $("#nombre").addClass("error");
+                                    $('#nombre').val('');
+
+                                    $("#mensaje").attr('class', 'alert-danger');
+                                    jQuery('.alert-danger').show();
+                                    jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+
+
+
+                                }else{
+
+                                    if(original.includes("precio")){
+                                        document.getElementById("precio").focus();
+                                        $("#precio").addClass("error");
+                                        $('#precio').val('');
+
+                                        $("#mensaje").attr('class', 'alert-danger');
+                                        jQuery('.alert-danger').show();
+                                        jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+
+                                    }else{
 
 
 
 
-                                //var primeros= $("#"+tipo+ "option").map(function() {return $(this).val();}).get();
-                                // primeros.push(data.success);
-                                //primeros.sort();
-
-                                // console.log(primeros);
-
-
-                                var sel = document.getElementById(tipo);
-
-
-                                var opt = document.createElement('option');
-
-
-                                opt.appendChild( document.createTextNode(document.getElementById("nombre").value) );
-
-                                opt.value = substring[2].slice(1, -3);
-
-                                // add opt to end of select box (sel)
-                                sel.appendChild(opt);
-
-
-
-                                ordenar();
+                                        substring=data.success.split(":");
+                                        $("#mensaje").attr('class', 'alert-success');
+                                        jQuery('.alert-success').show();
+                                        jQuery('.alert-success').append('<p>'+substring[0]+'</p>');
+                                        limpiar();
 
 
 
 
+                                        //var primeros= $("#"+tipo+ "option").map(function() {return $(this).val();}).get();
+                                        // primeros.push(data.success);
+                                        //primeros.sort();
+
+                                        // console.log(primeros);
+
+
+                                        var sel = document.getElementById(tipo);
+
+
+                                        var opt = document.createElement('option');
+
+
+                                        opt.appendChild( document.createTextNode(document.getElementById("nombre").value) );
+
+                                        opt.value = substring[2].slice(1, -3);
+
+                                        // add opt to end of select box (sel)
+                                        sel.appendChild(opt);
 
 
 
-                              }
+                                        ordenar();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            }
+                            limpiar();
 
             }
             ,
@@ -389,6 +509,12 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
       $(document).click(function(event) {
         varlistaActual= $(event.target).parent()[0].id;
+        if(varlistaActual=="primero" ||varlistaActual=="segundo" ||varlistaActual=="postre" ||varlistaActual=="bebida"){
+            $("#nombre").val("");
+
+            document.getElementById("nombre").value= document.getElementById(varlistaActual).textContent;
+        }
+
     });
 
 

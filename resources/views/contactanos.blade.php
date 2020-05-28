@@ -5,7 +5,9 @@
 .izda{
    left: 19%;
 }
-
+.texto-negro{
+color:black;
+}
 
 </style>
 
@@ -29,7 +31,7 @@
                             <div class="card-header p-0">
                                 <div class="bg-info text-white text-center py-2">
                                     <h3><i class="fa fa-envelope"></i> Contactanos</h3>
-                                    <p class="m-0">Con gusto te ayudaremos</p>
+                                    <p class="m-0 texto-negro">Con gusto te ayudaremos</p>
                                 </div>
                             </div>
                             <div class="card-body p-3">
@@ -40,7 +42,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fa fa-user text-info"></i></div>
                                         </div>
-                                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre y Apellido" required>
+                                        <input type="text" class="form-control" id="nombre" name="nombre"  value={{ Auth::user()->name }} placeholder="Nombre y Apellido" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

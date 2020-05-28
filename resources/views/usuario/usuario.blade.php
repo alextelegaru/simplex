@@ -87,7 +87,7 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-      @if($rol  == 'admin')
+      @if( $usuario->rol  == 'admin')
     <option  <?php if( $usuario['rol']  == 'admin' ): ?> selected="selected"<?php endif; ?> value="admin">Admin</option>
     <option  <?php if( $usuario['rol']  == 'cocinera' ): ?> selected="selected"<?php endif; ?> value="cocinera">Cocinera</option>
     <option  <?php if( $usuario['rol']  == 'cocinero' ): ?> selected="selected"<?php endif; ?> value="cocinero">Cocinero</option>

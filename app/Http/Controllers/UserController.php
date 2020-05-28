@@ -13,14 +13,14 @@ class UserController extends Controller
 {
     public function index()
     {
-        $usuarios=User::all();
+           if(Auth::user()->rol=='admin'){
 
-        if(Auth::user()->rol=='admin'){
-            $rol='admin';
+              $usuarios=User::all();
+
             return view("usuario.usuarios", compact("usuarios"));
 
         }
-        return view("error");
+        return view("home");
     }
 
 
@@ -35,16 +35,29 @@ class UserController extends Controller
     {
 
        // $usuario=User::where('name', '2')->get();;
+
+       if(Auth::user()->id==$id || Auth::user()->rol=='admin'){
+
         $usuario=User::find($id);
-$rol="";
-        if(Auth::user()->rol=='admin'){
-            $rol='admin';
 
 
-        }
+
+        return view("usuario.usuario", compact("usuario"));
 
 
-        return view("usuario.usuario", compact("usuario","rol"));
+
+       }else{
+        $id=Auth::user()->id;
+        $usuario=User::find($id);
+
+        return view("usuario.usuario", compact("usuario"));
+
+
+       }
+
+
+
+
     }
 
 
@@ -234,7 +247,7 @@ return Redirect::to('usuarios/create');
     {
         // delete
         $user = User::find($id);
-        $user->delete();
+       // $user->delete();
 
 
         Session::flash('success', 'Usuario eliminado con exito!');

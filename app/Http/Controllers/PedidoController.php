@@ -246,14 +246,31 @@ public function confirmar(Request $request,$id){
 
     public function modificar(Request $request,$id) {
 
+
+
+        if( Auth::user()->rol=="admin" ||Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera" ){
+
+
+
+
+
+        $hoy = Carbon::now();
+    $hoy = $hoy->format('Y-m-d');
+
    // $pedido=pedido::where('fecha' , '=' ,$fecha)->where('nombre' , '=' ,$nombre)->first();
    $pedido=pedido::where('_id' , '=' ,$id)->first();
+   $menu=menu::where('fecha' , '=' ,$hoy)->first();
+
+
+
+
 
    if($pedido!=null){
 
+    if($menu!=null){
 
-    $hoy = Carbon::now();
-    $hoy = $hoy->format('Y-m-d');
+
+
         $menu=menu::where('fecha',$hoy)->get();
 
         $primeros=$menu[0]->primeros;
@@ -314,9 +331,14 @@ public function confirmar(Request $request,$id){
 
    }
 
-return Redirect::back()->withErrors(['success', 'The Message']);
+return view('errorMenu');
 
+}
 
+return view('errorPedido');
+
+}
+return view('home');
 
 }
 
@@ -516,11 +538,10 @@ $error="Pedido actualizado.";
     public function create(Request $request)
     {
 
+       if( Auth::user()->rol=="admin" ||Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera" ){
 
 
-
-
-$hoy = Carbon::now();
+        $hoy = Carbon::now();
 $hoy = $hoy->format('Y-m-d');
 
 
@@ -562,9 +583,23 @@ if (menu::where('fecha','=',$hoy)->exists()) {
 
 
 
+        return view('errorMenu');
 
 
-        return view('pedido.crearpedido');
+
+
+
+
+
+
+
+
+       }else{
+        return view('home');
+       }
+
+
+
     }
 
 
