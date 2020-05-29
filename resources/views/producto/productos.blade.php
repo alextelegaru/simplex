@@ -180,7 +180,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
         </div>
         <div class="form-group">
-            <button class="btn btn-warning masAncho" id="actualizar" onclick="actualizar()">Actualizar</button>
+            <button class="btn btn-warning masAncho" id="actualizar" >Actualizar</button>
     </div>
     </div>
 
@@ -398,18 +398,11 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                                             jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
                                         }else{
-
-
-
-
                                             substring=data.success.split(":");
                                             $("#mensaje").attr('class', 'alert-success');
                                             jQuery('.alert-success').show();
                                             jQuery('.alert-success').append('<p>'+substring[0]+'</p>');
                                             limpiar();
-
-
-
 
                                             //var primeros= $("#"+tipo+ "option").map(function() {return $(this).val();}).get();
                                             // primeros.push(data.success);
@@ -444,50 +437,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
                                     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                             }
                             limpiar();
@@ -509,9 +459,183 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
 
 
+
+
+
+
+
+    $("#actualizar").click(function (e) {
+        e.preventDefault();
+
+    var nombre= document.getElementById("nombreCambio").value;
+    var precio= document.getElementById("precioCambio").value;
+    var id= sessionStorage.getItem("idProd");
+
+        var token = '{{csrf_token()}}';
+        var data={
+            nombre:nombre,
+            precio:precio,
+            _token:token,
+            _method:'POST'}
+        $.ajax({
+            type: "POST",
+            url: '/actualizar/'+id,
+            data: data,
+            success: function (data) {
+
+
+                $("#nombreCambio").removeClass("error");
+                $("#precioCambio").removeClass("error");
+
+
+
+                if(data.success){
+
+                    var original=data.success.toLowerCase();
+
+
+
+                    if(original.includes("requeridos")){
+
+                        document.getElementById("nombreCambio").focus();
+                        $("#nombreCambio").addClass("error");
+
+
+                        document.getElementById("precioCambio").focus();
+                        $("#precioCambio").addClass("error");
+
+
+
+                        $("#mensaje").attr('class', 'alert-danger');
+                        jQuery('.alert-danger').show();
+                        jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+
+                    }else{
+
+
+                        if(original.includes("nombre")){
+
+                            document.getElementById("nombreCambio").focus();
+                            $("#nombreCambio").addClass("error");
+                            $("#mensaje").attr('class', 'alert-danger');
+                            jQuery('.alert-danger').show();
+                            jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+
+                        }else{
+
+
+
+                            if(original.includes("precio")){
+
+                                document.getElementById("precioCambio").focus();
+                                $("#precioCambio").addClass("error");
+                                $("#mensaje").attr('class', 'alert-danger');
+                                jQuery('.alert-danger').show();
+                                jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+
+                            }else{
+
+                                $("#mensaje").attr('class', 'alert-success');
+                                jQuery('.alert-success').show();
+                                jQuery('.alert-success').append('<p>'+data.success+'</p>');
+
+
+
+
+                                limpiar();
+
+
+
+
+
+                            }
+
+
+
+
+
+
+
+
+
+                        }
+
+
+
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+            ,
+            error: function (data) {
+
+       console.log("error");
+
+
+            }
+
+
+        });
+    });
+
+
+
+
+
+
+
     function eliminar() {
-
-
     aEliminar=document.getElementById(varlistaActual).value;
     var x = document.getElementById(varlistaActual);
     x.remove(x.selectedIndex);
@@ -563,6 +687,9 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
         varlistaActual= $(event.target).parent()[0].id;
        getPrecio();
        getNombre();
+
+
+    sessionStorage.setItem("idProd",document.getElementById(varlistaActual).value);
     });
 
 

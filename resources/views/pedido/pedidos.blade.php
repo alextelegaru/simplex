@@ -26,7 +26,9 @@
          margin-left: 40%;
      }
 
-
+     .error {
+    border-color:red;
+}
      #precio{
     color: red;
     width: 17%;
@@ -129,7 +131,7 @@ div.innerHTML="";
 
 
 
-},8000);
+},80000);
 
 
 
@@ -151,11 +153,35 @@ function refresh() {
         data: {},
         dataType: "json",
         success: function(data) {
+
+
+
+
+
+
+            @if (Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera"||Auth::user()->rol=="admin" )
+            $("#mensaje").text('');
+    $("#mensaje").css("display", "none");
+            $("#mensaje").attr('class', 'alert-warning text-center');
+            jQuery('.alert-warning').show();
+        jQuery('.alert-warning').append('<p>'+"Esperando pedidos."+'</p>');
+
+
+@endif
+
             limite = data.length;
             var div = document.getElementById("resultado");
 
             var contenido = "";
             for (var i = 0; i < limite; i++) {
+
+
+
+                @if (Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera")
+
+                if(data[i].estado!=null){
+
+
                 contenido +=
                     "              <div class='col-sm-2' id='" +
                     data[i]._id +
@@ -178,14 +204,14 @@ function refresh() {
 
 
 
-                @if (Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera")
 
+/*
                 contenido +=
                     "<br>   <button  class='btn btn-success' name='id' onclick='confirmar(this)' value='" +
                     data[i]._id +
                     "'>TERMINADO</button> ";
 
-@endif
+*/
 
 
 
@@ -221,15 +247,15 @@ function refresh() {
 
 
 
-                @if (Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera")
+
 
 
                     contenido +=
                         " <button  class='btn btn-warning' name='id' onclick='agregarCaja(this)' value='" +
                         data[i]._id +
-                        "'>ENVIAR CAJA</button> ";
+                        "'>ENVIAR A CAJA</button> ";
 
-@endif
+
 
 
 
@@ -241,8 +267,307 @@ function refresh() {
                 }
 
                 contenido += " </div>";
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+@endif
+
+
+
+@if (Auth::user()->rol=="admin" )
+
+
+
+
+
+if(data[i].estado!=null){
+
+
+contenido +=
+    "              <div class='col-sm-2' id='" +
+    data[i]._id +
+    "'>    <h5>";
+contenido += "<strong>Mesa:" + data[i].nMesa + "</strong>";
+
+contenido += "      </h5>   ";
+
+// contenido+="   <input type='hidden' id='id' name='id' value='"+data[i]._id+"'>";
+
+var limite5 = data[i].menu.length;
+for (var o = 0; o < limite5; o++) {
+    contenido += "<p>" + data[i].menu[o] + "</p" + "<br>";
+}
+
+contenido += "";
+
+contenido += "<p>" + data[i].productos + "</p>";
+
+
+
+
+if(data[i].estado==false){
+
+
+contenido +=
+    "<br>   <button  class='btn btn-success' name='id' onclick='confirmar(this)' value='" +
+    data[i]._id +
+    "'>TERMINADO</button> ";
+
+}
+
+
+
+
+
+
+if (data[i].estado == false) {
+    contenido +=
+        " <button  class='btn btn-warning' name='id' onclick='modificar(this)' value='" +
+        data[i]._id +
+        "'>MODIFICAR PEDIDO</button> ";
+    contenido +=
+        " <button  class='btn btn-danger' name='id' onclick='eliminar(this)' value='" +
+        data[i]._id +
+        "'>ELIMINAR PEDIDO</button> ";
+} else {
+
+
+
+
+    contenido += "<pre class='marcado2'>Listo</pre> ";
+
+
+
+
+    contenido +=
+        "<pre class='marcado2' id='" +
+        data[i].precio +
+        "' hidden  value='" +
+        data[i].precio +
+        "' ></pre> ";
+
+
+
+
+
+
+
+    contenido +=
+        " <button  class='btn btn-warning' name='id' onclick='agregarCaja(this)' value='" +
+        data[i]._id +
+        "'>ENVIAR CAJA</button> ";
+
+
+
+
+
+
+
+    setTimeout(function() {
+        PlaySound();
+    }, 3000);
+}
+
+contenido += " </div>";
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@endif
+
+
+
+
+
+
+
+
+@if (Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera")
+
+$("#nombre").removeClass("error");
+
+
+
+
+
+
+                if(data[i].estado==false){
+                   // limpiar();
+                   $("#mensaje").text('');
+    $("#mensaje").css("display", "none");
+                contenido +=
+                    "              <div class='col-sm-2' id='" +
+                    data[i]._id +
+                    "'>    <h5>";
+                contenido += "<strong>Mesa:" + data[i].nMesa + "</strong>";
+
+                contenido += "      </h5>   ";
+
+                // contenido+="   <input type='hidden' id='id' name='id' value='"+data[i]._id+"'>";
+
+                var limite5 = data[i].menu.length;
+                for (var o = 0; o < limite5; o++) {
+                    contenido += "<p>" + data[i].menu[o] + "</p" + "<br>";
+                }
+
+                contenido += "";
+
+                contenido += "<p>" + data[i].productos + "</p>";
+
+
+
+
+
+
+                contenido +=
+                    "<br>   <button  class='btn btn-success' name='id' onclick='confirmar(this)' value='" +
+                    data[i]._id +
+                    "'>TERMINADO</button> ";
+
+
+
+
+
+
+
+
+            /*    if (data[i].estado == false) {
+                    contenido +=
+                        " <button  class='btn btn-warning' name='id' onclick='modificar(this)' value='" +
+                        data[i]._id +
+                        "'>MODIFICAR PEDIDO</button> ";
+                    contenido +=
+                        " <button  class='btn btn-danger' name='id' onclick='eliminar(this)' value='" +
+                        data[i]._id +
+                        "'>ELIMINAR PEDIDO</button> ";
+                } else {
+*/
+
+
+/*
+                    contenido += "<pre class='marcado2'>Listo</pre> ";
+
+
+
+
+                    contenido +=
+                        "<pre class='marcado2' id='" +
+                        data[i].precio +
+                        "' hidden  value='" +
+                        data[i].precio +
+                        "' ></pre> ";
+
+
+
+
+                    contenido +=
+                        " <button  class='btn btn-warning' name='id' onclick='agregarCaja(this)' value='" +
+                        data[i]._id +
+                        "'>ENVIAR CAJA</button> ";
+
+*/
+
+
+
+
+
+                    setTimeout(function() {
+                        PlaySound();
+                    }, 3000);
+               // }
+
+                contenido += " </div>";
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+@endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }//fin for
             div.innerHTML = contenido;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     });
 }
@@ -288,6 +613,11 @@ $("#cajas option[value='Vacio']").remove();
 
 
 @if (Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera")
+
+var element = document.getElementById(bjButton.value);
+var numberOfChildren = element.getElementsByTagName('*').length;
+alert(numberOfChildren);
+
 var limite=document.getElementById(bjButton.value).childNodes.length-6;
 @endif
 
@@ -321,16 +651,55 @@ $('#cajas').append(new Option(info, info));
 
 
 
-@if (Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera")
-info=document.getElementById(bjButton.value).children[7].id;
-@endif
 
-@if (Auth::user()->rol=="admin")
-info=document.getElementById(bjButton.value).children[9].id;
-@endif
+var data;
+
+var token = '{{csrf_token()}}';
+
+$.ajax({
+type: "GET",
+url: "/getCoste/"+bjButton.value,
+data: {
+
+},
+success: function (data) {
+    $('#precio').text(data+"€");
+
+                  }
+,
+error: function (data) {
+
+console.log("error");
+}
+});
 
 
-$('#precio').text(info+"€");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -359,7 +728,17 @@ url = baseUrl+"/cobrar/"+objButton.value;
 */
 
 
-var token = '{{csrf_token()}}';
+$("#nombre").removeClass("error");
+    precio=parseFloat(document.getElementById("precio").textContent);
+dado=Math.abs(document.getElementById("dineroDado").value);
+
+
+
+if(dado>=precio){
+
+
+
+    var token = '{{csrf_token()}}';
 var id=objButton.value;
 $.ajax({
 type: "GET",
@@ -395,6 +774,37 @@ error: function (data) {
 console.log("error");
 }
 });
+
+
+
+
+
+
+
+
+}else{
+
+
+    document.getElementById("dineroDado").focus();
+    $("#dineroDado").addClass("error");
+    $("#mensaje").attr('class', 'alert-danger');
+                    jQuery('.alert-danger').show();
+                      jQuery('.alert-danger').append('<p>'+"Cantidad insuficiente."+'</p>');
+                limpiar();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -437,13 +847,13 @@ console.log("error");
 
 
 function imprimir(objButton){
+    $("#nombre").removeClass("error");
+    precio=parseFloat(document.getElementById("precio").textContent);
+dado=Math.abs(document.getElementById("dineroDado").value);
 
 
 
-
-
-
-
+if(dado>=precio){
 
     var data;
 
@@ -477,6 +887,29 @@ error: function (data) {
 console.log("error");
 }
 });
+
+
+
+}else{
+
+
+
+
+
+
+
+    document.getElementById("dineroDado").focus();
+    $("#dineroDado").addClass("error");
+    $("#mensaje").attr('class', 'alert-danger');
+                    jQuery('.alert-danger').show();
+                      jQuery('.alert-danger').append('<p>'+"Cantidad insuficiente."+'</p>');
+limpiar();
+
+
+
+}
+
+
 
 
 }

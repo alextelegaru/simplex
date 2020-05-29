@@ -720,7 +720,7 @@ document.getElementById("precio").textContent=suma;
             _method:'POST'}
         $.ajax({
             type: "POST",
-            url: '/actualizar/'+id,
+            url: '/actualizarPedido/'+id,
             timeout:7000,
             data: data,
             success: function (data) {

@@ -469,7 +469,19 @@ sel.appendChild(opt);
 
 }else{
 
-    alert("Debes agregar un primero");
+    //alert("Debes agregar un primero");
+    $("#mensaje").attr('class', 'alert-success');
+    jQuery('.alert-success').show();
+    jQuery('.alert-success').append('<p>'+"Para menu agregar un primer plato."+'</p>');
+
+
+
+
+    limpiar();
+
+
+
+
 
 }
 
@@ -620,8 +632,11 @@ function calcularPrecio(){
 
           }
 
+
+
+
 precioMessagge=document.getElementById("precio").textContent;
-document.getElementById("precio").textContent=suma;
+document.getElementById("precio").textContent=parseFloat(suma).toFixed(2);
 }
 
 
@@ -629,8 +644,14 @@ document.getElementById("precio").textContent=suma;
 
     $("#agregarProducto").click(function (e) {
         e.preventDefault();
-        $("#pedido option[value='Menu: Vacio']").remove();
-    var producto= document.getElementById('productoElegido').value;
+var producto= document.getElementById('productoElegido').value;
+
+if(producto!=null && producto!=""){
+
+
+
+    $("#pedido option[value='Menu: Vacio']").remove();
+
 
     var precio=getPrecio(producto);
 
@@ -649,6 +670,33 @@ document.getElementById("precio").textContent=suma;
                                 setTimeout(function() {
                                     calcularPrecio();
 }, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

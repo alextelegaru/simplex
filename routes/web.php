@@ -74,7 +74,7 @@ Route::post('/confirmar/{id}','PedidoController@confirmar');
 
 Route::get('/modificar/{id}','PedidoController@modificar');
 
-Route::post('/actualizar/{id}','PedidoController@actualizar');
+Route::post('/actualizarPedido/{id}','PedidoController@actualizar');
 Route::get('/imprimir', 'PedidoController@imprimir')->name('imprimir');
 
 
@@ -86,3 +86,8 @@ Route::get('/imprimir/{id}/{pago}/{cambio}/{nombre}', 'PedidoController@imprimir
 Route::get('/getName', 'UserController@getName');
 Route::get('/precio/{id}','ProductoController@getPrecio');
 Route::get('/nombre/{id}','ProductoController@getNombre');
+
+Route::post('/actualizar/{id}','ProductoController@actualizar');
+
+
+Route::get('/getCoste/{id}','PedidoController@getCoste');

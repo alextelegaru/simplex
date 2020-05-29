@@ -11,6 +11,23 @@ class CreateProductosTable extends Migration
      *
      * @return void
      */
+
+
+
+
+
+
+
+
+
+    function precioRandom(){
+                 $min=1.25;
+                $max=34.5;
+                return rand ($min*10, $max*10) / 10;
+    }
+
+
+
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
@@ -22,18 +39,18 @@ class CreateProductosTable extends Migration
         });
 
 
-        $precios=[3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25];
+       // $precios=[3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25];
 
-        $primeros=["Consomé al Gusto",
+        $primeros=["Consome al Gusto",
         "Sopa Castellana",
         "Pochas Estofadas con Perdiz",
         "Ensalada de Perdiz Escabechada con Setas y sus Verduras",
         "Ensalada de Tomate con Bonito y Piparras",
         "Ensalada de Escarola con Tomate Pelado y Ajos Fritos",
-        "Clásicos de Casa Ciriaco",
+        "Clasicos de Casa Ciriaco",
         "Gallina en Pepitoria",
         "Callos a la Madrileña",
-        "Albóndigas de Ternera",
+        "Albondigas de Ternera",
         "Cocido Madrileño Completo Dos vuelcos"];
 
         sort($primeros);
@@ -42,7 +59,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $primeros[$i],
         'tipo' =>"primero",
-        'precio' =>$precios[$i],
+        'precio' =>$this->precioRandom(),
     ]);
 
 
@@ -54,14 +71,14 @@ for($i=0;$i<$limite;$i++){
 $segundos=["Arroz con Perdiz y Verduras",
 "Arroz con Boletus y Foie",
 "Arroz caldoso con langosta",
-"Bacalao Rebozado Clásico con Guarnición",
+"Bacalao Rebozado Clasico con Guarnicion",
 "Tronco de Merluza a la Donostiarra con Langostinos",
 "Chipirones en su Tinta",
 "Lenguado Casa Ciriaco",
-"Cogote de Merluza a la Bilbaína",
+"Cogote de Merluza a la Bilbaina",
 "Entrecot de Carne Roja",
-"Solomillo de Cebón con Guarnición",
-"Ossobuco con Puré de Boniato",
+"Solomillo de Cebon con Guarnicion",
+"Ossobuco con Pure de Boniato",
 "Rabo Estofado",
 "Paletilla de Cordero Lechal Asada"];
 
@@ -71,7 +88,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $segundos[$i],
         'tipo' =>"segundo",
-        'precio' =>$precios[$i],
+        'precio' =>$this->precioRandom(),
     ]);
 
 
@@ -102,7 +119,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $postres[$i],
         'tipo' =>"postre",
-        'precio' =>$precios[$i],
+        'precio' =>$this->precioRandom(),
     ]);
 
 
@@ -143,7 +160,7 @@ for($i=0;$i<$limite;$i++){
     producto::create([
         'nombre' => $bebidas[$i],
         'tipo' =>"bebida",
-        'precio' =>$precios[$i],
+        'precio' =>$this->precioRandom(),
     ]);
 
 

@@ -77,12 +77,28 @@ public function getPedidos(){
 
 
 
+
+public function getCoste($id){
+
+
+$pedido=pedido::find($id);
+        return response()->json($pedido->precio);
+}
+
+
+
+
+
+
+
+
+
 public function cobrar(Request $request,$id){
 
 
     $pedido=pedido::where('_id' , '=' ,$id)->first();
 $pedido->estado=null;
-//$pedido->save();
+$pedido->save();
     return response()->json(['success'=>'Pedido Cobrado ' ]);
 
 }
