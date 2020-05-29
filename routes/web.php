@@ -91,3 +91,4 @@ Route::post('/actualizar/{id}','ProductoController@actualizar');
 
 
 Route::get('/getCoste/{id}','PedidoController@getCoste');
+Route::post('/soporte', 'RecoveryController@soporte');

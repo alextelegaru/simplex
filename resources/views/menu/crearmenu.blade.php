@@ -58,7 +58,7 @@
 
 
       <strong>Fecha:</strong>  <input type="date" id="myDate" name="fecha"
-      value={{$fecha}}
+      value=@isset($fecha){{ $fecha }}@endisset
       min="2018-01-01" >
 
       <strong>Precio:  </strong><input type="number" id="precio" step="any" name="precio"><strong>€</strong>

@@ -9,7 +9,7 @@ use Redirect;
 use Mail;
 use Illuminate\Support\Str;
 use Hash;
-
+use Illuminate\Support\Facades\Auth;
 class RecoveryController extends Controller
 {
 
@@ -24,6 +24,29 @@ class RecoveryController extends Controller
         Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject('Recuperación Cuenta Simplex');$message->from($to_email,"Simplex");});
 
     }
+
+
+
+    public function soporte(Request $request)
+    {
+
+
+        $mensaje=$request->mensaje;
+        $to_name =$request->mensaje;
+        $to_email ="simplexsimplextest@gmail.com";
+        $nombre=$request->nombre;
+        $rol=$request->rol;
+
+        $mensaje=$request->mensaje;
+        $data = array("nombre" => $nombre,"rol" => $rol,"mensaje" => $mensaje);
+        Mail::send('emails.soporte', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject('Incidencia Simplex');$message->from($to_email,"Simplex");});
+
+        return response()->json(['success'=>"Incidencia enviada con exito al admin." ]);
+
+
+    }
+
+
 
 
     public function recovery(Request $request)

@@ -95,7 +95,7 @@ a:focus{
 
 #sidebarx ul li a:hover {
     color: black;
-    background: yellow;
+    background: #05f5e9;
 }
 
 #sidebarx ul li.active>a,
@@ -227,7 +227,7 @@ a.article:hover {
 
                     </li>
                     <li>
-                        <a class="negro" href="{{ url('/menu') }}"  id="crearMenuHoy">Crear Menu</a>
+                        <a class="negro" href="{{ url('/menu/create') }}"  id="crearMenuHoy">Crear Menu</a>
                     </li>
                     <li>
                         <a class="negro" href="{{ url('/menu') }}" id="editarMenuHoy">Editar Menu</a>
@@ -333,7 +333,7 @@ var yyyy = today.getFullYear();
 today =yyyy+ '-' + mm + '-' + dd  ;
 
 document.getElementById("menuDeHoy").href=document.getElementById("menuDeHoy").href+"/"+today;
-document.getElementById("crearMenuHoy").href=document.getElementById("crearMenuHoy").href+"/"+today;
+//document.getElementById("crearMenuHoy").href=document.getElementById("crearMenuHoy").href+"/"+today;
 
 document.getElementById("editarMenuHoy").href=document.getElementById("editarMenuHoy").href+"/"+today;
 	</script>

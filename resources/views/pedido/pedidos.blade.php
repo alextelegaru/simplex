@@ -629,7 +629,8 @@ var limite=document.getElementById(bjButton.value).childNodes.length-10;
 
 
 
-
+$('#cajas')
+    .empty();
 
 
 

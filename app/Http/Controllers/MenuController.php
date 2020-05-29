@@ -339,9 +339,9 @@ return response()->json(['success'=>"Actualizado con exito"]);
 
 
 
+        return view("menu.crearmenu");
 
 
-        return view('temporal');
     }
 
 

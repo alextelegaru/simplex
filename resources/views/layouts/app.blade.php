@@ -34,7 +34,7 @@ body {
        }
 
        .nav-bar:hover{
-           color: yellow;
+           color: #05f5e9;
        }
 #sidebar{
     bottom:81.8%;

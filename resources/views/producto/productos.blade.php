@@ -467,7 +467,16 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
     $("#actualizar").click(function (e) {
         e.preventDefault();
 
+
+
     var nombre= document.getElementById("nombreCambio").value;
+
+   // $('#'+varlistaActual +' option:contains("'+nombre+'")').remove();
+    //$('#'+varlistaActual +' option:contains("'+nombre+'")').text(nombreCambio);
+    var x = document.getElementById(varlistaActual);
+    x.remove(x.selectedIndex);
+
+    var nombreOld=nombre;
     var precio= document.getElementById("precioCambio").value;
     var id= sessionStorage.getItem("idProd");
 
@@ -510,6 +519,10 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                         jQuery('.alert-danger').show();
                         jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
+
+
+
+
                     }else{
 
 
@@ -538,6 +551,23 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                                 $("#mensaje").attr('class', 'alert-success');
                                 jQuery('.alert-success').show();
                                 jQuery('.alert-success').append('<p>'+data.success+'</p>');
+
+/*
+                                var x = document.getElementById("#nombreCambio");
+                                x.remove(x.selectedIndex);
+
+
+                                jQuery("var option:contains('Vaillant 835')").remove();
+
+
+                                jQuery(varL+" option").filter(function(){
+                                    return $.trim($(this).text()) ==  'Vaillant 835'
+                                }).remove();
+*/
+
+
+
+
 
 
 
