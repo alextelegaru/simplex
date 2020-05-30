@@ -290,7 +290,17 @@ var x = document.getElementById('pedido');
     }else{
 
         if(valorAQuitar.includes("Primero:") ||valorAQuitar.includes("Segundo:") || valorAQuitar.includes("Postre:")||valorAQuitar.includes("Bebida:") ){
-alert("Seleccione Menu para eliminarlo.")
+
+
+
+            $("#mensaje").attr('class', 'alert-warning text-center');
+            jQuery('.alert-warning').show();
+            jQuery('.alert-warning').append('<p>'+"Debe selecionar Menu en pedido para eliminarlo."+'</p>');
+limpiar();
+
+
+
+
         }else{
             if(x!=null){
     x.remove(x.selectedIndex);
@@ -470,7 +480,7 @@ sel.appendChild(opt);
 }else{
 
     //alert("Debes agregar un primero");
-    $("#mensaje").attr('class', 'alert-success');
+    $("#mensaje").attr('class', 'alert-success text-center');
     jQuery('.alert-success').show();
     jQuery('.alert-success').append('<p>'+"Para menu agregar un primer plato."+'</p>');
 
@@ -765,12 +775,12 @@ if(hasNumber.test(data.success)){
 
     if(original.includes("realizado")){
 
-        $("#mensaje").attr('class', 'alert-success');
+        $("#mensaje").attr('class', 'alert-success text-center');
         jQuery('.alert-success').show();
         jQuery('.alert-success').append('<p>'+mensaje.replace(/\b\w/g, l => l.toUpperCase())+'</p>');
     }else{
 
-        $("#mensaje").attr('class', 'alert-danger');
+        $("#mensaje").attr('class', 'alert-danger text-center');
         jQuery('.alert-danger').show();
         jQuery('.alert-danger').append('<p>'+mensaje.replace(/\b\w/g, l => l.toUpperCase())+'</p>');
 
@@ -789,7 +799,7 @@ if(hasNumber.test(data.success)){
 
 //pedido correcto
 if(original.includes("realizado")){
-    $("#mensaje").attr('class', 'alert-success');
+    $("#mensaje").attr('class', 'alert-success text-center');
     jQuery('.alert-success').show();
     jQuery('.alert-success').append('<p>'+original.replace(/\b\w/g, l => l.toUpperCase())+'</p>');
 

@@ -28,6 +28,7 @@ line-height: /* adjust to tweak wierd fonts */;
 -->
 
 
+
 @extends('layouts.app')
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -41,7 +42,14 @@ line-height: /* adjust to tweak wierd fonts */;
         </strong>
     </div>
 @endif
+<style>
+    .error {
+    border-color:red;
+}
+</style>
+<div class="text-center" id="mensaje" style="display:none"></div>
     <div class=" border-primary row align-items-center justify-content-center">
+
         <div class="row">
 
 
@@ -66,11 +74,11 @@ line-height: /* adjust to tweak wierd fonts */;
         {{ method_field('PATCH') }}
     <div class="form-group ">
         <label for="name">Nombre</label>
-        <input type="name" class="form-control" name="name" value={{ $usuario['name'] }}>
+        <input type="name" class="form-control" name="name" id="name"value={{ $usuario['name'] }}>
       </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Correo</label>
-      <input type="email" name="email" class="form-control" id="exampleFormControlInput1" value={{ $usuario['email'] }}>
+      <input type="text" name="email" id="email"class="form-control" id="correo" value={{ $usuario['email'] }}>
     </div>
     <div class="form-group">
       <label for="exampleFormControlSelect1">Rol</label>
@@ -94,10 +102,10 @@ line-height: /* adjust to tweak wierd fonts */;
     <option  <?php if( $usuario['rol']  == 'camarera' ): ?> selected="selected"<?php endif; ?> value="camarera">Camarera</option>
     <option  <?php if( $usuario['rol']  == 'camarero' ): ?> selected="selected"<?php endif; ?> value="camarero">Camarero</option>
 
-    @else
+      @endif
     <option    selected="selected" value=<?php echo $usuario['rol'];?> ><?php echo ucfirst($usuario['rol']); ?></option>
 
-    @endif
+
 
 
 
@@ -129,6 +137,127 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 @section('script')
+
+function limpiar(){
+    setTimeout(
+  function()
+  {
+    $("#mensaje").text('');
+    $("#mensaje").empty();
+    $("#mensaje").css("display", "none");
+  }, 2000);
+}
+
+
+
+
+$(function () {
+
+    $('form').on('submit', function (e) {
+
+      e.preventDefault();
+
+      $.ajax({
+        type: 'post',
+        url: "/usuarios/{{ $usuario->id }}",
+        data: $('form').serialize(),
+        timeout:10000,
+        success: function (data) {
+
+            $("#name").removeClass("error");
+            $("#email").removeClass("error");
+
+          if(data.success.includes("nombre")){
+            $("#name").addClass("error");
+            $("#mensaje").attr('class', 'alert-danger text-center');
+            jQuery('.alert-danger').show();
+            jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+
+            document.getElementById("name").focus();
+
+           // $('#name').val('');
+
+          }else{
+
+
+
+            if(data.success.includes("correo")){
+
+                $("#mensaje").attr('class', 'alert-danger text-center');
+                jQuery('.alert-danger').show();
+                jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+                $("#email").addClass("error");
+
+                document.getElementById("email").focus();
+               // $('#email').val('');
+
+
+
+
+            }else{
+
+
+                if(data.success.includes("actualizados")){
+
+
+                    $("#mensaje").attr('class', 'alert-success text-center');
+                    jQuery('.alert-success').show();
+                    jQuery('.alert-success').append('<p>'+data.success+'</p>');
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+          }
+
+
+
+
+
+
+
+
+
+
+
+        limpiar();
+        }
+      });
+
+    });
+
+  });
+
+
+
+
+
+
+
 
 setTimeout(function() {
     $('#mensaje').fadeOut('fast');

@@ -71,21 +71,75 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-        $user = User::find($id);
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->rol = $request->rol;
-        if($request->password !=''){
-            $user->password = \Hash::make($request->password);
-        }
 
 
 
-        $user->save();
+        $testcase=$request->name;
+        $testcase = str_replace(" ","",$testcase);
+        $respuesta="";
+               if (ctype_alpha($testcase)) {
 
 
-        Session::flash('success', 'Usuario editado con exito!');
-        return Redirect::to('usuario/'.$id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+                if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+
+
+
+                    $user = User::find($id);
+                    $user->email = $request->email;
+                    $user->name = $request->name;
+                    $user->rol = $request->rol;
+                    if($request->password !=''){
+                        $user->password = \Hash::make($request->password);
+                    }
+
+
+
+                    $user->save();
+
+                    $respuesta="Datos actualizados con exito.";
+
+
+                 }
+                 else{
+                    $respuesta="Error correo incorrecto.";
+                 }
+
+
+
+
+
+
+
+
+
+               }else{
+                   $respuesta="Error nombre incorrecto.";
+               }
+
+
+
+
+
+
+
+       // Session::flash('success', 'Usuario editado con exito!');
+       // return Redirect::to('usuario/'.$id);
+
+
+       return response()->json(['success'=>$respuesta ]);
     }
 
 

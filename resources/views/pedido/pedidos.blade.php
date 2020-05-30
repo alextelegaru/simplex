@@ -1,11 +1,13 @@
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 
+    @extends('layouts.app')
 
+    @section('content')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 
 <style>
 
@@ -34,6 +36,9 @@
     width: 17%;
 }
 </style>
+
+
+<div class="container">
 @if (\Session::has('success'))
 <div class="alert alert-danger">
     <ul>
@@ -86,9 +91,10 @@
 
 
 <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+</div>
+@endsection
 
-
-<script>
+@section('script')
 function PlaySound() {
       var sound = document.getElementById("audio");
       sound.play()
@@ -131,7 +137,7 @@ div.innerHTML="";
 
 
 
-},80000);
+},10000);
 
 
 
@@ -987,7 +993,8 @@ $.ajax({
 });
 }*/
 
-</script>
+@endsection
 
 
 
+@include('menu')

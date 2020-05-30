@@ -373,14 +373,14 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
 
 
            if(msg.success.includes("precio")){
-            $("#mensaje").attr('class', 'alert-danger');
+            $("#mensaje").attr('class', 'alert-danger text-center');
             jQuery('.alert-danger').show();
             jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
             document.getElementById("precio").focus()
 
 
            }else{
-            $("#mensaje").attr('class', 'alert-success');
+            $("#mensaje").attr('class', 'alert-success text-center');
             jQuery('.alert-success').show();
             jQuery('.alert-success').append('<p>'+msg.success+'</p>');
 
