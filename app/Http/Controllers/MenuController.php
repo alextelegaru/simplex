@@ -358,34 +358,145 @@ public function store(Request $request){
     if($request->precio !=0 && $request->precio != null && is_numeric($request->precio)){
 
 
-$testigo=0;
 
-      if (menu::where('fecha','=',$request->fecha)->exists()) {
+        if($request->fecha!=null){
 
 
-        $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
-        $menuAnterior=menu::find($menuAnterior[0]->id);
-        $menuAnterior->delete();
-        $testigo=1;
-     }
+
+            if(count($request->primeros)!=0 && $request->primeros[0]!="vacio"){
 
 
 
 
-    $bebidas=producto::where('tipo','bebida')->get(['nombre']);
-    $menu=new menu();
-    $menu->primeros=$request->primeros;
-    $menu->segundos=$request->segundos;
-    $menu->postres=$request->postres;
-    $menu->bebidas=$this->getNames($bebidas);
-    $menu->precio=$request->precio;
-    $menu->fecha=$request->fecha;
-$menu->save();
+                if(count($request->segundos)!=0&& $request->segundos[0]!="vacio"){
 
-if($testigo==0)
-{
-    return response()->json(['success'=>'Creado con exito']);
-}return response()->json(['success'=>'Editado con exito']);
+
+
+
+                    if(count($request->postres)!=0 && $request->postres[0]!="vacio"){
+
+
+
+                        $testigo=0;
+
+                        if (menu::where('fecha','=',$request->fecha)->exists()) {
+
+
+                          $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
+                          $menuAnterior=menu::find($menuAnterior[0]->id);
+                          $menuAnterior->delete();
+                          $testigo=1;
+                       }
+
+
+
+
+                      $bebidas=producto::where('tipo','bebida')->get(['nombre']);
+                      $menu=new menu();
+                      $menu->primeros=$request->primeros;
+                      $menu->segundos=$request->segundos;
+                      $menu->postres=$request->postres;
+                      $menu->bebidas=$this->getNames($bebidas);
+                      $menu->precio=$request->precio;
+                      $menu->fecha=$request->fecha;
+                  $menu->save();
+
+                  if($testigo==0)
+                  {
+                      return response()->json(['success'=>'Creado con exito']);
+                  }return response()->json(['success'=>'Editado con exito']);
+
+
+
+
+
+
+
+                    }else{
+                        return response()->json(['success'=>'Faltan postres.']);
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }else{
+                    return response()->json(['success'=>'Faltan segundos platos.']);
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }else{
+
+                return response()->json(['success'=>'Faltan primeros platos.']);
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }else{
+
+            return response()->json(['success'=>'Introduzca una fecha.']);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

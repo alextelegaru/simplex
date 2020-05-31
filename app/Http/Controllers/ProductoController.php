@@ -192,30 +192,56 @@ public function store(Request $request){
     //$producto=producto::where('nombre',$request->nombre)->get(['id']);
 
 
-if($request->precio!=null && $request->nombre!=null){
-
-
-    $producto=producto::where('nombre' , 'like' ,$request->nombre)->first();
-
-
-    if(is_numeric($request->precio))
-    {
-
-    if($producto==null){
 
 
 
 
-            $producto=new Producto();
-            $producto->nombre=$request->nombre;
-            $producto->tipo=$request->tipo;
-            $producto->precio=$request->precio;
-            $producto->save();
 
-            $id=producto::where('nombre',$request->nombre)->get(['id']);
-            $mensaje="Producto creado con exito:".$id.":".$request->nombre;
+if(($request->precio!=null  || $request->precio=="") && $request->nombre!=null){
 
-            return response()->json(['success'=>$mensaje]);
+    $testcase=$request->nombre;
+    $testcase = str_replace(" ","",$testcase);
+
+    if (ctype_alpha($testcase)) {
+
+        if(is_numeric($request->precio) )
+        {
+
+
+            $producto=producto::where('nombre' , 'like' ,$request->nombre)->first();
+            if($producto==null){
+
+
+
+
+                    $producto=new Producto();
+                    $producto->nombre=$request->nombre;
+                    $producto->tipo=$request->tipo;
+                    $producto->precio=$request->precio;
+                    $producto->save();
+
+                    $id=producto::where('nombre',$request->nombre)->get(['id']);
+                    $mensaje="Producto creado con exito:".$id.":".$request->nombre;
+
+                    return response()->json(['success'=>$mensaje]);
+
+
+
+
+
+
+                }else{
+                    return response()->json(['success'=>"El nombre  del producto ya existe"]);
+
+                }
+
+
+
+
+
+
+
+
 
 
 
@@ -223,22 +249,36 @@ if($request->precio!=null && $request->nombre!=null){
 
 
         }else{
+    return response()->json(['success'=>"Error precio incorrecto"]);
+}
 
 
-            return response()->json(['success'=>"El nombre  del producto ya existe"]);
 
-        }
+
+
+
+
+
+
+    }else{
+        return response()->json(['success'=>"Error nombre incorrecto"]);
 
     }
-    return response()->json(['success'=>"Error Precio"]);
 
 
 
 
-}{
 
+
+}else{
     return response()->json(['success'=>"Campos Obligatorios"]);
 }
+
+
+
+
+
+
 
 
 

@@ -92,3 +92,12 @@ Route::post('/actualizar/{id}','ProductoController@actualizar');
 
 Route::get('/getCoste/{id}','PedidoController@getCoste');
 Route::post('/soporte', 'RecoveryController@soporte');
+
+
+Route::get('/crearPedido','PedidoController@create');
+
+Route::get('/crearMenu','MenuController@create');
+
+
+Route::get('/crearUsuario','UserController@create');
+

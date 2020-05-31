@@ -29,7 +29,12 @@
 <style>option:hover{background-color:#05f5e9;}
         select {
     width: 100%;
-}</style>
+}
+.error {
+    border-color:red;
+}
+
+</style>
 
  <div class="text-center" id="mensaje" style="display:none"></div>
 
@@ -370,19 +375,145 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
         url: "{{route('menu.store')}}",
         data: data,
         success: function (msg) {
+            $("#precio").removeClass("error");
+            $("#myDate").removeClass("error");
+            $("#primeros").removeClass("error");
+            $("#segundos").removeClass("error");
+            $("#postres").removeClass("error");
+
 
 
            if(msg.success.includes("precio")){
             $("#mensaje").attr('class', 'alert-danger text-center');
             jQuery('.alert-danger').show();
             jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
+            $("#precio").addClass("error");
             document.getElementById("precio").focus()
 
 
+
            }else{
-            $("#mensaje").attr('class', 'alert-success text-center');
-            jQuery('.alert-success').show();
-            jQuery('.alert-success').append('<p>'+msg.success+'</p>');
+
+
+            if(msg.success.includes("fecha")){
+                $("#mensaje").attr('class', 'alert-danger text-center');
+            jQuery('.alert-danger').show();
+            jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
+            $("#myDate").addClass("error");
+            document.getElementById("myDate").focus();
+            }else{
+
+
+
+                if(msg.success.includes("primeros")){
+                    $("#mensaje").attr('class', 'alert-danger text-center');
+                jQuery('.alert-danger').show();
+                jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
+                $("#primeros").addClass("error");
+                document.getElementById("primeros").focus();
+                }else{
+
+
+
+                    if(msg.success.includes("segundos")){
+                        $("#mensaje").attr('class', 'alert-danger text-center');
+                    jQuery('.alert-danger').show();
+                    jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
+                    $("#segundos").addClass("error");
+                    document.getElementById("segundos").focus();
+                    }else{
+
+
+                        if(msg.success.includes("postres")){
+
+                            $("#mensaje").attr('class', 'alert-danger text-center');
+                        jQuery('.alert-danger').show();
+                        jQuery('.alert-danger').append('<p>'+msg.success+'</p>');
+                        $("#postres").addClass("error");
+                        document.getElementById("postres").focus();
+                        }else{
+
+
+                            $("#mensaje").attr('class', 'alert-success text-center');
+                            jQuery('.alert-success').show();
+                            jQuery('.alert-success').append('<p>'+msg.success+'</p>');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+
+
+
+
+
+
+
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
            }
 

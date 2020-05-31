@@ -255,7 +255,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
       {
         $("#mensaje").text('');
         $("#mensaje").css("display", "none");
-      }, 1150);
+      }, 3150);
     }
 
 
@@ -332,11 +332,13 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
             type: "POST",
             url: '/productos',
             data: data,
+            timeout: 50000,
             success: function (data) {
 
-
-                $("#precio").removeClass("error");
                 $("#nombre").removeClass("error");
+                $("#precio").removeClass("error");
+
+
 
 
                               if(data.success){
@@ -347,19 +349,19 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
                                 if(original.includes("campos")){
 
-                                    document.getElementById("nombre").focus();
+
                                     $("#nombre").addClass("error");
-
-
-                                    document.getElementById("precio").focus();
                                     $("#precio").addClass("error");
+                                    document.getElementById("nombre").focus();
+                                    document.getElementById("precio").focus();
 
 
 
 
 
 
-                                    $("#mensaje").attr('class', 'alert-danger');
+
+                                    $("#mensaje").attr('class', 'alert-danger text-center');
                                     jQuery('.alert-danger').show();
                                     jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
@@ -380,7 +382,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                                         $("#nombre").addClass("error");
                                         $('#nombre').val('');
 
-                                        $("#mensaje").attr('class', 'alert-danger');
+                                        $("#mensaje").attr('class', 'alert-danger text-center');
                                         jQuery('.alert-danger').show();
                                         jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
@@ -388,18 +390,39 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
                                     }else{
 
+                                        if(original.includes("nombre incorrecto")){
+
+                                            document.getElementById("nombre").focus();
+                                            $("#nombre").addClass("error");
+                                            $('#nombre').val('');
+
+                                            $("#mensaje").attr('class', 'alert-danger text-center');
+                                            jQuery('.alert-danger').show();
+                                            jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+
+
+
+                                        }else{
+
+
+
+
+
+
+
+
                                         if(original.includes("precio")){
                                             document.getElementById("precio").focus();
                                             $("#precio").addClass("error");
                                             $('#precio').val('');
 
-                                            $("#mensaje").attr('class', 'alert-danger');
+                                            $("#mensaje").attr('class', 'alert-danger text-center');
                                             jQuery('.alert-danger').show();
                                             jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
                                         }else{
                                             substring=data.success.split(":");
-                                            $("#mensaje").attr('class', 'alert-success');
+                                            $("#mensaje").attr('class', 'alert-success text-center');
                                             jQuery('.alert-success').show();
                                             jQuery('.alert-success').append('<p>'+substring[0]+'</p>');
                                             limpiar();
@@ -433,6 +456,15 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
 
                                         }
+
+                                    }
+
+
+
+
+
+
+
 
 
                                     }
@@ -520,7 +552,7 @@ function cambioDatos(){
 
 
 
-                        $("#mensaje").attr('class', 'alert-danger');
+                        $("#mensaje").attr('class', 'alert-danger text-center');
                         jQuery('.alert-danger').show();
                         jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
@@ -531,7 +563,7 @@ function cambioDatos(){
 
                             document.getElementById("nombreCambio").focus();
                             $("#nombreCambio").addClass("error");
-                            $("#mensaje").attr('class', 'alert-danger');
+                            $("#mensaje").attr('class', 'alert-danger text-center');
                             jQuery('.alert-danger').show();
                             jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
@@ -543,20 +575,20 @@ function cambioDatos(){
 
                                 document.getElementById("precioCambio").focus();
                                 $("#precioCambio").addClass("error");
-                                $("#mensaje").attr('class', 'alert-danger');
+                                $("#mensaje").attr('class', 'alert-danger text-center');
                                 jQuery('.alert-danger').show();
                                 jQuery('.alert-danger').append('<p>'+data.success+'</p>');
 
                             }else{
 
-                                $("#mensaje").attr('class', 'alert-success');
+                                $("#mensaje").attr('class', 'alert-success text-center');
                                 jQuery('.alert-success').show();
                                 jQuery('.alert-success').append('<p>'+data.success+'</p>');
 
 
                                 cambioDatos();
                                     ordenar();
-                                limpiar();
+
 
 
 
@@ -609,7 +641,7 @@ function cambioDatos(){
 
 
                 }
-
+                limpiar();
 
 
 
@@ -663,7 +695,7 @@ function cambioDatos(){
         data: data,
         success: function (data) {
                           if(data.success){
-                            $("#mensaje").attr('class', 'alert-success');
+                            $("#mensaje").attr('class', 'alert-success text-center');
                             jQuery('.alert-success').show();
                               jQuery('.alert-success').append('<p>'+data.success+'</p>');
                                 console.log(data.success);

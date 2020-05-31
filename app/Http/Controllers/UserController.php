@@ -263,7 +263,7 @@ $user->save();
 //return back()->with('exito', 'Usuario creado con exito');
 
 Session::flash('success', 'Usuario creado con exito!');
-return Redirect::to('usuarios/create');
+return Redirect::to('/crearUsuario');
 
 
     }

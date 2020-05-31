@@ -457,13 +457,13 @@ $("#guardar").click(function (e) {
         data: data,
         success: function (data) {
             jQuery.each(data.errors, function(key, value){
-                $("#mensaje").attr('class', 'alert-danger');
+                $("#mensaje").attr('class', 'alert-danger text-center');
                   			jQuery('.alert-danger').show();
                   			jQuery('.alert-danger').append('<p>'+value+'</p>');
                   		});
 
                           if(data.success){
-                            $("#mensaje").attr('class', 'alert-success');
+                            $("#mensaje").attr('class', 'alert-success text-center');
                             jQuery('.alert-success').show();
                   			jQuery('.alert-success').append('<p>'+data.success+'</p>');
 
