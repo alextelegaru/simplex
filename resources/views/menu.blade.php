@@ -207,12 +207,7 @@ a.article:hover {
 
 
 
-@if (Auth::user()->rol=="cocinero"||Auth::user()->rol=="cocinera"||Auth::user()->rol=="admin")
 
-<li>
-    <a  class="negro" href="{{ url('/menu') }}" id="menuDeHoy">Menu de Hoy</a>
-</li>
-@endif
 
 
 @if (Auth::user()->rol=="camarero"||Auth::user()->rol=="camarera"||Auth::user()->rol=="admin")
@@ -224,6 +219,14 @@ a.article:hover {
 <li>
     <a  class="negro" href="{{ url('/pedidos') }}" >Pedidos</a>
 </li>
+
+
+@if (Auth::user()->rol=="cocinero"||Auth::user()->rol=="cocinera"||Auth::user()->rol=="admin")
+
+<li>
+    <a  class="negro" href="{{ url('/menu') }}" id="menuDeHoy">Menu de Hoy</a>
+</li>
+@endif
 
 
 @if (Auth::user()->rol=="cocinero"||Auth::user()->rol=="cocinera"||Auth::user()->rol=="admin")
@@ -247,7 +250,31 @@ a.article:hover {
 
             @endif
 
+            @if (Auth::user()->rol=="admin")
 
+
+
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usuarios</a>
+                <ul class=" collapse list-unstyled" id="pageSubmenu">
+
+                    <li>
+                        <a class="negro" href="/crearUsuario">Crear usuario</a>
+                    </li>
+                    <li>
+                        <a class="negro" href="/usuarios">Usuarios</a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+
+
+
+
+
+@endif
 
 
 
@@ -255,11 +282,7 @@ a.article:hover {
                 <a class="negro" href="/contactanos">Contactanos</a>
             </li>
 
-            @if (Auth::user()->rol=="admin")
-            <li>
-                <a class="negro" href="/crearUsuario">Crear usuario</a>
-            </li>
-@endif
+
 
 
 

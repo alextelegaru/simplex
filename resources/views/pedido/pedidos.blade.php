@@ -70,12 +70,13 @@
 <strong>Recibido</strong><input type="text" id="dineroDado"  onkeyup="calcular()"><br>
  <pre type="text" class="text-center pagar display-2" id="cambio" >0.0</pre>
 
- <button class="btn btn-success block pagar" id="imprimir" onclick="imprimir(this)" >Imprimir</button><br>
+ <button class="btn btn-success block pagar" id="imprimir" onclick="imprimir(this)" >Cobrar E Imprimir</button><br>
 <button class="btn btn-danger block pagar" id="cobrar" onclick="cobrar(this)">Cobrar</button>
 
+<h1>Pedidos</h1>
 </div>
 
-<br><br><br><br><br>
+<br><br>
 @endif
 
 
@@ -137,7 +138,7 @@ div.innerHTML="";
 
 
 
-},10000);
+},50000);
 
 
 
@@ -583,7 +584,7 @@ $("#nombre").removeClass("error");
 function confirmar(objButton){
 
 
-
+    $("#"+objButton.value).remove();
 var id=objButton.value;
 var token = '{{csrf_token()}}';
 $.ajax({
@@ -622,7 +623,7 @@ $("#cajas option[value='Vacio']").remove();
 
 var element = document.getElementById(bjButton.value);
 var numberOfChildren = element.getElementsByTagName('*').length;
-alert(numberOfChildren);
+//alert(numberOfChildren);
 
 var limite=document.getElementById(bjButton.value).childNodes.length-6;
 @endif
@@ -728,7 +729,7 @@ window.location.href = baseUrl+"/modificar/"+objButton.value;
 
 function cobrar(objButton){
 
-
+$("#"+objButton.value).remove();
 /*
 var baseUrl = document.location.origin;
 url = baseUrl+"/cobrar/"+objButton.value;
@@ -757,7 +758,7 @@ success: function (data) {
 
 if(data.success){
 
-    $("#mensaje").attr('class', 'alert-success');
+    $("#mensaje").attr('class', 'alert-success text-center');
                     jQuery('.alert-success').show();
                       jQuery('.alert-success').append('<p>'+data.success+'</p>');
 
@@ -862,7 +863,7 @@ dado=Math.abs(document.getElementById("dineroDado").value);
 
 
 if(dado>=precio){
-cobrar(objButton);
+
     var data;
 
 var token = '{{csrf_token()}}';
@@ -895,7 +896,7 @@ error: function (data) {
 console.log("error");
 }
 });
-
+cobrar(objButton);
 
 
 }else{
