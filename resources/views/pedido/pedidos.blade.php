@@ -751,6 +751,7 @@ var id=objButton.value;
 $.ajax({
 type: "GET",
 url: "/cobrar/"+id,
+timeout: 10000,
 data: {
 
 },
@@ -853,8 +854,24 @@ console.log("error");
 
 
 
+async function getDineroDado(){
 
-function imprimir(objButton){
+    return  document.getElementById("dineroDado").value;
+}
+
+
+async function getCambio(){
+    return  document.getElementById("cambio").textContent.substring(0,document.getElementById("cambio").textContent.length - 1);
+}
+
+
+
+
+
+
+
+
+async function imprimir(objButton){
     objButton=objButton;
     $("#nombre").removeClass("error");
     precio=parseFloat(document.getElementById("precio").textContent);
@@ -871,7 +888,7 @@ var token = '{{csrf_token()}}';
 $.ajax({
 type: "GET",
 url: "/getName",
-timeout: 50000,
+//timeout: 5000,
 data: {
 
 },
@@ -880,8 +897,13 @@ success: function (data) {
 
  var token = '{{csrf_token()}}';
 var id=objButton.value;
-var pago=document.getElementById("dineroDado").value;
-var cambio=document.getElementById("cambio").textContent.substring(0,document.getElementById("cambio").textContent.length - 1);
+
+
+
+var pago= getDineroDado();
+
+var cambio= getCambio();
+
 
 var baseUrl = document.location.origin;
 urlx="imprimir/"+id+"/"+pago+"/"+cambio+"/"+data;

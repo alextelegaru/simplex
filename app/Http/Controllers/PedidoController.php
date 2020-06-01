@@ -98,7 +98,7 @@ public function cobrar(Request $request,$id){
 
     $pedido=pedido::where('_id' , '=' ,$id)->first();
 $pedido->estado=null;
-$pedido->save();
+//$pedido->save();
     return response()->json(['success'=>'Pedido Cobrado ' ]);
 
 }
@@ -230,9 +230,21 @@ if (menu::where('fecha','=',$fecha)->exists()) {
         $fileName =  'hola' . '.' . 'pdf' ;
         $pdf->save($path . '/' . $fileName);
         return $pdf->download($fileName);*/
+
+
+
+
+
+
+
+
+
+
+
+
         $pdf = \PDF::loadView('imprimir', compact('pedido','pago','cambio','nombre','fecha'));
 
-       return  $pdf->download('imprimir.pdf');
+       return  $pdf->download($pedido->id.'.pdf');
         //return response()->json(["success"=>$pdf->download('invoice.pdf')]);
     }
 

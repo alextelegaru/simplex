@@ -372,6 +372,9 @@ document.getElementById("menuDeHoy").href=document.getElementById("menuDeHoy").h
 //document.getElementById("crearMenuHoy").href=document.getElementById("crearMenuHoy").href+"/"+today;
 
 document.getElementById("editarMenuHoy").href=document.getElementById("editarMenuHoy").href+"/"+today;
+
+
+
 	</script>
 
 

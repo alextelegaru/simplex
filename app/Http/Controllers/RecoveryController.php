@@ -29,7 +29,7 @@ class RecoveryController extends Controller
 
     public function soporte(Request $request)
     {
-
+        $correo=Auth::user()->email;
 
         $mensaje=$request->mensaje;
         $to_name =$request->mensaje;
@@ -38,7 +38,7 @@ class RecoveryController extends Controller
         $rol=$request->rol;
 
         $mensaje=$request->mensaje;
-        $data = array("nombre" => $nombre,"rol" => $rol,"mensaje" => $mensaje);
+        $data = array("nombre" => $nombre,"rol" => $rol,"mensaje" => $mensaje,"correo"=>$correo);
         Mail::send('emails.soporte', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject('Incidencia Simplex');$message->from($to_email,"Simplex");});
 
         return response()->json(['success'=>"Incidencia enviada con exito al admin." ]);

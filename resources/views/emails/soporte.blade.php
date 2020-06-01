@@ -15,8 +15,10 @@
 
 
 <body>
+    <p><strong>Simplex</strong></p><img src="/img/fondo home.jpg" width="100px" height="100px">
     <p>Nombre: <strong>{{$nombre}}</strong></p>
     <p>Rol: <strong>{{$rol}}</strong></p>
+    <p>Correo: <strong>{{$correo}}</strong></p>
     <p>Incidencia</p>
     <p><strong>{{$mensaje}}</strong></p>
 
