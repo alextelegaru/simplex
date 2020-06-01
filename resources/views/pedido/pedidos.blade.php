@@ -854,6 +854,7 @@ console.log("error");
 
 
 function imprimir(objButton){
+    objButton=objButton;
     $("#nombre").removeClass("error");
     precio=parseFloat(document.getElementById("precio").textContent);
 dado=Math.abs(document.getElementById("dineroDado").value);
@@ -861,7 +862,7 @@ dado=Math.abs(document.getElementById("dineroDado").value);
 
 
 if(dado>=precio){
-
+cobrar(objButton);
     var data;
 
 var token = '{{csrf_token()}}';

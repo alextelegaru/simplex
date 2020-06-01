@@ -208,62 +208,91 @@ $mensajes = [
 */
 //return $request->all();
 
-$user = new User;
-
-$user->name = $request->name;
-
-$user->email= $request->email;
-$user->rol = $request->rol;
-$user->password = \Hash::make($request->password);
 
 
 
 
-// Juego::create($datosFormulario);
+if (user::where('email','=',$request->email)->exists()){
+
+return response()->json(['success'=>"Ya existe un usuario con este correo" ]);
+}else{
+
+
+    $user = new User;
+
+    $user->name = $request->name;
+
+    $user->email= $request->email;
+    $user->rol = $request->rol;
+    $user->password = \Hash::make($request->password);
 
 
 
 
-
-// Obtiene el nombre de la real de la imagen
-//$juego->imagen = $request->imagen->getClientOriginalName();
-
-//$nombre = $image->getClientOriginalName();
-
-
-// Almacena el archivo en storage/app/public con el nombre $juego->imagen
-//$request->file('imagen')->move('public',$nombre);
-//$juego->image = $request->image->getClientOriginalName();
-
-//$request->file('image')->storeAs('/public_html/storage/app/public/',$juego->image);
-
-$user->save();
+    // Juego::create($datosFormulario);
 
 
 
 
 
+    // Obtiene el nombre de la real de la imagen
+    //$juego->imagen = $request->imagen->getClientOriginalName();
 
-// Almacena el archivo en storage/app/public con el nombre $peli->imagen
-
-
-
-
+    //$nombre = $image->getClientOriginalName();
 
 
+    // Almacena el archivo en storage/app/public con el nombre $juego->imagen
+    //$request->file('imagen')->move('public',$nombre);
+    //$juego->image = $request->image->getClientOriginalName();
+
+    //$request->file('image')->storeAs('/public_html/storage/app/public/',$juego->image);
+
+    $user->save();
 
 
 
 
-//return view('juegos.index', compact('juegos'));
 
-//alert()->success('Videojuego agregado con exito!',
-//$juego->nombre)->persistent('Cerrar');
 
-//return back()->with('exito', 'Usuario creado con exito');
+    // Almacena el archivo en storage/app/public con el nombre $peli->imagen
 
-Session::flash('success', 'Usuario creado con exito!');
-return Redirect::to('/crearUsuario');
+
+
+
+
+
+
+
+
+
+    //return view('juegos.index', compact('juegos'));
+
+    //alert()->success('Videojuego agregado con exito!',
+    //$juego->nombre)->persistent('Cerrar');
+
+    //return back()->with('exito', 'Usuario creado con exito');
+    /*
+    Session::flash('success', 'Usuario creado con exito!');
+    return Redirect::to('/crearUsuario');*/
+
+
+    return response()->json(['success'=>"Usuario creado" ]);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
@@ -301,7 +330,7 @@ return Redirect::to('/crearUsuario');
     {
         // delete
         $user = User::find($id);
-       // $user->delete();
+        $user->delete();
 
 
         Session::flash('success', 'Usuario eliminado con exito!');

@@ -148,7 +148,7 @@ line-height: /* adjust to tweak wierd fonts */;
 
 @section('script')
 
-<script>
+
 
 function loadDoc() {
   var xhttp = new XMLHttpRequest();
@@ -176,7 +176,7 @@ $("#mensaje").on("click", function(event) {
 
 
 
-</script>
+
 
 
 @endsection
