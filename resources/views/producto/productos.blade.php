@@ -337,7 +337,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
                 $("#nombre").removeClass("error");
                 $("#precio").removeClass("error");
-                
+
 
 
 

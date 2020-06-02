@@ -854,13 +854,13 @@ console.log("error");
 
 
 
-async function getDineroDado(){
+function getDineroDado(){
 
     return  document.getElementById("dineroDado").value;
 }
 
 
-async function getCambio(){
+ function getCambio(){
     return  document.getElementById("cambio").textContent.substring(0,document.getElementById("cambio").textContent.length - 1);
 }
 
@@ -871,7 +871,7 @@ async function getCambio(){
 
 
 
-async function imprimir(objButton){
+ function imprimir(objButton){
     objButton=objButton;
     $("#nombre").removeClass("error");
     precio=parseFloat(document.getElementById("precio").textContent);
@@ -900,7 +900,7 @@ var id=objButton.value;
 
 
 
-var pago= getDineroDado();
+var pago=  getDineroDado();
 
 var cambio= getCambio();
 
