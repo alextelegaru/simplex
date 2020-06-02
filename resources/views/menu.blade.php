@@ -255,8 +255,8 @@ a.article:hover {
 
 
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usuarios</a>
-                <ul class=" collapse list-unstyled" id="pageSubmenu">
+                <a href="#pageSubmenus" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usuarios</a>
+                <ul class=" collapse list-unstyled" id="pageSubmenus">
 
                     <li>
                         <a class="negro" href="/crearUsuario">Crear usuario</a>

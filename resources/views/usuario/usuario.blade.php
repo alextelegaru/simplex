@@ -58,7 +58,7 @@ line-height: /* adjust to tweak wierd fonts */;
                 <div class="row">
                     <div class="col-4">
                       <div class="text-center">
-                        <img src=<?php echo "/img/".$usuario['rol'].".jpg" ; ?> alt="card-1" class="" width="155px" height="125px" >
+                        <img id="imagenPerfil"src=<?php echo "/img/".$usuario['rol'].".jpg" ; ?> alt="card-1" class="" width="155px" height="125px" >
 
 
                       </div>
@@ -89,7 +89,7 @@ line-height: /* adjust to tweak wierd fonts */;
         <?php
         $interests = array('admin' => 'Admin',  'camarera' => 'Camarera', 'camarero' => 'Camarero',  'cocinera' => 'Cocinera', 'cocinero' => 'Cocinero');
         ?>
-        <select  class="form-control" name="rol">
+        <select  class="form-control" name="rol" id="rol">
 
 
 
@@ -189,7 +189,7 @@ $(function () {
                 $("#email").addClass("error");
 
                 document.getElementById("email").focus();
-               // $('#email').val('');
+                $('#email').val('');
 
 
 
@@ -197,17 +197,60 @@ $(function () {
             }else{
 
 
-                if(data.success.includes("actualizados")){
+
+                if(data.success.includes("Ya existe un usuario con este correo.")){
+
+                    $("#mensaje").attr('class', 'alert-danger text-center');
+                    jQuery('.alert-danger').show();
+                    jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+                    $("#email").addClass("error");
+
+                    document.getElementById("email").focus();
+                   // $('#email').val('');
 
 
-                    $("#mensaje").attr('class', 'alert-success text-center');
-                    jQuery('.alert-success').show();
-                    jQuery('.alert-success').append('<p>'+data.success+'</p>');
+
+
+                }else{
+
+
+
+                    if(data.success.includes("actualizados")){
+
+
+                        $("#mensaje").attr('class', 'alert-success text-center');
+                        jQuery('.alert-success').show();
+                        jQuery('.alert-success').append('<p>'+data.success+'</p>');
+
+                        $("#name").removeClass("error");
+                        $("#email").removeClass("error");
+
+
+                        //var base_url = window.location.origin+'/';
+                        rol=document.getElementById('rol').value;
+                        document.getElementById("imagenPerfil").src='/img/'+rol.toLowerCase()+".jpg"
+
+
+                    }
+
+
+
 
 
 
 
                 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

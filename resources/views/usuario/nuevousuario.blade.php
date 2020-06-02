@@ -158,9 +158,36 @@ $(function () {
             }else{
 
 
+                if(data.success.includes("Correo incorrecto")){
+
+                    $("#mensaje").attr('class', 'alert-danger text-center');
+                    jQuery('.alert-danger').show();
+                    jQuery('.alert-danger').append('<p>'+data.success+'</p>');
+                    $("#email").addClass("error");
+
+                    document.getElementById("email").focus();
+                   $('#email').val('');
+
+
+
+
+                }else{
+
                     $("#mensaje").attr('class', 'alert-success text-center');
                     jQuery('.alert-success').show();
                     jQuery('.alert-success').append('<p>'+data.success+'</p>');
+
+                    $('#email').val('');
+                    $('#name').val('');
+                     $('#password').val('');
+
+                }
+
+
+
+
+
+
 
 
 

@@ -79,37 +79,38 @@ class UserController extends Controller
         $respuesta="";
                if (ctype_alpha($testcase)) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
 
+                    $usuarioTemporal=user::find($id);
 
 
-                    $user = User::find($id);
-                    $user->email = $request->email;
-                    $user->name = $request->name;
-                    $user->rol = $request->rol;
-                    if($request->password !=''){
-                        $user->password = \Hash::make($request->password);
-                    }
+                    if (user::where('email','=',$request->email)->exists() && $usuarioTemporal->email!=$request->email  ){
+
+                        $respuesta="Ya existe un usuario con este correo.";
+                        }else{
+
+                            $user = User::find($id);
+                            $user->email = $request->email;
+                            $user->name = $request->name;
+                            $user->rol = $request->rol;
+                            if($request->password !=''){
+                                $user->password = \Hash::make($request->password);
+                            }
+
+                            $user->save();
+
+                            $respuesta="Datos actualizados con exito.";
+
+
+                        }
 
 
 
-                    $user->save();
 
-                    $respuesta="Datos actualizados con exito.";
+
+
+
+
 
 
                  }
@@ -117,19 +118,9 @@ class UserController extends Controller
                     $respuesta="Error correo incorrecto.";
                  }
 
-
-
-
-
-
-
-
-
                }else{
                    $respuesta="Error nombre incorrecto.";
                }
-
-
 
 
 
@@ -209,77 +200,92 @@ $mensajes = [
 //return $request->all();
 
 
+if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
 
 
 
-if (user::where('email','=',$request->email)->exists()){
+    if (user::where('email','=',$request->email)->exists()){
 
-return response()->json(['success'=>"Ya existe un usuario con este correo" ]);
+        return response()->json(['success'=>"Ya existe un usuario con este correo" ]);
+        }else{
+
+
+            $user = new User;
+
+            $user->name = $request->name;
+
+            $user->email= $request->email;
+            $user->rol = $request->rol;
+            $user->password = \Hash::make($request->password);
+
+
+
+
+            // Juego::create($datosFormulario);
+
+
+
+
+
+            // Obtiene el nombre de la real de la imagen
+            //$juego->imagen = $request->imagen->getClientOriginalName();
+
+            //$nombre = $image->getClientOriginalName();
+
+
+            // Almacena el archivo en storage/app/public con el nombre $juego->imagen
+            //$request->file('imagen')->move('public',$nombre);
+            //$juego->image = $request->image->getClientOriginalName();
+
+            //$request->file('image')->storeAs('/public_html/storage/app/public/',$juego->image);
+
+            $user->save();
+
+
+
+
+
+
+            // Almacena el archivo en storage/app/public con el nombre $peli->imagen
+
+
+
+
+
+
+
+
+
+
+            //return view('juegos.index', compact('juegos'));
+
+            //alert()->success('Videojuego agregado con exito!',
+            //$juego->nombre)->persistent('Cerrar');
+
+            //return back()->with('exito', 'Usuario creado con exito');
+            /*
+            Session::flash('success', 'Usuario creado con exito!');
+            return Redirect::to('/crearUsuario');*/
+
+
+            return response()->json(['success'=>"Usuario creado" ]);
+
+
+        }
+
+
+
 }else{
-
-
-    $user = new User;
-
-    $user->name = $request->name;
-
-    $user->email= $request->email;
-    $user->rol = $request->rol;
-    $user->password = \Hash::make($request->password);
-
-
-
-
-    // Juego::create($datosFormulario);
-
-
-
-
-
-    // Obtiene el nombre de la real de la imagen
-    //$juego->imagen = $request->imagen->getClientOriginalName();
-
-    //$nombre = $image->getClientOriginalName();
-
-
-    // Almacena el archivo en storage/app/public con el nombre $juego->imagen
-    //$request->file('imagen')->move('public',$nombre);
-    //$juego->image = $request->image->getClientOriginalName();
-
-    //$request->file('image')->storeAs('/public_html/storage/app/public/',$juego->image);
-
-    $user->save();
-
-
-
-
-
-
-    // Almacena el archivo en storage/app/public con el nombre $peli->imagen
-
-
-
-
-
-
-
-
-
-
-    //return view('juegos.index', compact('juegos'));
-
-    //alert()->success('Videojuego agregado con exito!',
-    //$juego->nombre)->persistent('Cerrar');
-
-    //return back()->with('exito', 'Usuario creado con exito');
-    /*
-    Session::flash('success', 'Usuario creado con exito!');
-    return Redirect::to('/crearUsuario');*/
-
-
-    return response()->json(['success'=>"Usuario creado" ]);
-
+    return response()->json(['success'=>"Correo incorrecto." ]);
 
 }
+
+
+
+
+
+
+
 
 
 
