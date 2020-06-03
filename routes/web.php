@@ -34,20 +34,18 @@ Route::get('/eliminarUsuario/{id}','UserController@destroy');
 Route::post('recovery', 'RecoveryController@recovery')->name('recovery');
 
 
-//Route::get('x', 'MenuController@index');
+
 
 
 Route::get('/search','MenuController@search');
 Route::resource('menu', 'MenuController');
 
-//Route::get('/menu/{id}', 'MenuController@show');
+
 Route::put('/menu/{id}', 'MenuController@update')->name('update');
 
 
 
-//Route::get('myform','XController@myform');
 
-//Route::post('myform','XController@myformPost');
 
 Route::get('productos','ProductoController@index');
 
@@ -61,9 +59,10 @@ Route::post('/productos/{id}', 'ProductoController@destroy');
 
 Route::get('crearmenu/{id}','MenuController@create');
 
-Route::get('contactanos',function(){
-    return view('contactanos');
-});
+
+Route::get('contactanos','RecoveryController@index');
+
+
 
 Route::get('/precio','PedidoController@precio');
 Route::get('/getPedidos','PedidoController@getPedidos');

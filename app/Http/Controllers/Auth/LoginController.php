@@ -27,7 +27,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $maxAttempts = 3;
     /**
      * Create a new controller instance.
      *
@@ -44,11 +44,12 @@ class LoginController extends Controller
 
 
 
-/*
+
     public function logout()
 {
     Auth::logout();
-
-    return redirect()->back()->with('message', 'your message,here');
-}*/
+    $mensaje="Hasta pronto";
+   // return redirect('/', compact('mensaje'));
+    return redirect('/login')->with(compact('mensaje'));
+}
 }

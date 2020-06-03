@@ -111,49 +111,21 @@ $pedido->save();
     {
 
 
+        if( Auth::user() ){
 
 
-
-        /*
-        $primeros=producto::where('tipo','primero')->get(['nombre']);
-        $segundos=producto::where('tipo','segundo')->get(['nombre']);
-        $postres=producto::where('tipo','postre')->get(['nombre']);
-        $bebidas=producto::where('tipo','bebida')->get(['nombre']);
-
-
-
-        $menu=new menu();
-
-        $menu->primeros=$this->getNames($primeros);
-        $menu->segundos=$this->getNames($segundos);
-        $menu->postres=$this->getNames($postres);
-        $menu->bebidas=$this->getNames($bebidas);
-        $menu->precio="12";
-        $menu->fecha="12";*/
-//$menu->save();
-
-
-/*
-
-
-$testigo=0;
-
-      if (menu::where('fecha','=',$request->fecha)->exists()) {
-
-
-        $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
-        $menuAnterior=menu::find($menuAnterior[0]->id);
-        $menuAnterior->delete();
-        $testigo=1;
-     }
+           // if( Auth::user()->rol=="admin" ||Auth::user()->rol=="camarero" ||Auth::user()->rol=="camarera" ){
+                return view("pedido.pedidos");
+         //   }
 
 
 
 
-*/
+        }
+        return redirect()->back();
 
 
-        return view("pedido.pedidos");
+
 
 
 
@@ -242,7 +214,7 @@ if (menu::where('fecha','=',$fecha)->exists()) {
 
 
 
-        $pdf = \PDF::loadView('imprimir', compact('pedido','pago','cambio','nombre','fecha'));
+        $pdf = \PDF::loadView('ticket.imprimir', compact('pedido','pago','cambio','nombre','fecha'));
 
        return  $pdf->download($pedido->id.'.pdf');
         //return response()->json(["success"=>$pdf->download('invoice.pdf')]);
@@ -359,11 +331,11 @@ public function confirmar(Request $request,$id){
 
    }
 
-return view('errorMenu');
+return view('errores.errorMenu');
 
 }
 
-return view('errorPedido');
+return view('errores.errorPedido');
 
 }
 return view('home');
@@ -611,7 +583,7 @@ if (menu::where('fecha','=',$hoy)->exists()) {
 
 
 
-        return view('errorMenu');
+        return view('errores.errorMenu');
 
 
 

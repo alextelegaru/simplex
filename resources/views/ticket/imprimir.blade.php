@@ -24,7 +24,7 @@ echo $pedido->productos[$i]."<br>";
 }
 }
 echo "<br><strong>TOTAL: ".$pedido->precio."€ (IVA.incluido)</strong>"."<br>";
-echo "<br>EFECTIVO:     ".$pago."€";
+echo "<br>EFECTIVO:     ".$pago."€<br>";
 echo "<br>CAMBIO:       ".$cambio."€"."<br>";
 echo "<br><strong>Fue atendido amablemente por ".$nombre."</strong><br>";
 echo "Hasta la próxima";

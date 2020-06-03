@@ -17,54 +17,92 @@ class ProductoController extends Controller
 
 
 
-        $productos=Producto::all();
 
 
-$limite=count($productos);
-
-$primeros=[];
-
-$segundos=[];
-$postres=[];
-$bebidas=[];
+        if( Auth::user() ){
 
 
-$primerosIds=[];
-$segundosIds=[];
-$postresIds=[];
-$bebidasIds=[];
+            if( Auth::user()->rol=="admin" ||Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera" ){
 
 
 
 
-for($i=0;$i<$limite;$i++){
 
 
-    if($productos[$i]['tipo']=='primero'){
-            $primeros[]=$productos[$i]['nombre'];
-            $primerosIds[]=$productos[$i]['id'];
-}
-if($productos[$i]['tipo']=='segundo'){
-            $segundos[]=$productos[$i]['nombre'];
-            $segundosIds[]=$productos[$i]['id'];
-}
-if($productos[$i]['tipo']=='postre'){
-            $postres[]=$productos[$i]['nombre'];
-            $postresIds[]=$productos[$i]['id'];
-}
-if($productos[$i]['tipo']=='bebida'){
-            $bebidas[]=$productos[$i]['nombre'];
-            $bebidasIds[]=$productos[$i]['id'];
-}
+                $productos=Producto::all();
 
 
+                $limite=count($productos);
 
-}
+                $primeros=[];
+
+                $segundos=[];
+                $postres=[];
+                $bebidas=[];
+
+
+                $primerosIds=[];
+                $segundosIds=[];
+                $postresIds=[];
+                $bebidasIds=[];
 
 
 
 
-        return view('producto.productos',compact('primeros','segundos','postres','bebidas','primerosIds','segundosIds','postresIds','bebidasIds'));
+                for($i=0;$i<$limite;$i++){
+
+
+                    if($productos[$i]['tipo']=='primero'){
+                            $primeros[]=$productos[$i]['nombre'];
+                            $primerosIds[]=$productos[$i]['id'];
+                }
+                if($productos[$i]['tipo']=='segundo'){
+                            $segundos[]=$productos[$i]['nombre'];
+                            $segundosIds[]=$productos[$i]['id'];
+                }
+                if($productos[$i]['tipo']=='postre'){
+                            $postres[]=$productos[$i]['nombre'];
+                            $postresIds[]=$productos[$i]['id'];
+                }
+                if($productos[$i]['tipo']=='bebida'){
+                            $bebidas[]=$productos[$i]['nombre'];
+                            $bebidasIds[]=$productos[$i]['id'];
+                }
+
+
+
+                }
+
+
+
+
+                        return view('producto.productos',compact('primeros','segundos','postres','bebidas','primerosIds','segundosIds','postresIds','bebidasIds'));
+
+
+
+
+
+            }
+
+
+
+
+        }
+        return redirect()->back();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

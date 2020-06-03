@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use Redirect;
 use Mail;
-use \ForceUTF8\Encoding;
+//use \ForceUTF8\Encoding;
 class MenuController extends Controller
 {
 
@@ -53,59 +53,58 @@ public function getNames($bruto){
 
 
     public function index()
-    {/*
-        $primeros=producto::where('tipo','primero')->get(['nombre']);
-        $segundos=producto::where('tipo','segundo')->get(['nombre']);
-        $postres=producto::where('tipo','postre')->get(['nombre']);
-        $bebidas=producto::where('tipo','bebida')->get(['nombre']);
+    {
 
 
 
-        $menu=new menu();
-
-        $menu->primeros=$this->getNames($primeros);
-        $menu->segundos=$this->getNames($segundos);
-        $menu->postres=$this->getNames($postres);
-        $menu->bebidas=$this->getNames($bebidas);
-        $menu->precio="12";
-        $menu->fecha="12";*/
-//$menu->save();
+        if( Auth::user() ){
 
 
-/*
+            if( Auth::user()->rol=="admin" ||Auth::user()->rol=="cocinero" ||Auth::user()->rol=="cocinera" ){
 
 
-$testigo=0;
 
-      if (menu::where('fecha','=',$request->fecha)->exists()) {
-
-
-        $menuAnterior = menu::where('fecha','=',$request->fecha )->get();
-        $menuAnterior=menu::find($menuAnterior[0]->id);
-        $menuAnterior->delete();
-        $testigo=1;
-     }
+                $hoy = Carbon::now();
+                $hoy = $hoy->format('Y-m-d');
 
 
 
 
-*/
+                if (menu::where('fecha','=',$hoy)->exists()) {
 
-$hoy = Carbon::now();
-$hoy = $hoy->format('Y-m-d');
-
-
-
-
-if (menu::where('fecha','=',$hoy)->exists()) {
-
-    return redirect('menu/'.$hoy);
- }
+                    return redirect('menu/'.$hoy);
+                 }
 
 
 
 
-        return view("menu.crearmenu",compact('hoy'));
+                        return view("menu.crearmenu",compact('hoy'));
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+        }
+        return redirect()->back();
+
+
+
+
+
+
+
+
+
+
 
 
 

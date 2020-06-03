@@ -13,6 +13,9 @@ class UserController extends Controller
 {
     public function index()
     {
+
+        if( Auth::user() ){
+
            if(Auth::user()->rol=='admin'){
 
               $usuarios=User::all();
@@ -20,7 +23,8 @@ class UserController extends Controller
             return view("usuario.usuarios", compact("usuarios"));
 
         }
-        return view("home");
+    }
+    return redirect()->back();
     }
 
 
@@ -36,6 +40,7 @@ class UserController extends Controller
 
        // $usuario=User::where('name', '2')->get();;
 
+       if( Auth::user() ){
        if(Auth::user()->id==$id || Auth::user()->rol=='admin'){
 
         $usuario=User::find($id);
@@ -55,6 +60,9 @@ class UserController extends Controller
 
        }
 
+
+
+    }return redirect()->back();
 
 
 
@@ -143,8 +151,25 @@ class UserController extends Controller
     public function create(Request $request)
     {
 
-        return view('usuario.nuevousuario');
-       // return view('juegos.create');
+        if( Auth::user() ){
+
+
+            if( Auth::user()->rol=="admin" ){
+
+                return view('usuario.nuevousuario');
+
+
+            }
+
+        }
+        return redirect()->back();
+
+
+
+
+
+
+
     }
 
 

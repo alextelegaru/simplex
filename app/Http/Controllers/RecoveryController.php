@@ -14,6 +14,27 @@ class RecoveryController extends Controller
 {
 
 
+
+public function index(){
+    if( Auth::user() ){
+
+
+
+             return view("contactanos");
+
+
+
+
+
+     }
+     return redirect()->back();
+
+}
+
+
+
+
+
     public function sendEmail($user,$contraseña){
         $mensaje="hola";
         $to_name =$user[0]['name'];

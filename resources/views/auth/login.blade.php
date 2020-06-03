@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container">
+    @if (session()->has('mensaje'))
+<div class="alert alert-dismissable alert-success text-center" id="mensaje">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>
+        {!! session()->get('mensaje') !!}
+    </strong>
+</div>
+@endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -71,3 +81,19 @@
     </div>
 </div>
 @endsection
+
+
+<script>
+function limpiar(){
+    setTimeout(
+  function()
+  {
+      if(document.getElementById("mensaje")){
+        document.getElementById("mensaje").remove();
+      }
+
+  }, 2000);
+}
+limpiar();
+
+</script>
