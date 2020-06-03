@@ -21,8 +21,8 @@ class CreateProductosTable extends Migration
 
 
     function precioRandom(){
-                 $min=1.25;
-                $max=34.5;
+                 $min=0.50;
+                $max=5.56;
                 return rand ($min*10, $max*10) / 10;
     }
 
@@ -111,7 +111,7 @@ $postres=["Natilla",
 
 "Sorbete de Cherry con Vodka y Aromas de Naranja",
 
-"Helado (Dos sabores)"];
+"Helado Dos sabores"];
 
 sort($postres);
 $limite=count($postres);

@@ -98,7 +98,7 @@ public function cobrar(Request $request,$id){
 
     $pedido=pedido::where('_id' , '=' ,$id)->first();
 $pedido->estado=null;
-//$pedido->save();
+$pedido->save();
     return response()->json(['success'=>'Pedido Cobrado ' ]);
 
 }

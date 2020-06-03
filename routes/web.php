@@ -30,6 +30,7 @@ Route::resource('usuarios','UserController');
 
 
 Route::get('nuevo/usuario', 'UserController@create');
+Route::get('/eliminarUsuario/{id}','UserController@destroy');
 Route::post('recovery', 'RecoveryController@recovery')->name('recovery');
 
 
@@ -100,4 +101,5 @@ Route::get('/crearMenu','MenuController@create');
 
 
 Route::get('/crearUsuario','UserController@create');
+
 

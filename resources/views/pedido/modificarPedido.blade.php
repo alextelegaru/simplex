@@ -511,7 +511,18 @@ sel.appendChild(opt);
 
 }else{
 
-    alert("Debes agregar un primero");
+    $("#mensaje").attr('class', 'alert-success text-center');
+    jQuery('.alert-success').show();
+    jQuery('.alert-success').append('<p>'+"Para menu agregar un primer plato."+'</p>');
+
+
+
+
+    limpiar();
+
+
+
+
 
 }
 
@@ -663,7 +674,7 @@ function calcularPrecio(){
           }
 
 precioMessagge=document.getElementById("precio").textContent;
-document.getElementById("precio").textContent=suma;
+document.getElementById("precio").textContent=suma.toFixed(2);
 }
 
 

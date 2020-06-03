@@ -50,6 +50,7 @@ line-height: /* adjust to tweak wierd fonts */;
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <div class="container mt-5 border-primary">
+        <div class="text-center" id="mensaje" style="display:none"></div>
         <div class="row">
 
 
@@ -83,9 +84,9 @@ line-height: /* adjust to tweak wierd fonts */;
 
 
 
-    <div class="row">
+    <div class="row" id={{$usuarios[$i]['id']}}>
 
-          <div class=" container-fluid clearfix border-primary" name={{$usuarios[$i]['id']}} id={{$usuarios[$i]['id']}}>
+          <div class=" container-fluid clearfix border-primary" name={{$usuarios[$i]['id']}} >
             <div class="card clearfix limite border-primary">
 
 
@@ -105,11 +106,11 @@ line-height: /* adjust to tweak wierd fonts */;
                   {{-- <a href="/usuario/{{$usuarios[$i]['id']}}" class="btn btn-danger">Eliminar</a>
 --}}
 
-                <form action="{{ route('usuarios.destroy', $usuarios[$i]['id']) }}" method="POST">
-    @method('DELETE')
-    @csrf
-    <button class="btn btn-danger">Eliminar</button>
-</form>
+
+
+
+    <button class="btn btn-danger" value={{$usuarios[$i]['id']}} onclick="eliminar(this)">Eliminar</button>
+
 
                 </div>
 
@@ -163,6 +164,55 @@ function loadDoc() {
   xhttp.open("GET", "/usuarios", true);
   xhttp.send();
 }
+
+function limpiar(){
+    setTimeout(
+  function()
+  {
+    $("#mensaje").text('');
+    $("#mensaje").empty();
+    $("#mensaje").css("display", "none");
+  }, 2000);
+}
+
+
+function eliminar(id)
+{
+    sessionStorage.setItem("eliminado",id.value);
+  $.ajax({
+    url:"/eliminarUsuario/"+id.value,
+
+    data:{},
+    dataType:"json",
+    type:"get",
+
+    timeout: 50000,
+    success:function(data)
+    {
+
+
+      x=data.success;
+
+      $("#mensaje").attr('class', 'alert-success text-center');
+      jQuery('.alert-success').show();
+      jQuery('.alert-success').append('<p>'+x+'</p>');
+
+      idEliminado=sessionStorage.getItem("eliminado");
+      document.getElementById(idEliminado).remove();
+      limpiar();
+
+
+
+
+    }
+
+
+  });
+
+
+
+}
+
 
 
 

@@ -336,11 +336,12 @@ if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
     {
         // delete
         $user = User::find($id);
-        //$user->delete();
+        $user->delete();
 
 
-        Session::flash('success', 'Usuario eliminado con exito!');
-        return Redirect::to('usuarios');
+        /*Session::flash('success', 'Usuario eliminado con exito!');
+        return Redirect::to('usuarios');*/
+        return response()->json(['success'=>"Usuario eliminado."]);
     }
 
 
