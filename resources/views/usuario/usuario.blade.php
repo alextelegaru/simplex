@@ -306,6 +306,8 @@ setTimeout(function() {
     $('#mensaje').fadeOut('fast');
   }, 3000);
 @endsection
-
+@section("title")
+Perfil
+@endsection
 @include('menu')
 

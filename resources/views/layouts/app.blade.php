@@ -7,9 +7,16 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ 'Simplex' }}</title>
+   <!-- <title>{{ 'Simplex' }}</title> -->
+   <title>
+    @yield('title')
+   </title>
 
    <link rel='stylesheet' type='text/css' href="{{ asset('css/estilos.css') }}" />
+
+
+<link rel="icon" type="image/vnd.microsoft.icon" href="/img/logo.png" sizes="16x16">
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

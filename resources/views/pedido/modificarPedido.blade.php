@@ -869,7 +869,9 @@ sel.appendChild(opt);
 
 
 @endsection
-
+@section("title")
+Modificar Pedido
+@endsection
 
 @include('menu')
 

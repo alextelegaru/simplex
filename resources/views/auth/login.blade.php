@@ -97,3 +97,6 @@ function limpiar(){
 limpiar();
 
 </script>
+@section("title")
+Login
+@endsection

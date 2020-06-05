@@ -547,7 +547,9 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
 
 @endsection
 
-
+@section("title")
+Crear Menu
+@endsection
 
 @include('menu')
 

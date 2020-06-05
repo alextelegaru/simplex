@@ -257,7 +257,9 @@ $("#mensaje").on("click", function(event) {
 
 
 @endsection
-
+@section("title")
+Usuarios
+@endsection
 
 
 @include('menu')

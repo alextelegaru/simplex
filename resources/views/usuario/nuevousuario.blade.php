@@ -225,6 +225,8 @@ setTimeout(function() {
 
 @endsection
 
-
+@section("title")
+Crear Usuario
+@endsection
 
 @include('menu')

@@ -554,5 +554,7 @@ function reiniciar(){}
 
 @endsection
 
-
+@section("title")
+Editar Menu
+@endsection
 @include('menu')

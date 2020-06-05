@@ -884,5 +884,7 @@ $('#precioCambio').val('');
 
 
 @endsection
-
+@section("title")
+Productos
+@endsection
 @include('menu')

@@ -854,6 +854,9 @@ limpiar();
 
 @endsection
 
+@section("title")
+Crear Pedido
+@endsection
 
 @include('menu')
 

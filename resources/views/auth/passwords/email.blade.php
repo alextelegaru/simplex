@@ -77,3 +77,6 @@
     </div>
 </div>
 @endsection
+@section("title")
+Recuperación
+@endsection

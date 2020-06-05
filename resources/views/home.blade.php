@@ -29,7 +29,9 @@
 
 
 
-
+@section("title")
+Home
+@endsection
 
 
 @include('menu')

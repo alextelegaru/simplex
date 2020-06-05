@@ -1051,5 +1051,7 @@ $.ajax({
 @endsection
 
 
-
+@section("title")
+Pedidos
+@endsection
 @include('menu')

@@ -85,6 +85,12 @@ color:black;
 
 @endsection
 
+
+@section("title")
+Contáctanos
+@endsection
+
+
 @include('menu')
 
 
