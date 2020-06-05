@@ -803,7 +803,7 @@ $error="Pedido realizado";
     public function destroy($id)
     {
         $pedido=pedido::find($id);
-       // $pedido->delete();
+        $pedido->delete();
 
         return response()->json(['success'=>"Pedido eliminado con exito."]);
 

@@ -8,6 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <style>
 
@@ -34,6 +35,7 @@
      #precio{
     color: red;
     width: 17%;
+
 }
 </style>
 
@@ -957,7 +959,23 @@ limpiar();
 
 
 function eliminar(objButton) {
+
 var id=objButton.value;
+sessionStorage.setItem("idEliminar",id);
+
+
+
+Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Se eliminara el pedido seleccionado.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar'
+    }).then((result) => {
+      if (result.value) {
+
 
 var token = '{{csrf_token()}}';
 var data={
@@ -973,6 +991,7 @@ success: function (data) {
                     jQuery('.alert-success').show();
                       jQuery('.alert-success').append('<p>'+data.success+'</p>');
                         console.log(data.success);
+                        document.getElementById(sessionStorage.getItem("idEliminar")).remove();
 
                   }}
 ,
@@ -981,6 +1000,18 @@ error: function (data) {
 console.log("error");
 }
 });
+
+
+
+
+
+  }
+})
+
+
+
+
+
 
 }
 

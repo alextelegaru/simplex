@@ -332,7 +332,16 @@ var x = document.getElementById('pedido');
     }else{
 
         if(valorAQuitar.includes("Primero:") ||valorAQuitar.includes("Segundo:") || valorAQuitar.includes("Postre:")||valorAQuitar.includes("Bebida:") ){
-alert("Seleccione Menu para eliminarlo.")
+//alert("Seleccione Menu para eliminarlo.")
+          $("#mensaje").attr('class', 'alert-warning text-center');
+            jQuery('.alert-warning').show();
+            jQuery('.alert-warning').append('<p>'+"Debe selecionar Menu en pedido para eliminarlo."+'</p>');
+limpiar();
+
+
+
+
+
         }else{
             if(x!=null){
     x.remove(x.selectedIndex);

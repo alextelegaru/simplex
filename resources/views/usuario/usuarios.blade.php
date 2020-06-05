@@ -48,7 +48,7 @@ line-height: /* adjust to tweak wierd fonts */;
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <div class="container mt-5 border-primary">
         <div class="text-center" id="mensaje" style="display:none"></div>
         <div class="row">
@@ -179,35 +179,62 @@ function limpiar(){
 function eliminar(id)
 {
     sessionStorage.setItem("eliminado",id.value);
-  $.ajax({
-    url:"/eliminarUsuario/"+id.value,
-
-    data:{},
-    dataType:"json",
-    type:"get",
-
-    timeout: 50000,
-    success:function(data)
-    {
-
-
-      x=data.success;
-
-      $("#mensaje").attr('class', 'alert-success text-center');
-      jQuery('.alert-success').show();
-      jQuery('.alert-success').append('<p>'+x+'</p>');
-
-      idEliminado=sessionStorage.getItem("eliminado");
-      document.getElementById(idEliminado).remove();
-      limpiar();
 
 
 
 
-    }
+
+    Swal.fire({
+          title: '¿Estás seguro?',
+          text: "Se eliminara el usuario.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar'
+        }).then((result) => {
+          if (result.value) {
+         
+
+            $.ajax({
+                url:"/eliminarUsuario/"+id.value,
+
+                data:{},
+                dataType:"json",
+                type:"get",
+
+                timeout: 50000,
+                success:function(data)
+                {
 
 
-  });
+                  x=data.success;
+
+                  $("#mensaje").attr('class', 'alert-success text-center');
+                  jQuery('.alert-success').show();
+                  jQuery('.alert-success').append('<p>'+x+'</p>');
+
+                  idEliminado=sessionStorage.getItem("eliminado");
+                  document.getElementById(idEliminado).remove();
+                  limpiar();
+
+
+
+
+                }
+
+
+              });
+
+
+          }
+        })
+
+
+
+
+
+
 
 
 

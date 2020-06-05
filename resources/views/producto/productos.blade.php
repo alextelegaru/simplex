@@ -5,12 +5,13 @@
 @section('content')
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
 
 
 
@@ -676,47 +677,94 @@ function cambioDatos(){
     });
 
 
+function eliminarConfirmado(){
+    aEliminar=document.getElementById(sessionStorage.getItem("lista")).value;
+    var x = document.getElementById(sessionStorage.getItem("lista"));
+    x.remove(x.selectedIndex);
+    var token = '{{csrf_token()}}';
+    var data={
+        _token:token,
+        _method:'delete'};
 
+
+        $.ajax({
+            type: "POST",
+            url: '/productos/'+aEliminar,
+            data: data,
+            success: function (data) {
+                              if(data.success){
+                                $("#mensaje").attr('class', 'alert-success text-center');
+                                jQuery('.alert-success').show();
+                                  jQuery('.alert-success').append('<p>'+data.success+'</p>');
+                                    console.log(data.success);
+
+                                    limpiar();
+
+
+
+
+
+
+
+
+
+                              }}
+            ,
+            error: function (data) {
+
+        console.log("error");
+            }
+        });
+
+
+
+
+
+}
 
 
 
 
     function eliminar() {
-    aEliminar=document.getElementById(varlistaActual).value;
-    var x = document.getElementById(varlistaActual);
-    x.remove(x.selectedIndex);
-    var token = '{{csrf_token()}}';
-    var data={
-        _token:token,
-        _method:'delete'}
-    $.ajax({
-        type: "POST",
-        url: '/productos/'+aEliminar,
-        data: data,
-        success: function (data) {
-                          if(data.success){
-                            $("#mensaje").attr('class', 'alert-success text-center');
-                            jQuery('.alert-success').show();
-                              jQuery('.alert-success').append('<p>'+data.success+'</p>');
-                                console.log(data.success);
 
-                                limpiar();
+
+
+        var sel = document.getElementById(sessionStorage.getItem("lista"));
+        var text= sel.options[sel.selectedIndex].text;
+
+        Swal.fire({
+              title: '¿Estás seguro?',
+              text: "Se eliminara el producto: "+text,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirmar',
+              cancelButtonText: 'Cancelar',
+            }).then((result) => {
+              if (result.value) {
 
 
 
 
+eliminarConfirmado();
+$('#nombreCambio').val('');
+$('#precioCambio').val('');
 
 
 
 
 
-                          }}
-        ,
-        error: function (data) {
 
-    console.log("error");
-        }
-    });
+
+
+  }
+})
+
+
+
+
+
 
       }
 
@@ -731,11 +779,14 @@ function cambioDatos(){
 
       $(document).click(function(event) {
         varlistaActual= $(event.target).parent()[0].id;
-       getPrecio();
-       getNombre();
+        if(varlistaActual!=null){
+            getPrecio();
+            getNombre();
 
+            sessionStorage.setItem("lista",varlistaActual);
+         sessionStorage.setItem("idProd",document.getElementById(varlistaActual).value);
+        }
 
-    sessionStorage.setItem("idProd",document.getElementById(varlistaActual).value);
     });
 
 
