@@ -7,4 +7,7 @@
     Espere a que el cocinero cuelgue el menu de hoy.</strong></p>
 
 @endsection
+@section("title")
+Error menu
+@endsection
 @include('menu')
