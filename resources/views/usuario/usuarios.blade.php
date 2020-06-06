@@ -46,9 +46,18 @@ line-height: /* adjust to tweak wierd fonts */;
 @endif
 @extends('layouts.app')
 @section('content')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+
+ <script type="text/javascript" src="{{URL::asset('js/jquery/3.4.1/jquery.min.js')}}"></script>
+
+
+<link href="{{ asset('css/bootstrap/4.3.1/css/bootstrap.min.css') }}" rel="stylesheet">
+ <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>-->
+
+ <script type="text/javascript" src="{{URL::asset('npm/sweetalert2@9')}}"></script>
+
+
     <div class="container mt-5 border-primary">
         <div class="text-center" id="mensaje" style="display:none"></div>
         <div class="row">
@@ -149,7 +158,7 @@ line-height: /* adjust to tweak wierd fonts */;
 
 @section('script')
 
-
+/*
 
 function loadDoc() {
   var xhttp = new XMLHttpRequest();
@@ -163,7 +172,7 @@ function loadDoc() {
   };
   xhttp.open("GET", "/usuarios", true);
   xhttp.send();
-}
+}*/
 
 function limpiar(){
     setTimeout(

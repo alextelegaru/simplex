@@ -22,8 +22,15 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>-->
+
+
+    <script type="text/javascript" src="{{URL::asset('popper/1.14.3/umd/popper.min.js')}}"></script>
+
+
+
+   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+    <script type="text/javascript" src="{{URL::asset('js/bootstrap/4.1.3/js/bootstrap.min.js')}}"></script>
 
 
 

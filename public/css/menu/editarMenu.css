@@ -1,0 +1,12 @@
+
+  select {
+    width: 100%;
+}
+option:hover{background-color:#05f5e9;}
+.subrayado{
+  text-decoration-line: underline;
+}
+
+.error {
+    border-color:red;
+}

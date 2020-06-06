@@ -1,0 +1,21 @@
+.error {
+    border-color:red;
+}
+
+    #precio{
+        color: red;
+        width: 17%;
+    }
+
+
+select {
+    width: 90%;
+
+}/*
+body {
+        overflow: hidden;
+    }*/
+option:hover{background-color:#05f5e9;}
+.subrayado{
+  text-decoration-line: underline;
+}

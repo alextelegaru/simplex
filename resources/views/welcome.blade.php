@@ -7,8 +7,11 @@
         <title>Simplex</title>
         <link rel="icon" type="image/vnd.microsoft.icon" href="/img/logo.png" sizes="16x16">
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">-->
+        <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
+        <!--<link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+        <link href="{{ asset('css/bootstrap/4.3.1/css/bootstrap.min.css') }}" rel="stylesheet">
         <!-- Styles -->
         <style>
             html, body {

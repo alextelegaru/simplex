@@ -1,0 +1,26 @@
+
+.pagar{ width: 25%;}
+
+.marcado {
+        background-color: yellow;
+        color: red;
+        width: 75%;
+     }
+     .marcado2 {
+        background-color: green;
+        color: white;
+        width: 75%;
+     }
+
+     #caja{
+         margin-left: 40%;
+     }
+
+     .error {
+    border-color:red;
+}
+     #precio{
+    color: red;
+    width: 17%;
+
+}

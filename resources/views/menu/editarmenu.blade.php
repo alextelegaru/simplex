@@ -10,23 +10,43 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>-->
+
+
+    <!--<script type="text/javascript" src="{{URL::asset('js/jquery/3.3.1/jquery.js')}}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
 
 
-<style>
-        select {
-    width: 100%;
-}
-option:hover{background-color:#05f5e9;}
-.subrayado{
-  text-decoration-line: underline;
-}
 
-</style>
+
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> -->
+
+    <script type="text/javascript" src="{{URL::asset('js/jquery/3.3.1/jquery.js')}}"></script>
+
+
+     <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
+       <link href="{{ asset('css/bootstrap/3.3.6/css/bootstrap.min.css') }}" rel="stylesheet">
+
+
+
+       <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+       <script type="text/javascript" src="{{URL::asset('js/bootstrap/3.3.7/js/bootstrap.min.js')}}"></script>
+
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">-->
+       <link href="{{ asset('css/bootstrap-select/1.12.2/css/bootstrap-select.min.css') }}" rel="stylesheet">
+
+
+ <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
+       <script type="text/javascript" src="{{URL::asset('js/bootstrap-select/1.12.2/js/bootstrap-select.min.js')}}"></script>
+    <link href="{{ asset('css/menu/editarMenu.css') }}" rel="stylesheet">
+
+
 
 
 
@@ -459,7 +479,9 @@ $("#guardar").click(function (e) {
             jQuery.each(data.errors, function(key, value){
                 $("#mensaje").attr('class', 'alert-danger text-center');
                   			jQuery('.alert-danger').show();
-                  			jQuery('.alert-danger').append('<p>'+value+'</p>');
+                              jQuery('.alert-danger').append('<p>'+value+'</p>');
+                              $("#precio").addClass("error");
+                              document.getElementById("precio").focus();
                   		});
 
                           if(data.success){
@@ -479,7 +501,7 @@ limpiar();
             jQuery.each(data.errors, function(key, value){
                   			jQuery('.alert-danger').show();
                   			jQuery('.alert-danger').append('<p>'+value+'</p>');
-                              alert(value);
+                             // alert(value);
                   		});
                           limpiar();
 

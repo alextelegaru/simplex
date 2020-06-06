@@ -3,41 +3,35 @@
     @extends('layouts.app')
 
     @section('content')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>-->
 
-<style>
+    <script type="text/javascript" src="{{URL::asset('js/jquery/3.3.1/jquery.js')}}"></script>
+    <link href="{{ asset('css/bootstrap/4.3.1/css/bootstrap.min.css') }}" rel="stylesheet">
 
-.pagar{ width: 25%;}
+   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
 
-.marcado {
-        background-color: yellow;
-        color: red;
-        width: 75%;
-     }
-     .marcado2 {
-        background-color: green;
-        color: white;
-        width: 75%;
-     }
+      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+      <script type="text/javascript" src="{{URL::asset('js/bootstrap/3.3.7/js/bootstrap.min.js')}}"></script>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">-->
+    <link href="{{ asset('css/bootstrap-select/1.12.2/css/bootstrap-select.min.css') }}" rel="stylesheet">
 
-     #caja{
-         margin-left: 40%;
-     }
 
-     .error {
-    border-color:red;
-}
-     #precio{
-    color: red;
-    width: 17%;
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
+          <script type="text/javascript" src="{{URL::asset('js/bootstrap-select/1.12.2/js/bootstrap-select.min.js')}}"></script>
 
-}
-</style>
+
+
+
+
+
+
+ <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>-->
+
+ <script type="text/javascript" src="{{URL::asset('npm/sweetalert2@9')}}"></script>
+
+    <link href="{{ asset('css/pedido/pedidos.css') }}" rel="stylesheet">
+
+
 
 
 <div class="container">
@@ -68,9 +62,9 @@
     </select>
 
 </div>
-<strong>TOTAL</strong><strong><pre id="precio" class=" text-center">  </pre></strong>
+<strong>TOTAL</strong><pre id="precio" class=" text-center display-4">0.0</pre>
 <strong>Recibido</strong><input type="text" id="dineroDado"  onkeyup="calcular()"><br>
- <pre type="text" class="text-center pagar display-2" id="cambio" >0.0</pre>
+ <pre type="text" class="text-center pagar display-4" id="cambio" >0.0</pre>
 
  <button class="btn btn-success block pagar" id="imprimir" onclick="imprimir(this)" >Cobrar E Imprimir</button><br>
 <button class="btn btn-danger block pagar" id="cobrar" onclick="cobrar(this)">Cobrar</button>
@@ -737,7 +731,7 @@ var baseUrl = document.location.origin;
 url = baseUrl+"/cobrar/"+objButton.value;
 */
 
-
+$("#dineroDado").removeClass("error");
 $("#nombre").removeClass("error");
     precio=parseFloat(document.getElementById("precio").textContent);
 dado=Math.abs(document.getElementById("dineroDado").value);
@@ -768,9 +762,10 @@ if(data.success){
 
 
                       $('#cajas').empty();
-                      document.getElementById("precio").textContent="";
+                      document.getElementById("precio").textContent="0.0";
                       document.getElementById("dineroDado").value="";
                       document.getElementById("cambio").textContent="0.0";
+
                       limpiar();
                       $("#cajas").append(new Option("Vacio", "Vacio"));
 }

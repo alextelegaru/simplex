@@ -4,38 +4,37 @@
 @section('content')
 
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>-->
+
+ <script type="text/javascript" src="{{URL::asset('js/jquery/3.3.1/jquery.js')}}"></script>
 
 
 
 
-<style>
-.error {
-    border-color:red;
-}
-
-    #precio{
-        color: red;
-        width: 17%;
-    }
 
 
-select {
-    width: 90%;
 
-}/*
-body {
-        overflow: hidden;
-    }*/
-option:hover{background-color:#05f5e9;}
-.subrayado{
-  text-decoration-line: underline;
-}
-</style>
+ <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
+
+
+ <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+ <script type="text/javascript" src="{{URL::asset('js/bootstrap/3.3.7/js/bootstrap.min.js')}}"></script>
+
+
+
+
+
+   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">-->
+   <link href="{{ asset('css/bootstrap-select/1.12.2/css/bootstrap-select.min.css') }}" rel="stylesheet">
+
+
+ <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
+ <script type="text/javascript" src="{{URL::asset('js/bootstrap-select/1.12.2/js/bootstrap-select.min.js')}}"></script>
+
+
+ <link href="{{ asset('css/pedido/crearpedido.css') }}" rel="stylesheet">
+
+
 
 <div class="text-center" id="mensaje" style="display:none"></div>
 <div class="container">

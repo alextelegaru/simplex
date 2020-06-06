@@ -31,7 +31,10 @@ line-height: /* adjust to tweak wierd fonts */;
 
 @extends('layouts.app')
 @section('content')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+
+<script type="text/javascript" src="{{URL::asset('js/jquery/3.4.1/jquery.min.js')}}"></script>
+
 @if (session()->has('success'))
     <div class="alert alert-dismissable alert-success" id="mensaje">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -42,11 +45,12 @@ line-height: /* adjust to tweak wierd fonts */;
         </strong>
     </div>
 @endif
-<style>
-    .error {
-    border-color:red;
-}
-</style>
+
+
+
+<link href="{{ asset('css/usuario/usuario.css') }}" rel="stylesheet">
+
+
 <div class="text-center" id="mensaje" style="display:none"></div>
     <div class=" border-primary row align-items-center justify-content-center">
 

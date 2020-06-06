@@ -1,0 +1,7 @@
+option:hover{background-color:#05f5e9;}
+        select {
+    width: 100%;
+}
+.error {
+    border-color:red;
+}

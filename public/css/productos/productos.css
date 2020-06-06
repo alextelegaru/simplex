@@ -1,0 +1,22 @@
+.ancho{
+    width: 76%;
+}
+    select {
+width: 80%;
+
+}
+
+.error {
+border-color:red;
+}
+.masAncho{
+width: 80%;
+}
+/*
+body {
+    overflow: hidden;
+}*/
+option:hover{background-color:#05f5e9;}
+.subrayado{
+text-decoration-line: underline;
+}

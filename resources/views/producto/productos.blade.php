@@ -5,42 +5,32 @@
 @section('content')
 
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+ <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>-->
+
+<script type="text/javascript" src="{{URL::asset('npm/sweetalert2@9')}}"></script>
+
+<script type="text/javascript" src="{{URL::asset('js/jquery/3.3.1/jquery.js')}}"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>-->
+    <link href="{{ asset('css/bootstrap/4.3.1/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  -->
+
+
+       <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+       <script type="text/javascript" src="{{URL::asset('js/bootstrap/3.3.7/js/bootstrap.min.js')}}"></script>
+
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">-->
+       <link href="{{ asset('css/bootstrap-select/1.12.2/css/bootstrap-select.min.css') }}" rel="stylesheet">
+
+
+ <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
+       <script type="text/javascript" src="{{URL::asset('js/bootstrap-select/1.12.2/js/bootstrap-select.min.js')}}"></script>
+
+
+    <link href="{{ asset('css/productos/productos.css') }}" rel="stylesheet">
 
 
 
-
-<style>
-
-    .ancho{
-        width: 76%;
-    }
-        select {
-    width: 80%;
-
-}
-
-.error {
-    border-color:red;
-}
-.masAncho{
-    width: 90%;
-}
-/*
-body {
-        overflow: hidden;
-    }*/
-option:hover{background-color:#05f5e9;}
-.subrayado{
-  text-decoration-line: underline;
-}
-
-</style>
 </head>
   <body>
     <div class="text-center" id="mensaje" style="display:none"></div>
@@ -117,7 +107,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
 
     <div class="row">
-        <div class="panel-heading"><strong>Producto Nuevo</strong></div>
+        <div class="panel-heading"><h4>Producto Nuevo</h4></div>
             <div class="panel-body">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -169,7 +159,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
     <div class="col-sm-4">
 
         <h4>Modificacion Producto</h4>
-        <br><br>
+        <br>
         <div class="form-group">
         <label for="nombre">Nombre</label>
         <input class="ancho" type="text" name="nombreCambio" id="nombreCambio" value="">
@@ -177,7 +167,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
         <div class="form-group">
 
             <label for="nombre">Precio</label>
-            <input class="ancho"type="text" name="precioCambio" id="precioCambio" value="">
+            <input class="masAncho"type="text" name="precioCambio" id="precioCambio" value="">
 
         </div>
         <div class="form-group">
@@ -803,25 +793,38 @@ $('#precioCambio').val('');
     function getPrecio()
     {
 
-        id=document.getElementById(varlistaActual).value;
 
-      $.ajax({
-        url:"/precio/"+id,
-        method:"get",
-        data:{
-            id:id,
-        },
-        dataType:"json",
-        timeout: 50000,
-        success:function(data)
-        {
 
-            document.getElementById('precioCambio').value=data;
+
+        if(varlistaActual!=null){
+
+
+
+
+            id=document.getElementById(varlistaActual).value;
+
+            $.ajax({
+              url:"/precio/"+id,
+              method:"get",
+              data:{
+                  id:id,
+              },
+              dataType:"json",
+              timeout: 50000,
+              success:function(data)
+              {
+
+                  document.getElementById('precioCambio').value=data;
+
+              }
+
+
+            });
+
 
         }
 
 
-      });
 
 
     }
