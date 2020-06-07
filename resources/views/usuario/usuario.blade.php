@@ -78,7 +78,7 @@ line-height: /* adjust to tweak wierd fonts */;
         {{ method_field('PATCH') }}
     <div class="form-group ">
         <label for="name">Nombre</label>
-        <input type="name" class="form-control" name="name" id="name"value={{ $usuario['name'] }}>
+        <input type="name" class="form-control anchoInput" name="name" id="name"value={{ $usuario['name'] }}>
       </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Correo</label>

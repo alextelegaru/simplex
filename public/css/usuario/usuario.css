@@ -1,3 +1,7 @@
 .error {
     border-color:red;
 }
+
+.anchoInput{
+    width: 220px;
+}

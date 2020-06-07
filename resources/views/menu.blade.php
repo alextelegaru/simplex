@@ -151,11 +151,18 @@
 
 
 
-                <a class="download" href="{{ route('logout') }}"
+                <a class="download" hidden
                 onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
                  {{ __('Cerrar Sesion') }}
              </a>
+
+             <a class="download" id="cerrarSesion2"
+             onclick="preguntame()">
+              {{ __('Cerrar Sesion') }}
+          </a>
+
+
 
              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                  @csrf
@@ -179,7 +186,7 @@
 
 
 
-
+    <link href="{{ asset('css/fonts2.cs') }}" rel="stylesheet">
    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <script type="text/javascript" src="{{URL::asset('js/jquery/3.3.1/slim.min.js')}}"></script>
 
@@ -219,7 +226,38 @@ document.getElementById("editarMenuHoy").href=document.getElementById("editarMen
 }
 
 
+function preguntame(){
 
+Swal.fire({
+              title: '¿Estás seguro?',
+              text: "La sesión se cerrará.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si',
+              cancelButtonText: 'Cancelar',
+            }).then((result) => {
+              if (result.value) {
+
+
+
+
+
+
+                document.getElementById("cerrarSesion").click()
+
+
+
+
+
+
+  }
+})
+
+
+
+}
 
 
 	</script>

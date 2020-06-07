@@ -13,14 +13,14 @@
    </title>
 
    <link rel='stylesheet' type='text/css' href="{{ asset('css/estilos.css') }}" />
-
+   <script type="text/javascript" src="{{URL::asset('npm/sweetalert2@9')}}"></script>
 
 <link rel="icon" type="image/vnd.microsoft.icon" href="/img/logo.png" sizes="16x16">
 
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">-->
 
    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>-->
 
@@ -68,7 +68,19 @@ a:hover, a:visited, a:link, a:active
 {
     text-decoration: none;
 }
+#cerrarSesion:hover {
+    color: red;
+    background: #f2f7f7;
+    cursor:pointer;
+}
+#cerrarSesion2:hover {
 
+    cursor:pointer;
+}
+#otros:hover {
+    color: orange;
+    background: #f2f7f7;
+}
 
     </style>
 
@@ -131,7 +143,7 @@ a:hover, a:visited, a:link, a:active
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href=<?php echo "/usuario/".Auth::user()['id'] ; ?>>
+                                    <a class="dropdown-item " id="otros" href=<?php echo "/usuario/".Auth::user()['id'] ; ?>>
                                      {{ __('Perfil') }}
                                     </a>
 
@@ -141,7 +153,7 @@ a:hover, a:visited, a:link, a:active
 
                                     @if (Auth::user()->rol=='admin')
 
-                                    <a class="dropdown-item" href="/usuarios/">
+                                    <a class="dropdown-item" id="otros" href="/usuarios/">
                                         {{ __('Cuentas') }}
                                        </a>
 
@@ -153,12 +165,16 @@ a:hover, a:visited, a:link, a:active
 
 
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" hidden  id="cerrarSesion"href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Cerrar Sesion') }}
                                     </a>
+                                    <a class="dropdown-item" id="cerrarSesion"
+                                    onclick="preguntar()">
 
+                                     {{ __('Cerrar Sesion') }}
+                                 </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -198,6 +214,42 @@ a:hover, a:visited, a:link, a:active
         $(document).ready(function(){
   $('#sidebarxCollapse').trigger('click');
 });
+
+
+function preguntar(){
+
+Swal.fire({
+              title: '¿Estás seguro?',
+              text: "La sesión se cerrará.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si',
+              cancelButtonText: 'Cancelar',
+            }).then((result) => {
+              if (result.value) {
+
+
+
+
+
+
+                document.getElementById("cerrarSesion").click()
+
+
+
+
+
+
+  }
+})
+
+
+
+}
+
+
 
 
 @yield('script')
