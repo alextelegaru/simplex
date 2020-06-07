@@ -446,6 +446,14 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
                             jQuery('.alert-success').show();
                             jQuery('.alert-success').append('<p>'+msg.success+'</p>');
 
+                            $('#primeros').empty();
+                            $('#segundos').empty();
+                            $('#postres').empty();
+
+                            $('#precio').val('');
+                            $('#myDate').val('');
+
+
 
 
 
