@@ -371,7 +371,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
                                         document.getElementById("nombre").focus();
                                         $("#nombre").addClass("error");
-                                        $('#nombre').val('');
+                                        //$('#nombre').val('');
 
                                         $("#mensaje").attr('class', 'alert-danger text-center');
                                         jQuery('.alert-danger').show();
@@ -385,7 +385,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
                                             document.getElementById("nombre").focus();
                                             $("#nombre").addClass("error");
-                                            $('#nombre').val('');
+                                            //$('#nombre').val('');
 
                                             $("#mensaje").attr('class', 'alert-danger text-center');
                                             jQuery('.alert-danger').show();
@@ -405,7 +405,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
                                         if(original.includes("precio")){
                                             document.getElementById("precio").focus();
                                             $("#precio").addClass("error");
-                                            $('#precio').val('');
+                                            //$('#precio').val('');
 
                                             $("#mensaje").attr('class', 'alert-danger text-center');
                                             jQuery('.alert-danger').show();

@@ -193,7 +193,7 @@ $(function () {
                 $("#email").addClass("error");
 
                 document.getElementById("email").focus();
-                $('#email').val('');
+                //$('#email').val('');
 
 
 
