@@ -929,7 +929,7 @@ cobrar(objButton);
 
     document.getElementById("dineroDado").focus();
     $("#dineroDado").addClass("error");
-    $("#mensaje").attr('class', 'alert-danger');
+    $("#mensaje").attr('class', 'alert-danger text-center');
                     jQuery('.alert-danger').show();
                       jQuery('.alert-danger').append('<p>'+"Cantidad insuficiente."+'</p>');
 limpiar();
