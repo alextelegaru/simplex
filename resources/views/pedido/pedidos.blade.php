@@ -32,7 +32,7 @@
     <link href="{{ asset('css/pedido/pedidos.css') }}" rel="stylesheet">
 
 
-
+<input type="text" id="nombreLogueado" value={{Auth::user()->name}} hidden>
 
 <div class="container">
 @if (\Session::has('success'))
@@ -748,7 +748,7 @@ var id=objButton.value;
 $.ajax({
 type: "GET",
 url: "/cobrar/"+id,
-timeout: 10000,
+timeout: 20000,
 data: {
 
 },
@@ -880,34 +880,33 @@ dado=Math.abs(document.getElementById("dineroDado").value);
 if(dado>=precio){
 
     var data;
-
+/*
 var token = '{{csrf_token()}}';
 
 $.ajax({
 type: "GET",
 url: "/getName",
-//timeout: 5000,
+timeout: 25000,
 data: {
 
 },
 success: function (data) {
 
 
- var token = '{{csrf_token()}}';
+ var token = '{{csrf_token()}}';*/
+
+
 var id=objButton.value;
-
-
-
-var pago=  getDineroDado();
-
-var cambio= getCambio();
+var pago=   document.getElementById("dineroDado").value;
+var numero=document.getElementById("cambio").textContent.length - 1;
+var cambio= document.getElementById("cambio").textContent.substring(0,numero);
 
 
 var baseUrl = document.location.origin;
 urlx="imprimir/"+id+"/"+pago+"/"+cambio+"/"+data;
 window.open(urlx, '_blank');
 
-
+/*
 
                   }
 ,
@@ -915,8 +914,21 @@ error: function (data) {
 
 console.log("error");
 }
-});
-cobrar(objButton);
+});*/
+//cobrar(objButton);
+$("#mensaje").attr('class', 'alert-success text-center');
+jQuery('.alert-success').show();
+  jQuery('.alert-success').append('<p>'+"Pedido Cobrado"+'</p>');
+
+
+
+  $('#cajas').empty();
+  document.getElementById("precio").textContent="0.0";
+  document.getElementById("dineroDado").value="";
+  document.getElementById("cambio").textContent="0.0";
+  $("#"+objButton.value).remove();
+  $("#cajas").append(new Option("Vacio", "Vacio"));
+  limpiar();
 
 
 }else{

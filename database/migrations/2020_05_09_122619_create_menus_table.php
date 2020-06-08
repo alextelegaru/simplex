@@ -25,7 +25,7 @@ class CreateMenusTable extends Migration
             $table->date('fecha');
             $table->timestamps();
         });
-
+/*
         $date = Carbon::now();
 
         $date = $date->format('Y-m-d');
@@ -38,7 +38,7 @@ class CreateMenusTable extends Migration
             'precio' => '3.6',
             'fecha' => $date        ]);
 
-
+*/
 
 
     }

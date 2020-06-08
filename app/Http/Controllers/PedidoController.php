@@ -189,7 +189,8 @@ if (menu::where('fecha','=',$fecha)->exists()) {
 
         $fecha = Carbon::now();
             $pedido=pedido::where('_id' , '=' ,$id)->first();
-
+            $pedido->estado = null;
+            $pedido->save();
 
        // $pdf = \PDF::loadView('imprimir',compact('pedido'));
         //redirect( $pdf->download('imprimir.pdf')) ;
@@ -216,7 +217,7 @@ if (menu::where('fecha','=',$fecha)->exists()) {
 
         $pdf = \PDF::loadView('ticket.imprimir', compact('pedido','pago','cambio','nombre','fecha'));
 
-       return  $pdf->download($pedido->id.'.pdf');
+       return  $pdf->download($id.'.pdf');
         //return response()->json(["success"=>$pdf->download('invoice.pdf')]);
     }
 
