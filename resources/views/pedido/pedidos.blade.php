@@ -203,7 +203,15 @@ function refresh() {
 
                 contenido += "";
 
-                contenido += "<p>" + data[i].productos + "</p>";
+
+
+
+                var limite6 = data[i].productos.length;
+                for (var l = 0; l < limite6; l++) {
+                    contenido += "<p>" + data[i].productos[l] + "</p" + "<br>";
+                }
+
+
 
 
 
@@ -452,8 +460,11 @@ $("#nombre").removeClass("error");
 
                 contenido += "";
 
-                contenido += "<p>" + data[i].productos + "</p>";
 
+                var limite99 = data[i].productos.length;
+                for (var b = 0; b < limite99; b++) {
+                    contenido += "<p>" + data[i].productos[b] + "</p" + "<br>";
+                }
 
 
 
