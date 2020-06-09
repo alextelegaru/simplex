@@ -597,6 +597,7 @@ $.ajax({
         $("#mensaje").attr('class', 'alert-success');
 jQuery('.alert-success').show();
 jQuery('.alert-success').append('<p>'+result+'</p>');
+limpiar();
     },
     error: function(result) {
         alert('error');
