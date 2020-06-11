@@ -738,7 +738,12 @@ window.location.href = baseUrl+"/modificar/"+objButton.value;
 
 function cobrar(objButton){
 
-$("#"+objButton.value).remove();
+
+
+
+
+
+
 /*
 var baseUrl = document.location.origin;
 url = baseUrl+"/cobrar/"+objButton.value;
@@ -751,8 +756,8 @@ dado=Math.abs(document.getElementById("dineroDado").value);
 
 
 
-if(dado>=precio){
-
+if(dado>=precio && (!dado || 0 === dado.length)!=true  && precio>0 && dado>0){
+    $("#"+objButton.value).remove();
 
 
     var token = '{{csrf_token()}}';
@@ -806,7 +811,7 @@ console.log("error");
 
     document.getElementById("dineroDado").focus();
     $("#dineroDado").addClass("error");
-    $("#mensaje").attr('class', 'alert-danger');
+    $("#mensaje").attr('class', 'alert-danger text-center');
                     jQuery('.alert-danger').show();
                       jQuery('.alert-danger').append('<p>'+"Cantidad insuficiente."+'</p>');
                 limpiar();
@@ -889,7 +894,7 @@ dado=Math.abs(document.getElementById("dineroDado").value);
 
 
 
-if(dado>=precio){
+if(dado>=precio && (!dado || 0 === dado.length)!=true  && precio>0 && dado>0){
 
     var data;
 /*
