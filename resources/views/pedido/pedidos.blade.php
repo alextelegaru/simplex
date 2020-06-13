@@ -64,7 +64,7 @@
 </div>
 <strong>TOTAL</strong><pre id="precio" class="anchoPrecio text-center display-4">0.0</pre>
 <strong>Recibido</strong><input type="text" id="dineroDado"  onkeyup="calcular()"><br>
- <pre type="text" class="text-center pagar display-4" id="cambio" >0.0</pre>
+<strong>Cambio</strong><pre type="text" class="text-center pagar display-4" id="cambio" >0.0</pre>
 
  <button class="btn btn-success block pagar" id="imprimir" onclick="imprimir(this)" >Cobrar E Imprimir</button><br>
 <button class="btn btn-danger block pagar" id="cobrar" onclick="cobrar(this)">Cobrar</button>
@@ -88,14 +88,14 @@
 
 
 
-<audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+<audio id="audio" src="beep-07.wav" autostart="false" ></audio>
 </div>
 @endsection
 
 @section('script')
 function PlaySound() {
-      var sound = document.getElementById("audio");
-      sound.play()
+    document.getElementById('audio').play();
+
   }
 function calcular(){
 precio=parseFloat(document.getElementById("precio").textContent);
@@ -135,7 +135,7 @@ div.innerHTML="";
 
 
 
-},50000);
+},30000);
 
 
 
@@ -896,7 +896,7 @@ dado=Math.abs(document.getElementById("dineroDado").value);
 
 if(dado>=precio && (!dado || 0 === dado.length)!=true  && precio>0 && dado>0){
 
-    var data;
+    var data=document.getElementById("nombreLogueado").value;
 /*
 var token = '{{csrf_token()}}';
 
@@ -1012,13 +1012,15 @@ url: '/pedidos/'+id,
 data: data,
 success: function (data) {
                   if(data.success){
-                    $("#mensaje").attr('class', 'alert-success');
+                    $("#mensaje").attr('class', 'alert-success text-center');
                     jQuery('.alert-success').show();
                       jQuery('.alert-success').append('<p>'+data.success+'</p>');
                         console.log(data.success);
                         document.getElementById(sessionStorage.getItem("idEliminar")).remove();
 
-                  }}
+                  }
+                limpiar();
+                }
 ,
 error: function (data) {
 
