@@ -49,7 +49,7 @@
 
     <br />
     <div class="container">
-      <h3 align="center">Creando Menu</h3>
+      <h3 align="center">Creando Menú</h3>
       <br />
 
 
@@ -113,7 +113,7 @@
       <button class="btn btn-primary" onclick="load_Data('postre')">Ver Postres</button>
 
       <div class="panel panel-default">
-        <div class="panel-heading">Creador de menus</div>
+        <div class="panel-heading">Creador de menú</div>
         <div class="panel-body">
           <div class="form-group">
             <label>Busqueda </label>
@@ -564,7 +564,7 @@ var postres= $("#primeros option").map(function() {return $(this).val();}).get()
 @endsection
 
 @section("title")
-Crear Menu
+Crear Menú
 @endsection
 
 @include('menu')

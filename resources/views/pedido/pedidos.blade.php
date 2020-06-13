@@ -888,7 +888,7 @@ function getDineroDado(){
 
  function imprimir(objButton){
     objButton=objButton;
-    $("#nombre").removeClass("error");
+    $("#dineroDado").removeClass("error");
     precio=parseFloat(document.getElementById("precio").textContent);
 dado=Math.abs(document.getElementById("dineroDado").value);
 

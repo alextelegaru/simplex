@@ -158,7 +158,7 @@ echo '<option value="'.$bebidasIds[$i].'">'.$bebidas[$i].'</option>';
 
     <div class="col-sm-4">
 
-        <h4>Modificacion Producto</h4>
+        <h4>Modificación Producto</h4>
         <br>
         <div class="form-group">
         <label for="nombre">Nombre</label>

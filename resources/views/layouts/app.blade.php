@@ -173,7 +173,7 @@ a:hover, a:visited, a:link, a:active
                                     <a class="dropdown-item" id="cerrarSesion"
                                     onclick="preguntar()">
 
-                                     {{ __('Cerrar Sesion') }}
+                                     {{ __('Cerrar Sesión') }}
                                  </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

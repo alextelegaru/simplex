@@ -62,7 +62,7 @@
 
     <br />
     <div class="container">
-      <h3 align="center" class="subrayado">Editando Menu</h3>
+      <h3 align="center" class="">Editando Menú</h3>
       <br />
 
 
@@ -80,10 +80,10 @@
 
 
 
-      <button class="btn btn-info black" onclick="ir()"    >Cargar Datos De Otro Dia</button><input type="date"  style="font-size: 2rem" style="color:black;" id="fechaEdicion" name="fechaEdicion"><br><br>
+      <button class="btn btn-info black" onclick="ir()"    >Cargar Datos De Otro Día</button><input type="date"  style="font-size: 2rem" style="color:black;" id="fechaEdicion" name="fechaEdicion"><br><br>
 
 
-      <strong>Menu del dia:</strong>  <input type="date" id="myDate" name="fecha"
+      <strong>Menú del dia:</strong>  <input type="date" id="myDate" name="fecha"
       value= {{$fecha}}
       min="2018-01-01" >
 
@@ -146,7 +146,7 @@ for($i=0;$i<$limite;$i++){
       <button class="btn btn-primary" onclick="load_Data('postre')">Ver Postres</button>
 
       <div class="panel panel-default">
-        <div class="panel-heading">Editador de menus</div>
+        <div class="panel-heading">Editor de menú</div>
         <div class="panel-body">
           <div class="form-group">
             <label>Busqueda </label>
@@ -577,6 +577,6 @@ function reiniciar(){}
 @endsection
 
 @section("title")
-Editar Menu
+Editar Menú
 @endsection
 @include('menu')

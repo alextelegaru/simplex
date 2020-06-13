@@ -61,21 +61,21 @@
 @if (Auth::user()->rol=="cocinero"||Auth::user()->rol=="cocinera"||Auth::user()->rol=="admin")
 
 <li>
-    <a  class="negro" href="{{ url('/menu') }}" id="menuDeHoy">Menu de Hoy</a>
+    <a  class="negro" href="{{ url('/menu') }}" id="menuDeHoy">Menú de Hoy</a>
 </li>
 @endif
 
 
 @if (Auth::user()->rol=="cocinero"||Auth::user()->rol=="cocinera"||Auth::user()->rol=="admin")
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Menu</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Menú</a>
                 <ul class=" collapse list-unstyled" id="pageSubmenu">
 
                     <li>
-                        <a class="negro" href="{{ url('/crearMenu') }}"  id="crearMenuHoy">Crear Menu</a>
+                        <a class="negro" href="{{ url('/crearMenu') }}"  id="crearMenuHoy">Crear Menú</a>
                     </li>
                     <li>
-                        <a class="negro" href="{{ url('/menu') }}" id="editarMenuHoy">Editar Menu</a>
+                        <a class="negro" href="{{ url('/menu') }}" id="editarMenuHoy">Editar Menú</a>
                     </li>
 
 
@@ -116,7 +116,7 @@
 
 
             <li>
-                <a class="negro" href="/contactanos">Contactanos</a>
+                <a class="negro" href="/contactanos">Contáctanos</a>
             </li>
 
 
@@ -159,7 +159,7 @@
 
              <a class="download" id="cerrarSesion2"
              onclick="preguntame()">
-              {{ __('Cerrar Sesion') }}
+              {{ __('Cerrar Sesión') }}
           </a>
 
 
@@ -174,7 +174,7 @@
 
 
         <button type="button" id="sidebarxCollapse" class="btn btn-info">
-            <i class="fa fa-align-justify"></i> <span class="vertical-text">Menu</span>
+            <i class="fa fa-align-justify"></i> <span class="vertical-text">Menú</span>
         </button>
 
 
